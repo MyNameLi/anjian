@@ -5,6 +5,7 @@ namespace Dropthings.Configuration
 
     public class UserSettingTemplateElement : ConfigurationElement
     {
+
         #region Properties
 
         [ConfigurationProperty("key", IsRequired = true, IsKey = true)]
