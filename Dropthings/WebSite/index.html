@@ -1,0 +1,184 @@
+﻿<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+<link href="css/common.css" type="text/css" rel="stylesheet" media="screen" />
+<link href="css/layout.css" type="text/css" rel="stylesheet" media="screen" />
+<script type="text/javascript" src="js/header.js"></script>
+</head>
+<body>
+<div id="body_bg">
+  <div id="wrapper">
+   <div id="header">
+ 	<div id="header">
+		<h1 id="logo"> <a href="index.html"><img alt="国科安信" src="images/logo.png"></a> </h1>
+        <div id="search">	
+        	<form action="">		
+            	<input type="text" value="" class="input_text" name="text">		
+                <input type="submit" class="input_button" value="" name="button">	
+            </form>
+        </div>		
+        <ul class="clearfix" id="nav">				
+        	            
+            
+        </ul>
+        <div id="website"><a href="#">国科旗下网站</a>		
+        	<div class="sub_item" id="websitelist">			
+            	<ul>				
+                	<li><a href="#">国科智信</a></li>				
+                    <li class="last"><a href="#">国科矿信</a></li>			
+                </ul>		
+             </div>
+        </div>		
+	</div>
+</div>
+    <div id="focus">
+      <ul class="focusList" id="focusList">
+		    
+		
+		<li>对不起没有数据！</li>
+		        
+      </ul>
+      <ul class="focusIndex clearfix" id="focusIndex">
+		
+		<li>对不起没有数据！</li>
+		 
+      </ul>
+    </div>
+    <div class="content clearfix">
+      <div class="column tab">
+        <ul id="colTab" class="column_sort">
+          <li class="active" onClick="nTabs(this,0);"><a href="javascript:void(0)"><span>公司动态</span></a></li>         
+          <li class="normal" onClick="nTabs(this,1);"><a href="javascript:void(0)"><span>行业资讯</span></a></li>
+        </ul>
+        <div id="colTab_Content0" class="column_body">
+          <ol class="list">
+          	
+                
+			
+            <li>对不起没有数据！</li>
+            
+          </ol>
+          <div class="subject"><a href="#"><img src="images/pic.jpg" alt="" /></a></div>
+        </div>        
+        <div id="colTab_Content1" class="column_body" style="display:none;">
+          <ol class="list">
+            <li class="hot"><em class="top">01</em><a href="http://finance.sina.com.cn/stock/t/20101126/03309013054.shtml" target="_blank">“安全”与否在乎执行力与整合度</a><span>2010-11-26</span></li>
+            <li><em class="top">02</em><a href="http://gzdsb.gog.com.cn/system/2010/11/23/010954509.shtml" target="_blank">采煤六大系统保矿工</a><span>2010-11-23</span></li>
+            <li><em class="top">03</em><a href="http://www.aqsc.cn/101806/101889/179739.html" target="_blank">骆琳在河北调研强调把责任落实到基层到企业</a><span>2010-11-16</span></li>
+            <li><em>04</em><a href="http://news.sohu.com/20100827/n274510075.shtml" target="_blank">两部门通知完善煤矿井下安全避险“六大系统”</a><span>2010-08-27</span></li>
+            <li class="last"><em>05</em><a href="http://news.qq.com/a/20100311/003693.htm" target="_blank">解读新《煤矿安全规程》4道“保险”保安全</a><span>2010-03-11</span></li>
+          </ol>
+          <div class="subject"><a href="#"><img src="images/pic.jpg" alt="" /></a></div>
+        </div>
+      </div>
+      <div class="column tab2">
+        <ul id="colTab2" class="column_sort">
+          <li class="active" onClick="nTabs(this,0);"><a href="javascript:void(0)"><span>推荐应用</span></a></li>
+          <li class="normal" onClick="nTabs(this,1);"><a href="javascript:void(0)"><span>成功案例</span></a></li>
+        </ul>
+        <div id="colTab2_Content0" class="column_body">
+          <ol class="list">
+          
+            
+            <li>对不起没有数据！</li>
+                        
+          </ol>
+        </div>
+        <div id="colTab2_Content1" class="column_body" style="display:none;">
+          <ol class="list">
+            
+            
+            <li>对不起没有数据！</li>
+                        
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div id="footer">      
+			<p class="footer_copyright">Copyright &copy; 2010 Guoke all rights reserved.</p>
+			<p class="footer_link"><a href="#">合作申请</a> | <a href="#">工作机会</a> | <a href="#">联系我们</a> | <a href="#">网站地图</a></p>
+ </div>
+  </div>
+</div>
+<span class="footer_js">
+<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="js/slide.js"></script>
+<script src="js/changeTab.js" type="text/javascript"></script>
+<script type="text/javascript">
+ //Focus 幻灯片
+    var bind = function(object, fn){
+        return function(){
+            fn.apply(object, arguments);
+        }
+    }
+    function picshow(idpiclist, idpicindex){
+        return new picshow.prototype.init(idpiclist, idpicindex);
+    }
+    picshow.prototype = {
+        init: function(idpiclist, idpicindex){
+			this.auto=false;
+			var othis = this;
+            this.i = 0;
+            this.pics = document.getElementById(idpiclist).getElementsByTagName('li');
+            this.indexs = document.getElementById(idpicindex).getElementsByTagName('li');
+            this.len = this.pics.length;
+            this.setIndex(this.pics);
+            this.setIndex(this.indexs);
+            this.each(this.indexs, function(){
+                this.onmouseover = function(){
+                    bind(othis, othis.stop)();
+					othis.each(othis.indexs, function(){
+                        this.className ='';
+                    });
+                    othis.each(othis.pics, function(){
+                        this.className ='';
+                    });
+					this.className = 'current';
+                    othis.pics[this.index].className = 'current';
+					othis.i=this.index;
+                }
+                this.onmouseout = function(){
+                    if(othis.auto===false) {
+                        othis.interval = setInterval(bind(othis, othis.show), 2000);
+                    }
+                }
+            });
+            this.start();
+        },
+        stop: function(){
+            clearInterval(this.interval);
+			this.auto=false;
+        },
+        show: function(){
+            this.pics[this.i].className = "";
+			this.indexs[this.i++].className="";
+			if (this.i == this.len) {
+                this.i = 0;
+            }
+            this.pics[this.i].className = "current";
+			this.indexs[this.i].className="current";
+        },
+        start: function(){
+            if (this.auto===false) {
+                this.interval = setInterval(bind(this, this.show), 2000);
+            }
+        },
+        setIndex: function(objs){
+            this.each(objs, function(i){
+                this['index'] = i;
+            });
+        },
+        each: function(items, fn){
+            for (var i = 0; i < items.length; i++) {
+                fn.call(items[i], i);
+            }
+        }
+    }
+    picshow.prototype.init.prototype = picshow.prototype;
+    picshow('focusList', 'focusIndex');
+</script>
+</span>
+</body>
+</html>

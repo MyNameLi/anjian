@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>定制信息管理</title>
+    <link href="../css/common.css" type="text/css" rel="stylesheet" rev="stylesheet" media="all" />
+    <link href="../css/auto_layout.css" type="text/css" rel="stylesheet" rev="stylesheet"
+        media="all" />
+    <link href="../css/test.css" rel="Stylesheet" type="text/css" rev="stylesheet" media="all" />
+
+    <script type="text/javascript" src="../js/jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="../js/OterhPager.js"></script>
+
+    <script type="text/javascript" src="../js/Agent.js"></script>
+
+    <script type="text/javascript" src="../js/AgentManage.js"></script>
+
+</head>
+<body>
+    <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+  <tbody><tr>
+    <td height="30"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="15" height="30"><img width="15" height="30" src="../images/tab_03.gif"></td>
+        <td background="../images/tab_05.gif" align="left"><img width="16" height="16" src="../images/311.gif"> <span class="STYLE4">信息定制</span>
+        
+        </td>
+        <td width="14"><img width="14" height="30" src="../images/tab_07.gif"></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr>
+    <td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="9" background="../images/tab_12.gif">&nbsp;</td>
+        <td bgcolor="#d3e7fc">
+			<div id="wrapper">       
+        <div class="content"> 
+            <div class="Sensitive_word_list">
+                <span class="STYLE4">定制信息列表</span></div>           
+            <div class="agent_list">
+                <ul id="agent_list">
+                </ul>
+            </div>
+            <div class="clear">
+            </div>
+            <div class="Sensitive_word_list">
+                <span class="STYLE4">社区联盟</span></div>
+            <div class="agent_list">
+                <ul id="CommunityList">
+                    
+                </ul>
+            </div>
+            <div class="clear">
+            </div>
+            <div class="agent_list">
+                <span class="manageOperationAdd" style="padding-left:16px;"><a id="btnAdd" href="javascript:void(null);">创建用户代理</a></span></div>
+            <div class="clear">
+            </div>
+            <div id="train_div" style="display: none; border: #ccc 1px solid;">
+                <div class="agent_list">
+                    聚焦名：<input type="text" id="name" />&nbsp;&nbsp;
+                    结果数量：
+                    <select id="max_result">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;最低相关度：
+                    <select id="min_score">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70</option>
+                        <option value="80">80</option>
+                        <option value="90">90</option>
+                    </select>&nbsp;&nbsp;
+                    排序方式：
+                    <select id="score_style">
+                        <option value="relevance">相关度</option>
+                        <option value="date">时间</option>                        
+                    </select>&nbsp;&nbsp;
+                    
+                    <p />
+                    聚焦条件：<br />
+                    <textarea cols="50" rows="3" id="Trainname" style="font-size: 12px;"></textarea><p />                  
+                    <br />
+                    <input type="button" id="btnsearch" value="文章训练" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" id="btntrain" value="训练" /><span style="font-size: 12px;
+                        color: red;"></span>
+                </div>               
+                <div>
+                    <ul id="article_list" style="padding:5px;line-height:25px;">
+                    </ul>
+                </div>
+            </div>
+            <div class="agent_list" id="article_train" style="display:none;">
+                <div style="width: 100%; height:auto; overflow:hidden;">
+                    <ol id="result_id" class="agent_article_list">
+                        	
+                    </ol>
+                </div>               
+                <div class="publicFeelSearchPage" id="pager_list">
+                </div>
+                <div id="save_div">
+                    <input type="checkbox" id="choose_all" />全选&nbsp;&nbsp;&nbsp;
+                    <input type="button" value="保存文章" id="sava_docs" />
+                </div>
+            </div>
+            
+        </div>       
+    </div>
+        </td>
+        <td width="9" background="../images/tab_16.gif">&nbsp;</td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr>
+    <td height="29"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="15" height="29"><img width="15" height="29" src="../images/tab_20.gif"></td>
+        <td background="../images/tab_21.gif">&nbsp;</td>
+        <td width="14"><img width="14" height="29" src="../images/tab_22.gif"></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+</tbody></table>
+</body>
+</html>

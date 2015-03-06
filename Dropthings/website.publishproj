@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+***********************************************************************************************
+website.publishproj
+
+警告: 请勿修改此文件，它将用于 Web 发布过程。
+
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+***********************************************************************************************
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.30319</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8a6004aa-4759-4df1-9f82-cd80c5f97f9b}</ProjectGuid>
+    <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
+    <SourceWebVirtualPath>/Dropthings</SourceWebVirtualPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SourceWebProject>D:\gooko\anjian\Dropthings</SourceWebProject>
+    <SourceWebMetabasePath>/IISExpress/7.5/LM/W3SVC/30/ROOT</SourceWebMetabasePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- for VS2010 we need to use 10.5 but for VS2012+ we should use VisualStudioVersion -->
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)' =='' and '$(VisualStudioVersion)' == 10.0 ">10.5</WebPublishTargetsVersion>
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)'=='' ">$(VisualStudioVersion)</WebPublishTargetsVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(WebPublishTargetsVersion)</VSToolsPath>
+    <_WebPublishTargetsPath Condition=" '$(_WebPublishTargetsPath)'=='' ">$(VSToolsPath)</_WebPublishTargetsPath>
+    <AssemblyFileVersion Condition="'$(AssemblyFileVersion)' == ''">1.0.0.0</AssemblyFileVersion>
+    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttributes Include="AssemblyFileVersion">
+      <Value>$(AssemblyFileVersion)</Value>
+    </AssemblyAttributes>
+    <AssemblyAttributes Include="AssemblyVersion">
+      <Value>$(AssemblyVersion)</Value>
+    </AssemblyAttributes>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AjaxAsmxHandler\AJAXASMXHandler.csproj">
+      <Project>{42190D98-86BA-44B5-8CFF-F62754029C61}</Project>
+      <Name>AJAXASMXHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Business.Facade\Dropthings.Business.Facade.csproj">
+      <Project>{514B9055-2EEF-4111-9CAC-F763120BB35D}</Project>
+      <Name>Dropthings.Business.Facade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Configuration\Dropthings.Configuration.csproj">
+      <Project>{A426C626-767E-454B-8D48-7D0289BADBAC}</Project>
+      <Name>Dropthings.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Data\Dropthings.Data.csproj">
+      <Project>{4871E7E4-8F42-4BE3-B9C4-F96D2A9BCBD4}</Project>
+      <Name>Dropthings.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Model\Dropthings.Model.csproj">
+      <Project>{DD2A2DE9-48CC-4E40-B81A-8780BFAB6995}</Project>
+      <Name>Dropthings.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.RestApi\Dropthings.RestApi.csproj">
+      <Project>{582BE924-28BF-4980-BF35-7B946AA739E3}</Project>
+      <Name>Dropthings.RestApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Util\Dropthings.Util.csproj">
+      <Project>{739B0A68-33F2-4EC3-8087-C3177AE80E41}</Project>
+      <Name>Dropthings.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Web.Framework\Dropthings.Web.Framework.csproj">
+      <Project>{91B72026-1980-46AD-89D0-C33DD411D66A}</Project>
+      <Name>Dropthings.Web.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Web.Util\Dropthings.Web.Util.csproj">
+      <Project>{3A35E4B6-4CCB-4159-9E39-24438490F757}</Project>
+      <Name>Dropthings.Web.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Widget.Framework\Dropthings.Widget.Framework.csproj">
+      <Project>{A5F19582-1F00-406F-A130-5BB7AC598FF7}</Project>
+      <Name>Dropthings.Widget.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />
+</Project>

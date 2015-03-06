@@ -1,0 +1,526 @@
+﻿$(document).ready(function() {    
+    Common.CategoryMenuClick = function(data, text) {
+        var infoList = data.split("_");
+        var category_id = infoList[0];
+        var parent_cate = infoList[1];
+        var data_id = infoList[2];
+        $("#article_trainning").removeAttr("checked");
+        Train.CurrentCategory = category_id;
+        Train.ParentCate = parent_cate;
+        Train.PostParams["act"] = "innit_edit";
+        Train.PostParams["category_id"] = data_id;
+        Train.PostParams["parent_category"] = category_id;
+        Train.PostCommand();
+        Train.InnitStatus();
+    }
+    var str_where = " ParentCate =0";
+    Common.CategoryMenu("MenuList", "left-center-nav-ul-link", "left-center-nav-ul", str_where, "150", true);
+    Train.InnitParentSelect("0");
+    Train.InnitBtn();
+});
+
+
+var _train = new Object;
+var Train = _train.property = {
+    CurrentCategory: null,
+    ParentCate: null,
+    PostParams: {},
+    weight_number: 1,
+    weight_id: 1,
+    weight_name: [],
+    weight_value: [],
+    articleid: 1,
+    editData: {},
+    InnitBtn: function() {
+        $("#btnSubmit").click(function() {
+            var act = Train.PostParams["act"];
+            if (!act) {
+                Train.PostParams["act"] = "add";
+                Train.PostParams["parent_category"] = 0;
+            }
+            var categoryName = $.trim($("#CategoryName").val());
+            if (!categoryName) {
+                alert("请输入分类名称");
+                return;
+            }
+            var cate_train_info = $.trim($("#cate_train_info").val());
+            if (!cate_train_info) {
+                alert("请输入初始分类条件");
+                return;
+            }
+            Train.GetData();
+            Train.PostCommand();
+        });
+
+        $("#weight_training").click(function() {
+            if ($("#articleweight").is(":hidden"))
+                $("#articleweight").show();
+            else {
+                $("#articleweight").hide();
+                $("#save_weght").next("span").html("");
+            }
+        });
+
+        $("#article_trainning").click(function() {
+            var value = $.trim($("#cate_train_info").val());
+            if (!value) {
+                alert("请输入初始分类条件");
+                $(this).removeAttr("checked");
+                return;
+            }
+            var tag = $(this).attr("checked");
+            if (tag) {
+                $("#trainingArticle").show();
+                var init_data = { "page_size": 10, "status_bar_id": "PagerList", "result_id": "SearchResult" };
+                var l_Pager = new Pager(init_data);
+                var query_params = { "action": "query", "display_style": 3, "totalresults": "true", "outputencoding": "utf8",
+                    "minscore": "60", "summary": "Context", "sort": "Relevance", "languagetype": "chineseUTF8"
+                };
+                query_params["text"] = value;
+                var min_date = $.trim($("#EventDate").val());
+                if (min_date) {
+                    query_params["mindate"] = Common.GetTimeStr(min_date);
+                } else {
+                    delete query_params["mindate"];
+                }
+                l_Pager.LoadData(1, query_params);
+            }
+            else {
+                $("#trainingArticle").hide();
+                $("#SearchResult").empty();
+                $("#PagerList").empty();
+                $("#article_train").next("span").html("");
+            }
+
+        });
+
+        $("#BtnSearch").click(function() {
+            var init_data = { "page_size": 10, "status_bar_id": "PagerList", "result_id": "SearchResult" };
+            var l_Pager = new Pager(init_data);
+            var query_params = { "action": "query", "display_style": 3, "totalresults": "true", "outputencoding": "utf8",
+                "minscore": "60", "summary": "Context", "sort": "Relevance", "languagetype": "chineseUTF8"
+            };
+            var keyword_value = $.trim($("#key_words").val());
+            if (keyword_value) {
+                query_params["text"] = keyword_value;
+            } else {
+                query_params["text"] = $.trim($("#cate_train_info").val());
+            }
+            var min_date = $.trim($("#EventDate").val());
+            if (min_date) {
+                query_params["mindate"] = Common.GetTimeStr(min_date);
+            } else {
+                delete query_params["mindate"];
+            }
+            l_Pager.LoadData(1, query_params);
+        });
+
+
+        $("#look_article_list").live("click", function() {
+            var value = $(this).attr("pid");
+            if (value == "hidden") {
+                $("#choose_article_list_id").siblings("div[id^='article_list_']").show();
+                $(this).attr("pid", "show");
+                $(this).empty().html("隐藏文章列表");
+            } else {
+                $("#choose_article_list_id").siblings("div[id^='article_list_']").hide();
+                $(this).attr("pid", "hidden");
+                $(this).empty().html("展开文章列表");
+            }
+        });
+
+        $("#btn_remove").click(function() {
+            if (Train.CurrentCategory) {
+                if (confirm("此操作不可恢复，您确定要删除此分类么？")) {
+                    if ($("a[pid^=" + Train.CurrentCategory + "]").parent("span").siblings("ol").length > 0) {
+                        alert("该分类下有子分类，不能删除！");
+                    }
+                    else {
+                        Train.PostParams["act"] = "remove";
+                        Train.PostParams["train_category_id"] = Train.CurrentCategory;
+                        Train.PostCommand();
+                    }
+                }
+            }
+        });
+
+        $("#btn_add").click(function() {
+            if (Train.CurrentCategory) {
+                $("#ParentCate").val(Train.PostParams["category_id"]);
+                $("#Message").empty();
+                Train.PostParams["act"] = "add";
+                Train.PostParams["parent_category"] = Train.CurrentCategory;
+                Train.InnitStatus();
+            } else {
+                alert("请选择父级分类！");
+            }
+        });
+
+        $("#add_new_catagory").click(function() {
+            $("#ParentCate").val("0");
+            $("#Message").empty();
+            Train.PostParams["act"] = "add";
+            Train.PostParams["parent_category"] = "0";
+            Train.InnitStatus();
+        });
+
+        $("#choose_all").click(function() {
+            var article_list = $("input[name=train_article_list]");
+            if ($(this).attr("checked")) {
+                $(article_list).each(function() {
+                    $(this).attr("checked", "true");
+                });
+            }
+            else {
+                $(article_list).each(function() {
+                    $(this).attr("checked", "");
+                });
+            }
+        });
+
+        $("#save_docs").click(function() {
+            $("#article_train").next("span").html("");
+            var doc_id_list = [];
+            var article_list = $("input[name=train_article_list]");
+            $(article_list).each(function() {
+                if ($(this).attr("checked")) {
+                    doc_id_list.push($(this).attr("pid"));
+                }
+            });
+            var choose_article = [];
+            for (var i in doc_id_list) {
+                var article_href = doc_id_list[i];
+                choose_article.push("<div class=\"article_list\" id=\"article_list_" + Train.articleid + "\"><ul>");
+                choose_article.push("<li class=\"article_list_num\">&nbsp;</li>");
+                choose_article.push("<li class=\"article_list_href\" ><a href=\"" + article_href + "\" target=\"_blank\" name=\"article_list_href\">" + article_href + "</a></li>");
+                choose_article.push("<li class=\"article_list_del\"><a href=\"#g\" name=\"article_list_del\" pid=\"" + Train.articleid + "\">删除</a></li>");
+                choose_article.push("</ul></div>");
+                Train.articleid++;
+            }
+            $("#choose_article_list_id").before(choose_article.join(""));
+            $("a[name=article_list_del]").each(function() {
+                $(this).click(function() {
+                    $("#article_list_" + $(this).attr("pid")).remove();
+
+                });
+            });
+        });
+
+        $("#add_more").click(function() {
+            var tr_list = $("#weight_list").siblings();
+            if (tr_list.length < 11) {
+                $("#save_weght").next("span").html("");
+                var new_weight_content = [];
+                new_weight_content.push("<tr id=\"weight_list_" + Train.weight_id + "\"><td class=\"tp_right\">");
+                new_weight_content.push("<input name=\"weight_name\" type=\"text\"  class=\"input_text32\" /></td>");
+                new_weight_content.push("<td><input name=\"weight_value\" value=\"0\" type=\"text\" pid=\"" + Train.weight_id + "\"  class=\"input_text33\" /></td>");
+                new_weight_content.push("<td><div class=\"dataShow\"><div class=\"dataIndex\"><span id=\"span_" + Train.weight_id + "\" style=\"width:0%;\"></span></div>");
+                new_weight_content.push("<a href=\"javascript:void(null);\" class=\"dataDel\" pid=\"weight_list_" + Train.weight_id + "\">删除</a></div></td></tr>");
+                $("#weight_list").before(new_weight_content.join(""));
+                $("#weight_list").show();
+                /* 初始化删除按钮 */
+                $(".dataDel").each(function() {
+                    $(this).click(function() {
+                        var id = $(this).attr("pid");
+                        $("#" + id).remove();
+                        Train.weight_number--;
+                        if (Train.weight_number == 1)
+                            $("#weight_list").hide();
+                    });
+                });
+                /* 定义权限值焦点失去时事件 */
+                $("input[name=weight_value]").each(function() {
+                    $(this).blur(function() {
+                        var val = parseInt($(this).val()) / 10000 * 100;
+                        var span_id = "span_" + $(this).attr("pid");
+                        $("#" + span_id).css("width", val + "%");
+                    });
+                });
+
+                Train.weight_number++;
+                Train.weight_id++;
+            }
+
+        });
+
+        $("#save_weght").click(function() {
+            Train.weight_name = [];
+            Train.weight_value = [];
+            $("input[name=weight_name]").each(function() {
+                Train.weight_name.push($(this).val());
+            });
+            $("input[name=weight_value]").each(function() {
+                Train.weight_value.push($(this).val());
+            });
+            if (Train.weight_name.length == 0) {
+                alert("请输入权重词！");
+                return;
+            }
+            $.post("../Handler/TrainEdit.ashx",
+                { "act": "weight_train", "weight_terms": escape(Train.weight_name.join("")), "weight_values": Train.weight_value.join(""), "train_category_id": Train.CurrentCategory },
+                function(data, textstatus) {
+                    function ClearMessage() {
+                        $("#save_weght").next("span").empty();
+                    }
+                    $("#save_weght").next("span").html("训练成功！");
+                    setTimeout(ClearMessage, 2000);
+                }
+            );
+        });
+    },
+    PostCommand: function() {
+        function ClearMessage() {
+            $("#Message").empty();
+        }
+        $.post("../Handler/TrainEdit.ashx",
+            Train.PostParams,
+            function(data) {
+                if (data) {
+                    var type = Train.PostParams["act"];
+                    switch (type) {
+                        case "innit_edit":
+                            Train.editData = data;
+                            Train.InnitData(data);
+                            break;
+                        case "remove":
+                            Train.CurrentCategory = null;
+                            Train.CallBackFn();
+                            break;
+                        case "add":
+                            Train.CurrentCategory = null;
+                            $("#Message").empty().html("操作成功！");
+                            setTimeout(ClearMessage, 2000);
+                            Train.CallBackFn();
+                            break;
+                        case "edit":
+                            $("a[pid^=" + Train.CurrentCategory + "]").empty().html(unescape(Train.PostParams["category_name"]));
+                            $("#Message").empty().html("修改成功！");
+                            setTimeout(ClearMessage, 2000);
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    var type = Train.PostParams["act"];
+                    switch (type) {
+                        case "add":
+                            $("#Message").empty().html("操作失败，该分类名已存在！");
+                            setTimeout(ClearMessage, 2000);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            },
+            "json"
+        );
+    },
+    CallBackFn: function() {
+        var str_where = "ParentCate =0";
+        Common.CategoryMenu("MenuList", "left-center-nav-ul-link", "left-center-nav-ul", str_where, "150", true);
+        Train.InnitParentSelect("0");
+        Train.InnitStatus();
+    },
+    InnitData: function(data) {
+        $("#markLable").html("分类编辑");
+        $("#CategoryName").val(unescape(data["CategoryName"]));
+        $("#categoryId").val(unescape(data["ID"]));
+        $("#CatePath").val(unescape(data["CatePath"]));
+        $("#cate_train_info").val(unescape(data["CateTrainInfo"]));
+        $("#ParentCate").val(unescape(data["ParentCate"]));
+        $("#IsEffect").val(unescape(data["IsEffect"]));
+        $("#Keyword").val(unescape(data["Keyword"]));
+        $("#MinScore").val(unescape(data["MinScore"]));
+        $("#EventReson").val(unescape(data["EventReson"]));
+        $("#EventMeasure").val(unescape(data["EventMeasure"]));
+        $("#EventAbout").val(unescape(data["EventAbout"]));
+        $("#EventMinScore").val(unescape(data["EventMinScore"]));
+        $("#QueryType").val(unescape(data["QueryType"]));
+        $("#EventDate").val(data["EventDate"]);
+        $("#ImgPath").val(unescape(data["ImgPath"]));
+        $("#EventSort").val(data["EventSort"]);
+        $("#IsNew").val(data["IsNew"]);
+        if (data["EventType"]) {
+            $("#EventType").val(data["EventType"]);
+        } else {
+            $("#EventType").val("0");
+        }
+        if (data["ParentCate"] == "202" || data["ID"] == "202") {
+            $("tr[name='event_div']").show();
+        } else {
+            $("tr[name='event_div']").hide();
+        }
+        Train.PostParams["act"] = "edit";
+    },
+    WeightAndArticleInit: function(act, divId) {
+        $.post("../Handler/TrainEdit.ashx",
+            { "act": act, "train_category_id": Train.CurrentCategory },
+            function(data, textstatus) {
+                if (data != null) {
+                    var content = [];
+                    if (act == "weight_init") {
+                        Train.weight_number = 1;
+                        Train.weight_id = 1;
+                        var td_count = 1;
+                        for (var item in data) {
+                            var val = parseInt(data[item]) / 10000 * 100;
+                            if (td_count < 6) {
+                                content.push("<tr id=\"weight_list_" + Train.weight_id + "\"><td class=\"tp_right\">");
+                            }
+                            else {
+                                content.push("<tr id=\"weight_list_" + Train.weight_id + "\" style=\"display:none;\"><td class=\"tp_right\">");
+                            }
+                            content.push("<input name=\"weight_name\" type=\"text\" value=\"" + unescape(item) + "\"  class=\"input_text32\" /></td>");
+                            content.push("<td><input name=\"weight_value\" value=\"" + data[item] + "\" type=\"text\" pid=\"" + Train.weight_id + "\"  class=\"input_text33\" /></td>");
+                            content.push("<td><div class=\"dataShow\"><div class=\"dataIndex\"><span id=\"span_" + Train.weight_id + "\" style=\"width:" + val + "%;\"></span></div>");
+                            content.push("<a href=\"javascript:void(null);\" class=\"dataDel\" pid=\"weight_list_" + Train.weight_id + "\">删除</a></div></td></tr>");
+                            Train.weight_number++;
+                            Train.weight_id++;
+                            td_count++;
+                        }
+                        $("#" + divId).siblings().each(function(n) {
+                            if (n > 0)
+                                $(this).remove();
+                        });
+                        $("#" + divId).before(content.join(""));
+                        $("#" + divId).show();
+                        /* 初始化删除按钮 */
+                        $(".dataDel").each(function() {
+                            $(this).click(function() {
+                                var id = $(this).attr("pid");
+                                $("#" + id).remove();
+                                Train.weight_number--;
+                                if (Train.weight_number == 1)
+                                    $("#weight_list").hide();
+                            });
+                        });
+                        /* 定义权限值焦点失去时事件 */
+                        $("input[name=weight_value]").each(function() {
+                            $(this).blur(function() {
+                                var val = parseInt($(this).val()) / 10000 * 100;
+                                var span_id = "span_" + $(this).attr("pid");
+                                $("#" + span_id).css("width", val + "%");
+                            });
+                        });
+                    }
+                    else {
+                        Train.articleid = 1;
+                        for (var item in data) {
+                            content.push("<div style=\"display:none;\" class=\"article_list\" id=\"article_list_" + Train.articleid + "\"><ul>");
+                            content.push("<li class=\"article_list_num\">&nbsp;</li>");
+                            content.push("<li class=\"article_list_href\"><a href=\"" + data[item] + "\" target=\"_blank\" name=\"article_list_href\">" + data[item] + "</a></li>");
+                            content.push("<li class=\"article_list_del\"><a href=\"#g\" name=\"article_list_del\" pid=\"" + Train.articleid + "\">删除</a></li>");
+                            content.push("</ul></div>");
+                            Train.articleid++;
+                        }
+                        $("#" + divId).siblings().each(function(n) {
+                            if (n > 0)
+                                $(this).remove();
+                        });
+                        $("#" + divId).before(content.join(""));
+                        $("a[name=article_list_del]").each(function() {
+                            $(this).click(function() {
+                                $("#article_list_" + $(this).attr("pid")).remove();
+                            });
+                        });
+                    }
+                }
+            },
+            "json"
+        );
+    },
+    InnitStatus: function() {
+        var type = Train.PostParams["act"];
+        switch (type) {
+            case "innit_edit":
+                $("#weight_training").show();
+                $("#articleweight").hide();
+                $("#trainingArticle").hide();
+                $("#SearchResult").empty().html("<li><center>请搜索文章......</center></li>");
+                $("#key_words").val("");
+                $("#PagerList").html("");
+                $("#weight_list").siblings().each(function(n) {
+                    if (n > 0)
+                        $(this).remove();
+                });
+                $("#choose_article_list_id").siblings().each(function(n) {
+                    if (n > 0)
+                        $(this).remove();
+                });
+                Train.WeightAndArticleInit("weight_init", "weight_list");
+                Train.WeightAndArticleInit("choose_article_init", "choose_article_list_id");
+                break;
+            case "remove":
+                $(".newTopicBody input").val("");
+                $("#cate_train_info").val("");
+                $("#btnSubmit").val("确定");
+                $("#weight_training").val("权重训练");
+                $("#weight_training").hide();
+                $("#articleweight").hide();
+                $("#trainingArticle").hide();
+                $("#SearchResult").empty().html("<li><center>请搜索文章......</center></li>");
+                $("#key_words").val("");
+                $("#PagerList").html("");
+                $("#weight_list").hide();
+                $("#choose_article_list_id").siblings("div[id^=article_list_]").remove();
+                $("#weight_list").siblings("tr[id^=weight_list_]").remove();
+                Train.articleid = 1;
+                Train.weight_number = 1;
+                Train.weight_id = 1;
+                break;
+            case "add":
+                $("#markLable").html("增加分类");
+                $("#articleweight").hide();
+                $("#trainingArticle").hide();
+                $(".newTopicBody input").val("");
+                $("#cate_train_info").val("");
+                $("#btnSubmit").val("确定");
+                $("#weight_training").val("权重训练");
+                $("#weight_training").hide();
+                $("#choose_article_list_id").siblings("div[id^=article_list_]").remove();
+                $("#weight_list").siblings("tr[id^=weight_list_]").remove();
+                Train.articleid = 1;
+                Train.weight_number = 1;
+                Train.weight_id = 1;
+                break;
+            default:
+                break;
+        }
+
+    },
+    InnitParentSelect: function(id) {
+        $.post("../Handler/GetTrainMenu.ashx",
+            function(data, textstatus) {
+                $("#ParentCate").html(data);
+                $("#ParentCate").val(id);
+            }
+        );
+    },
+    GetData: function() {
+        Train.PostParams["category_name"] = escape($.trim($("#CategoryName").val()));
+        Train.PostParams["cate_path"] = $("#CatePath").val(); ;
+        Train.PostParams["cate_train_info"] = escape($.trim($("#cate_train_info").val()));
+        Train.PostParams["parent_cate"] = $("#ParentCate").val();
+        Train.PostParams["weight_values"] = escape(Train.GetTrainArticleList());
+        Train.PostParams["is_effect"] = $("#IsEffect").val();
+        Train.PostParams["keyword"] = escape($("#Keyword").val());
+        Train.PostParams["minscore"] = $("#MinScore").val();
+        Train.PostParams["event_reson"] = escape($("#EventReson").val());
+        Train.PostParams["event_measure"] = escape($("#EventMeasure").val());
+        Train.PostParams["event_about"] = escape($("#EventAbout").val());
+        Train.PostParams["event_minscore"] = $("#EventMinScore").val();
+        Train.PostParams["query_type"] = $("#QueryType").val();
+        Train.PostParams["event_date"] = $("#EventDate").val();
+        Train.PostParams["event_type"] = $("#EventType").val();
+        Train.PostParams["img_path"] = escape($("#ImgPath").val());
+        Train.PostParams["event_sort"] = $("#EventSort").val();
+        Train.PostParams["is_new"] = $("#IsNew").val();
+    },
+    GetTrainArticleList: function() {
+        var article_url_list = [];
+        $("a[name=article_list_href]").each(function() {
+            article_url_list.push($(this).attr("href"));
+        });
+        return article_url_list.join("+");
+    }
+}

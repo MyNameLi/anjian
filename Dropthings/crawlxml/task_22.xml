@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<taskrule>
+  <taskname><![CDATA[测试]]></taskname>
+  <urlentry><![CDATA[测试]]></urlentry>
+  <sitecode><![CDATA[utf8]]></sitecode>
+  <spiderdegree><![CDATA[2]]></spiderdegree>
+  <pageurlreg><![CDATA[测试]]></pageurlreg>
+  <pagecontenturlreg><![CDATA[测试]]></pagecontenturlreg>
+  <urlrulelist>
+    <urlrule>
+      <ruleobject><![CDATA[1]]></ruleobject>
+      <ruleactive><![CDATA[1]]></ruleactive>
+      <rulereg><![CDATA[dsfsdfsd]]></rulereg>
+    </urlrule>
+  </urlrulelist>
+  <fieldrulelist>
+    <fieldrule>
+      <fieldname><![CDATA[mytitle]]></fieldname>
+      <fieldtype><![CDATA[1]]></fieldtype>
+      <fieldreg><![CDATA[fsdfdsfds]]></fieldreg>
+    </fieldrule>
+    <fieldrule>
+      <fieldname><![CDATA[mytitle]]></fieldname>
+      <fieldtype><![CDATA[3]]></fieldtype>
+      <fieldreg><![CDATA[fsdfdsfds]]></fieldreg>
+    </fieldrule>
+  </fieldrulelist>
+</taskrule>

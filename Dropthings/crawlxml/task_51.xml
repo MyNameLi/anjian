@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<taskrule>
+  <taskname><![CDATA[四川在线]]></taskname>
+  <urlentry><![CDATA[http://focus.scol.com.cn/zgsz/default.htm|http://focus.scol.com.cn/zgsz/default.htm|http://news.scol.com.cn/yw/default.htm]]></urlentry>
+  <sitecode><![CDATA[gb2312]]></sitecode>
+  <spiderdegree><![CDATA[2]]></spiderdegree>
+  <pageurlreg><![CDATA[http://(news|focus).scol.com.cn/[a-z]+/default_[2-5].htm|http://comment.scol.com.cn/comment_page2_3.asp\?c=[0-9]+]]></pageurlreg>
+  <pagecontenturlreg><![CDATA[http://(news|focus).scol.com.cn/[a-z]+/content/201[-0-9]+/[0-9]+/content[_0-9]+.htm|http://comment.scol.com.cn/html/201[0-9]/[0-9]+/[_0-9]+.shtml]]></pagecontenturlreg>
+  <fieldrulelist>
+    <fieldrule>
+      <fieldname><![CDATA[MYPUBDATE]]></fieldname>
+      <fieldtype><![CDATA[2]]></fieldtype>
+      <fieldreg><![CDATA[//div[@id='scol3_txt'];//td[@class='time']]]></fieldreg>
+    </fieldrule>
+    <fieldrule>
+      <fieldname><![CDATA[DRECONTENT]]></fieldname>
+      <fieldtype><![CDATA[2]]></fieldtype>
+      <fieldreg><![CDATA[//div[@id='scol3_content'];//td[@class='text-d']]]></fieldreg>
+    </fieldrule>
+    <fieldrule>
+      <fieldname><![CDATA[DRETITLE]]></fieldname>
+      <fieldtype><![CDATA[2]]></fieldtype>
+      <fieldreg><![CDATA[//div[@id='scol3_title'];//td[@class='b1 title']]]></fieldreg>
+    </fieldrule>
+  </fieldrulelist>
+  <passconfig charset="UTF-8">
+    <var-def name="htmlnode" isfield="false">
+      <html-to-htmlnode name="contentnode">
+        <var name="htmlcontent" />
+      </html-to-htmlnode>
+    </var-def>
+    <var-def name="SITENAME" isfield="true">四川在线</var-def>
+    <var-def name="SITETYPE" isfield="true">NEWS</var-def>
+    <var-def name="MYPUBDATE" isfield="1">
+      <htmlxpath expression="//div[@id='scol3_txt'];//td[@class='time']" outputtype="nodetextnohtml" nohtml="1">
+        <var name="htmlnode" />
+      </htmlxpath>
+    </var-def>
+    <importdate fromformat="YYYY-MM-DD HH:NN:SS" fieldname="MYDREDATE" toformat="" isfield="true">
+      <var name="MYPUBDATE" />
+    </importdate>
+    <importdate fromformat="YYYY-MM-DD HH:NN:SS" fieldname="DREDATE" toformat="long" isfield="true">
+      <var name="MYPUBDATE" />
+    </importdate>
+    <var-def name="DRECONTENT" isfield="1">
+      <htmlxpath expression="//div[@id='scol3_content'];//td[@class='text-d']" outputtype="nodetextnohtml" nohtml="1">
+        <var name="htmlnode" />
+      </htmlxpath>
+    </var-def>
+    <var-def name="DISPLAYCONTENT" isfield="1">
+      <htmlxpath expression="//div[@id='scol3_content'];//td[@class='text-d']" outputtype="nodehtml" nohtml="0">
+        <var name="htmlnode" />
+      </htmlxpath>
+    </var-def>
+    <var-def name="DRETITLE" isfield="1">
+      <htmlxpath expression="//div[@id='scol3_title'];//td[@class='b1 title']" outputtype="nodeinnertext" nohtml="1">
+        <var name="htmlnode" />
+      </htmlxpath>
+    </var-def>
+    <outputidx>
+      <path>
+        <var name="OUTIDX" />
+      </path>
+    </outputidx>
+  </passconfig>
+</taskrule>

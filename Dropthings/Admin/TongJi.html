@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="js/jquery-1.4.2.js"></script>
+    <script src="js/My97DatePicker/WdatePicker.js"></script>
+    <script src="js/tongji.js"></script>
+</head>
+<body>
+    <select id="databasematch_type">
+        <option value="portalsafety">行业监测内容定制</option>
+        <option value="portalsafety+Safety">事故信息内容定制</option>
+    </select>
+    <select id="dateperiod_type">
+        <option value="year">年</option>
+        <option selected="selected" value="month">月</option>
+        <option value="week">周</option>
+    </select>
+    <textarea cols="50" rows="9" id="getquerytagvalues_txt">http://10.16.0.100:9000/action=GetQueryTagValues&mindate=-100&documentcount=True&databasematch=portalsafety&dateperiod=month&fieldname=autn_date&text=*&sort=ReverseDate&predict=False</textarea>
+    <a id="get_query_tag_values" target="_blank" href="http://10.16.0.100:9000/action=GetQueryTagValues&mindate=-100&documentcount=True&databasematch=portalsafety&dateperiod=month&fieldname=autn_date&text=*&sort=ReverseDate&predict=False">查看结果</a>
+
+    <hr />
+
+    时间:<input id="start_time" style="width: 100px;" onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})" type="text">-
+    <input id="end_time" style="width: 100px;" onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})" type="text">
+    <!--<select id="article_type">
+        <option value="COLUMNID IN(95,96,97,98,99,100,101,170,171,172,173,174,175,176)">行业监测内容定制</option>
+        <option value=" COLUMNID >=201 ">事故信息内容定制</option>
+    </select>-->
+    <a id="query_article_btn" href="javascript:void(0);">查看结果</a><br />
+    <span>行业监测内容定制:</span><span id="hangye_count"></span><span>条</span><br />
+    <span>事故信息内容定制:</span><span id="shigu_count"></span><span>条</span>
+</body>
+</html>

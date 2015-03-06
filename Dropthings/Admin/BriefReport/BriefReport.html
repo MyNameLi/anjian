@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>舆情简报</title>
+    <link href="../css/common.css" type="text/css" rel="stylesheet" rev="stylesheet" media="all" />
+    <link href="../css/BriefReport.css" type="text/css" rel="stylesheet" rev="stylesheet"
+        media="all" />
+
+    <script type="text/javascript" src="../js/jquery-1.4.2.js"></script> 
+
+    <script src="../js/Config.js" type="text/javascript"></script>
+    
+    <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+
+    <script type="text/javascript" src="../js/OterhPager.js"></script>
+
+    <script type="text/javascript" src="../js/BriefReport.js"></script>
+</head>
+<body>
+    <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+  <tbody><tr>
+    <td height="30"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="15" height="30"><img width="15" height="30" src="../images/tab_03.gif"></td>
+        <td background="../images/tab_05.gif" align="left"><img width="16" height="16" src="../images/311.gif"> <span class="STYLE4">当前位置：简报制作</span>
+        
+        </td>
+        <td width="14"><img width="14" height="30" src="../images/tab_07.gif" alt="" /></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr>
+    <td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="9" background="../images/tab_12.gif">&nbsp;</td>
+        <td bgcolor="#d3e7fc">
+          <div class="crumbsTitle"><b>基本设置</b></div>
+          <div class="crumbsContent">
+            <ul class="form_list form_T">
+              <li>
+           		<span class="name">报表类型：</span>
+            	<span class="input"><input type="radio" name="report_type" value="weekly" checked="checked"/>周报&nbsp;&nbsp;<input type="radio" name="report_type" value="daily" />专报&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              </li>
+            </ul>
+            <ul class="form_list">
+              <li>
+                <span class="name">简报周期：</span>
+            	<span class="input">
+            	<input type="text" id="report_start_time" onfocus="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd'})" /></span>
+                <span name="weekly_iframe">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+                <spann class="input"><input type="text" id="report_end_time" onfocus="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd'})" /></span>
+              </li>
+              
+              
+              <li>
+                <span class="name">简报期号：</span>
+                <spann class="input"><input type="text" id="report_title" style="width:286px;" value="2011年第3期（总12期）"/></span>
+              </li>
+              <li>
+                <span class="name">制作时间：</span>
+                <spann class="input"><input type="text" id="time_str" style="width:172px;" value=""/></span>
+              </li>
+              <li>
+                <span class="name">是否审批：</span>
+                <spann class="input">
+                    <select id="is_check">
+                        <option value="1">是</option>
+                        <option value="3">否</option>
+                    </select>
+                </span>
+              </li>
+            <ol id="more_param_list" style="display:none;">
+              
+              <li>
+                <span class="name">编　　辑</span>
+                <spann class="input">：<input type="text" id="report_editer" style="width:172px;" value="李强"/></span>
+              </li>
+              <li>
+                <span class="name">责任编辑：</span>
+                <spann class="input"><input type="text" id="report_people" style="width:172px;" value="张展"/></span>
+              </li>
+              <li>
+                <span class="name">处　　长：</span>
+                <spann class="input"><input type="text" id="report_dean" style="width:172px;" value="花月霞"/></span>
+              </li>
+              <li>
+                <span class="name"> 编制单位：</span>
+                <spann class="input"><input type="text" id="org_unit" style="width:462px;" value="国家安全监管总局通信信息中心"/></span>
+              </li>
+              <li>
+                <span class="name">制作单位</span>
+                <spann class="input">：<input type="text" id="make_unit" style="width:462px;" value="通信信息中心网络舆情处"/></span>
+              </li>
+              <li>
+                <span class="name">电　　话：</span>
+                <spann class="input"><input type="text" id="report_mobile" style="width:286px;" value="9491/2 	wlyq@chiansafety.gov.cn"/></span>
+              </li>
+              <li>
+                <span class="name">抄送单位：</span>
+                <spann class="input"><input type="text" id="report_org" style="width:462px;" value="总局办公厅、煤监局办公室、应急救援指挥中心综合部" /></span>
+              </li>
+              <li>
+                <span class="name">报送单位：</span>
+                <spann class="input"><input type="text" id="report_object" style="width:462px;" value="总局政策法规司" /></span>
+              </li>
+              <li>
+                <span class="name">分送单位：</span>
+                <spann class="input"><input type="text" id="send_unit" style="width:462px;" value="总局政策法规司" /></span>
+              </li>
+              </ol>
+              <li>
+                <a class="form_more" href="javascript:void(null)" id="look_more_param" pid="0"><img src="../images/btn_form_more_off.gif" />&nbsp;展开更多基本设置</a>
+              </li>
+			</ul>
+          </div>
+          <div class="crumbsTitle"><b>填写综述</b></div>
+          <div class="crumbsContent">
+            <ul class="form_list form_T">
+              <li>
+           		<span class="name">推荐图表类型：</span>
+            	<span class="input"><input type="checkbox" name="pic_list" pid="sitestatic" checked="checked"/>站点统计图&nbsp;&nbsp;
+            	<input type="checkbox" checked="checked" name="pic_list" pid="categorystatic"/>安监要闻分类统计图&nbsp;&nbsp;
+            	</span>
+              </li>
+              <li style="display:none;" id="more_pic_list">
+                <span class="name">更多图表类型：</span>
+                <span class="input">
+                <input type="checkbox" name="pic_list" pid="eventtrend"/>事故趋势图&nbsp;&nbsp;
+            	<input type="checkbox" name="pic_list" pid="eventtrans"/>事故传播链&nbsp;&nbsp;
+            	</span>
+              </li>
+              <li>
+                <a class="form_more" href="javascript:void(null)" id="look_more_pic" pid="0"><img src="../images/btn_form_more_off.gif" />&nbsp;展开更多图片类型</a>
+              </li>
+            </ul>
+            <ul class="form_list">
+              <li>
+                <span class="name">综述内容：</span>
+            	<span class="input"><textarea cols="92" rows="5" id="report_summarize"></textarea></span>
+              </li>
+            </ul>
+          </div>
+          <div class="crumbsTitle"><b>选择文章</b></div>
+          
+          <div class="crumbsContent">          
+            <ul class="form_list form_T">
+              <li>
+           		<span class="name">关注内容：</span>
+            	<span class="input">
+                   <!--<input type="radio" name="sel" id="sel_leader">
+                    总局领导　<input type="radio" name="sel" id="sel_org">
+                    总局机构　<input type="radio" name="sel" id="sel_policy">
+                    政策走向-->
+                    <input type="radio" name="sel" id="sel_event" />一周事件&nbsp;&nbsp;
+                    <input type="radio" name="sel" id="sel_clusters" />一周热点&nbsp;&nbsp;
+                    <input type="radio" name="sel" id="sel_important" />安监要闻&nbsp;&nbsp;
+                    <!--<input type="radio" name="sel" id="sel_news" />时政要闻摘选&nbsp;&nbsp;-->
+                    <input type="radio" name="sel" id="sel_wmry" />论坛热议摘选&nbsp;&nbsp;
+                    <input type="radio" name="sel" id="sel_wmryblog" />博客热议摘选
+                    </span>
+              </li>
+            </ul>            
+            <div  class="menu_sel_list">
+                <ul id="content_info">
+                
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div style="clear:both"></div>
+            <div class="result_content" id="result_list">
+            </div>
+            <div class="clear"></div>
+            <div class="viciao" id="pager_list"></div>  
+            <!--<input id="Btn_save" value="保存所选结果" class="btn" type="button" />    -->
+            <div class="clear" style="height:10px;">&nbsp;</div> 
+            <span style="padding:12px 24px 10px; display:block; color:#000; font-weight:bold;" >您选择的文章：</span>
+            <div class="results" id="select_result"></div>     
+         </div>
+        </td>
+        <td width="9" background="../images/tab_16.gif">&nbsp;</td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr>
+    <td height="29"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="15" height="29"><img width="15" height="29" src="../images/tab_20.gif" alt="" /></td>
+        <td background="../images/tab_21.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            
+            <td width="21%" align="left">
+            <input id="Btn_submit" value="生成简报" class="btn" type="button" />            
+            </td>
+            <td width="79%" align="center"><span id="report_back_msg" style="color: Red;"></span>
+            </td>
+          </tr>
+          
+        </table>
+         </td>
+        <td width="14"><img width="14" height="29" src="../images/tab_22.gif" alt="" /></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+</tbody></table>
+<div class="clear" style="height:50px;">&nbsp;</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+.resizer_line { text-align: center; background-color: red; }
+.resizer_icon { }
+.widget_holder_panel_post_link {display:none}
+.hidden{display:none;}
+.clear{clear:both;height:0;overflow:hidden;line-height:0;font-size:0;}
+.table_fixed {table-layout:fixed; clear:both; margin-top:10px;}
+.nodisplay { display:none; }
+.display_block { display:block;}
+.display_inline { display:inline; }
+.hidden {visibility:hidden}
+.align_right { text-align: right }
+.align_bottom { vertical-align: middle }
+
+
+td { text-align: left; vertical-align: top; padding: 5px 5px 5px 5px; }
+
+/*new added begin*/
+	h1,h2,h3,h4,h5,h6{font-size:100%; font-weight:normal;}/* h1-h16 字体定义 */
+	table{border-collapse:collapse; border-spacing:0;}/* table 间距与重合 */ 
+	caption,cite,em,strong,b,th {font-style:normal; font-weight:normal;} /* 字体定义 */ 
+	caption, th {text-align:left;}/* 文本对齐方式 */ 
+	fieldset, img {border:0 none;} /* 边框 */
+	img {vertical-align:top;} /* 解决ie6下边间距bug */
+	ul,ol,li {list-style:none;}
+	input,button,select {color:#555; font:100% arial; vertical-align:middle; overflow:visible;}/* 解决表单元素与文本的对齐问题 */
+	select {height:20px; line-height:20px;}
+	input::-moz-focus-inner{border-color:transparent!important;}
+	
+	/*=== float/clear ===*/
+	.left {float:left;}
+	.right {float:right;}
+	.clear {clear:both; font-size:0px; height:0px; line-height:0; }
+	.clearfix:after {content:"."; display:block; height:0px; clear:both; visibility:hidden; }
+	.clearfix {zoom:1;}
+	.none {display:none;}
+	.marb5 { margin-bottom:5px;}
+	.marb10 { margin-bottom:10px;}
+	.marb12 { margin-bottom:12px;}
+/*new added end*/
+

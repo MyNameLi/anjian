@@ -1,0 +1,26 @@
+﻿.province-info-mod { padding:15px 0 0 20px; }
+.cityinfo
+{
+     border-left:#eeeeee 5px solid;
+    min-height: 50;
+    min-width: 300px;
+    float: right;
+    clear: left;
+    position: absolute;
+    left: 686px;
+    top: 90px;
+    overflow: auto;
+    padding:0 20px;
+}
+.cityinfo ul,.cityinfo li { list-style:none; }
+.cityinfo li { height:54px; line-height:16px; border-bottom:#7f7f7f 1px dotted;}
+.new_pos01 { width:420px; display:block; }
+.new_pos01 a { display:block; font-size:14px; padding:10px 0 6px; text-align:left; }
+.new_pos02 { padding-right:12px;}
+.new_pos02 a { color:#999999; }
+.new_pos03 { color:#999999; }
+
+.new_maps2 { width:50%;}
+.new_pages {  padding-bottom:20px; padding-right:50px; float:right; text-align:left;}
+.new_pages span { border:1px solid #cccccc; display: inline; padding:3px 8px;}
+ 

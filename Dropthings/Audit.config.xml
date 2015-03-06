@@ -1,0 +1,16 @@
+<audit>
+  <steps>
+    <step name="first">
+      <auditors>
+        <auditor id="62" name="管理员" />
+        <auditor id="182" name="windy" />
+      </auditors>
+    </step>
+    <step name="second">
+      <auditors>
+        <auditor id="1" name="zttc@live.cn" />
+        <auditor id="62" name="1@live.cn" />
+      </auditors>
+    </step>
+  </steps>
+</audit>

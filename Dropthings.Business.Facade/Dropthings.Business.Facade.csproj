@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{514B9055-2EEF-4111-9CAC-F763120BB35D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Dropthings.Business.Facade</RootNamespace>
+    <AssemblyName>Dropthings.Business.Facade</AssemblyName>
+    <ProjectTypeGuids>{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;MUNQ</DefineConstants>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;MUNQ</DefineConstants>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Owc11, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\Microsoft.Office.Interop.Owc11.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\EntLib\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\EntLib\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.StaticFactory, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\EntLib\Microsoft.Practices.Unity.StaticFactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Munq.DI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\Munq\Munq.DI.dll</HintPath>
+    </Reference>
+    <Reference Include="OmarALZabir.AspectF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\AspectF\OmarALZabir.AspectF.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=2.112.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlarmFacade.cs" />
+    <Compile Include="AmChartColor.cs" />
+    <Compile Include="AmChartFacade.cs" />
+    <Compile Include="ArticleFacade.cs" />
+    <Compile Include="CategoryFacade.cs" />
+    <Compile Include="chart\BarChart.cs" />
+    <Compile Include="chart\BrokenChart.cs" />
+    <Compile Include="chart\ChartFacade.cs" />
+    <Compile Include="chart\IveBarchart.cs" />
+    <Compile Include="chart\TransPic.cs" />
+    <Compile Include="CityTotalHitsFacade.cs" />
+    <Compile Include="ClusterInfoFacade.cs" />
+    <Compile Include="ClusterListFacade.cs" />
+    <Compile Include="ClusterResultFacade.cs" />
+    <Compile Include="ColumnFacade.cs" />
+    <Compile Include="CommonLabel.cs" />
+    <Compile Include="Configuration.Facade.cs" />
+    <Compile Include="ContentClusterDetailFacade.cs" />
+    <Compile Include="ContentClusterFacade.cs" />
+    <Compile Include="CONTENTTOPICFacade.cs" />
+    <Compile Include="Context\AppContext.cs" />
+    <Compile Include="Context\SessionWrapper.cs" />
+    <Compile Include="CrawlTaskFacade.cs" />
+    <Compile Include="DailyRankFacade.cs" />
+    <Compile Include="EventsFacade.cs" />
+    <Compile Include="Facade.Menu.cs" />
+    <Compile Include="Facade.Role.cs" />
+    <Compile Include="Facade.Configuration.cs" />
+    <Compile Include="Facade.cs" />
+    <Compile Include="Facade.Page.cs" />
+    <Compile Include="Facade.Security.cs" />
+    <Compile Include="Facade.User.cs" />
+    <Compile Include="Facade.UsersInRole.cs" />
+    <Compile Include="Facade.Visit.cs" />
+    <Compile Include="FusionChart\ChartParams.cs" />
+    <Compile Include="FusionChart\MSLineChart.cs" />
+    <Compile Include="IdolNewQuery.cs" />
+    <Compile Include="IdolStaticFacade.cs" />
+    <Compile Include="Idol\IdolAgentQuery.cs" />
+    <Compile Include="Idol\IdolCategoryQuery.cs" />
+    <Compile Include="Idol\IdolClusterEntity.cs" />
+    <Compile Include="Idol\IdolCommonQuery.cs" />
+    <Compile Include="Idol\IdolHelp.cs" />
+    <Compile Include="Idol\IdolNewsEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Idol\IdolQuery.cs" />
+    <Compile Include="Idol\IdolStatic.cs" />
+    <Compile Include="Idol\QueryParamEntity.cs" />
+    <Compile Include="Idol\ResultDisplay.cs" />
+    <Compile Include="LexiconTypeFacade.cs" />
+    <Compile Include="LexiconWordFacade.cs" />
+    <Compile Include="LoadXmlForCrawl.cs" />
+    <Compile Include="NoteMessageFacade.cs" />
+    <Compile Include="PageOfRoleFacade.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Facade.Widget.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="PushInfoFacade.cs" />
+    <Compile Include="query.cs" />
+    <Compile Include="ReportListFacade.cs" />
+    <Compile Include="ReportResult.cs" />
+    <Compile Include="SensitiveWordFacade.cs" />
+    <Compile Include="TaskXml.cs" />
+    <Compile Include="TemplateFacade.cs" />
+    <Compile Include="TemplatePageBase.cs" />
+    <Compile Include="TopicFacade.cs" />
+    <Compile Include="TransRouteFacede.cs" />
+    <Compile Include="TrendFacade.cs" />
+    <Compile Include="UserFacade.cs" />
+    <Compile Include="WebSiteListFacade.cs" />
+    <Compile Include="WebSnapShot\WebSiteThumbnail.cs" />
+    <Compile Include="WordWarningFacade.cs" />
+    <Compile Include="BriefReportTemplatePageBase.cs" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dropthings.Configuration\Dropthings.Configuration.csproj">
+      <Project>{A426C626-767E-454B-8D48-7D0289BADBAC}</Project>
+      <Name>Dropthings.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Data\Dropthings.Data.csproj">
+      <Project>{4871E7E4-8F42-4BE3-B9C4-F96D2A9BCBD4}</Project>
+      <Name>Dropthings.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Model\Dropthings.Model.csproj">
+      <Project>{DD2A2DE9-48CC-4E40-B81A-8780BFAB6995}</Project>
+      <Name>Dropthings.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Util\Dropthings.Util.csproj">
+      <Project>{739B0A68-33F2-4EC3-8087-C3177AE80E41}</Project>
+      <Name>Dropthings.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IdolACINet\IdolACINet.csproj">
+      <Project>{7DC918FD-1AF6-4E51-98A7-3D7535B85DD0}</Project>
+      <Name>IdolACINet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VTemplate.Engine\VTemplate.Engine.csproj">
+      <Project>{56DE70B6-4B41-4415-B0FE-4D54E3B4F21B}</Project>
+      <Name>VTemplate.Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+</Project>

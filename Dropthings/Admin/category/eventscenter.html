@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>事件推送</title>
+    <link href="../css/common.css" type="text/css" rel="stylesheet" rev="stylesheet"
+        media="all" />
+    <link href="../css/BriefReport.css" type="text/css" rel="stylesheet" rev="stylesheet"
+        media="all" />
+    <script type="text/javascript" src="../js/jquery-1.4.2.js"></script>
+    <script src="../js/Config.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+    <!--<script src="../js/template.js" type="text/javascript"></script>-->
+    <script src="../js/listTable.js" type="text/javascript"></script>
+    <script src="../js/ajaxfileupload.js" type="text/javascript"></script>
+    <script src="../js/template.min.js" type="text/javascript"></script>
+    <script src="../js/jquery.query.js" type="text/javascript"></script>
+    <script src="../js/EventCenter.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //listTable.UpLoadFile()
+    </script>
+</head>
+<body>
+    <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+        <tbody>
+            <tr>
+                <td height="30">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td width="15" height="30">
+                                    <img width="15" height="30" src="../images/tab_03.gif">
+                                </td>
+                                <td background="../images/tab_05.gif" align="left">
+                                    <img width="16" height="16" src="../images/311.gif">
+                                    <span class="STYLE4">当前位置：专题推送&nbsp;&nbsp;</span><a href="javascript:window.parent.frames['tabFrame'].location='Training.aspx'">返回</a>
+                                </td>
+                                <td width="14">
+                                    <img width="14" height="30" src="../images/tab_07.gif" alt="" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td width="9" background="../images/tab_12.gif">
+                                    &nbsp;
+                                </td>
+                                <td bgcolor="#d3e7fc">
+                                    <div class="crumbsTitle">
+                                        <b>专题事件</b></div>
+                                    <div class="crumbsContent">
+                                        <ul class="form_list">
+                                            <li><span class="name">&nbsp;&nbsp;&nbsp;事件名称：</span> <span class="input">
+                                                <input type="text" id="txt_event_name" style="width: 270px;" />
+                                            </span></li>
+                                            <li><span class="name">&nbsp;&nbsp;&nbsp;事件时间：</span><span class="input">
+                                                <input type="text" id="txtEventsTime" onclick="WdatePicker();" readonly="true" />
+                                            </span></li>
+                                            <li><span class="name">&nbsp;&nbsp;&nbsp;内容导读：</span> <span class="input">
+                                                <textarea cols="90" rows="5" id="txtEventsSummary"></textarea>
+                                            </span></li>
+                                            <li><span class="name">搜索表达式：</span><span class="input">
+                                                <textarea cols="90" rows="5" id="txtEventsKeywords"></textarea></span></li>
+                                            <!--<li><span class="name"></span><span class="input"></span></li>-->
+                                        </ul>
+                                        <input type="button" id="btnEvents" class="tj_two_search" value="提交" />
+                                    </div>
+                                    <div class="crumbsTitle">
+                                        <input type="button" class="find_two_search" value="添加" id="btn_addTopic" />
+                                        <b>事件主要观点</b></div>
+                                    <div class="elent_tablebg">
+                                        <table border="1" cellspacing="1">
+                                            <thead>
+                                                <tr>
+                                                    <td class="topic_tit" style="width: 200px">
+                                                        观点标题
+                                                    </td>
+                                                    <td class="topic_tit">
+                                                        观点内容
+                                                    </td>
+                                                    <td colspan="2" class="topic_tit3">
+                                                        操作
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbdTopic">
+                                                <tr>
+                                                    <td>
+                                                        加载中...
+                                                    </td>
+                                                    <td align="left">
+                                                    </td>
+                                                    <td>
+                                                        <a class="update btn_edit " href="javascript:void(0);">编辑</a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="del btn_delete" href="javascript:void(0);">删除</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="crumbsContent" id="topicPlan">
+                                        <ul class="form_list">
+                                            <li><span class="name">观点标题：</span> <span class="input">
+                                                <input type="text" id="txttopicTitle" style="width: 270px;" />
+                                            </span></li>
+                                            <li><span class="name">观点内容：</span> <span class="input">
+                                                <textarea cols="90" rows="5" id="txttopicContent"></textarea>
+                                            </span></li>
+                                        </ul>
+                                        <input type="button" id="btnTopic" class="tj_two_search" value="提交" />
+                                    </div>
+                                    <div class="crumbsTitle">
+                                        <b>事件经过</b><input type="button" class="find_two_search" value="添加" id="btn_addClue" /></div>
+                                    <div class="elent_tablebg">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <td class="topic_tit">
+                                                        事件经过时间
+                                                    </td>
+                                                    <td class="topic_tit">
+                                                        事件经过内容
+                                                    </td>
+                                                    <td class="topic_tit" colspan="2">
+                                                        操作
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbdClue">
+                                                <tr>
+                                                    <td>
+                                                        加载中...
+                                                    </td>
+                                                    <td align="left">
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="crumbsContent" id="cluePlan">
+                                        <ul class="form_list">
+                                            <li><span class="name">经过时间：</span> <span class="input">
+                                                <input type="text" id="txtClueTime" onclick="WdatePicker();" readonly="true" />
+                                            </span></li>
+                                            <li><span class="name">经过内容：</span> <span class="input">
+                                                <input type="text" id="txtClueTitle" style="width: 350px;" />
+                                            </span></li>
+                                        </ul>
+                                        <input type="button" id="btnClue" class="tj_two_search" value="提交" />
+                                    </div>
+                                    <div class="crumbsTitle">
+                                        <b>事件关联图片</b><input type="button" class="find_two_search" id="btn_addImg" value="添加" /></div>
+                                    <div class="elent_tablebg">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <td class="topic_tit">
+                                                        图片路径
+                                                    </td>
+                                                    <td class="topic_tit">
+                                                        图片URL
+                                                    </td>
+                                                    <td class="topic_tit">
+                                                        图片说明
+                                                    </td>
+                                                    <td class="topic_tit">
+                                                        图片类型
+                                                    </td>
+                                                    <td class="topic_tit" colspan="2">
+                                                        操作
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbdImg">
+                                                <tr>
+                                                    <td>
+                                                        加载中...
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="crumbsContent" id="imgPlan">
+                                        <ul class="form_list">
+                                            <li><span class="name">本地图片路径：</span> <span class="input">
+                                                <!--<input type="text" id="txt_imgpath" />-->
+                                                <input type="text" id="txt_imgpath" class="input_text31" readonly="true" /></span>
+                                                <input type="file" name="post_file_path" id="post_file_path" />
+                                                <input type="button" class="input_button31" value="上传" onclick="javascript:listTable.UpLoadFile('post_file_path','txt_imgpath','CommonFileLoad.ashx');" />
+                                            </li>
+                                            <li><span class="name">网络图片路径：</span> <span class="input">
+                                                <input type="text" id="txt_imgurl" style="width: 350px;" />
+                                            </span></li>
+                                            <li><span class="name">图&nbsp;&nbsp;片&nbsp;&nbsp;标&nbsp;&nbsp;题：</span><span
+                                                class="input"><input type="text" id="txt_imgalt" style="width: 350px" /></span>
+                                            </li>
+                                            <li><span class="name">图片类型：</span> <span class="input">
+                                                <input type="radio" name="rdImgType" checked="checked" id="rd_maxImg" value="1" />&nbsp;&nbsp;大图
+                                                <input type="radio" name="rdImgType" id="rd_minImg" value="0" />&nbsp;&nbsp;小图
+                                                <input type="radio" name="rdImgType" id="rd_backgroundImg" value="2" />&nbsp;&nbsp;背景</span>
+                                            </li>
+                                        </ul>
+                                        <input type="button" id="btnImg" class="tj_two_search" value="提交" />
+                                    </div>
+                                </td>
+                                <td width="9" background="../images/tab_16.gif">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td height="29">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td width="15" height="29">
+                                    <img width="15" height="29" src="../images/tab_20.gif" alt="" />
+                                </td>
+                                <td background="../images/tab_21.gif">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td width="21%" align="left">
+                                                &nbsp;&nbsp;
+                                            </td>
+                                            <td width="79%" align="center">
+                                                <span id="report_back_msg" style="color: Red;"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="14">
+                                    <img width="14" height="29" src="../images/tab_22.gif" alt="" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="clear" style="height: 50px;">
+        &nbsp;</div>
+    <script type="text/html" id="topic_template">
+        <tr><td><%=TopicTitle %></td><td><%=TopicContent %></td><td><a href="javascript:void(0);"  class="update btn_edit">编辑</a></td><td><a href="javascript:void(0);" class="del btn_delete">删除</a></td></tr>
+    </script>
+    <script type="text/html" id="clue_template">
+        <tr><td><%=ClueTime %></td><td><%=ClueTitle %></td><td><a href="javascript:void(0);" class="update btn_edit">编辑</a></td><td><a href="javascript:void(0);" class="del btn_delete">删除</a></td></tr>
+    </script>
+    <script type="text/html" id="img_template">
+        <tr><td><%=ImgPath %></td><td><%=ImgUrl %></td><td><%=ImgTitle %></td><td><%=ImgType==0?"小图":ImgType==1?"大图":"背景" %></td><td><a href="javascript:void(0);" class="update btn_edit">编辑</a></td><td><a href="javascript:void(0);" class="del btn_delete">删除</a></td></tr>
+    </script>
+</body>
+</html>
