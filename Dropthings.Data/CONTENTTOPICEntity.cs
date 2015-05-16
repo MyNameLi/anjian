@@ -445,27 +445,34 @@ namespace Dropthings.Data
 			{
 				int startNumber = pageSize * (pageNumber-1) + 1;
 				int endNumber = pageSize * pageNumber;
-		
-				StringBuilder PagerSql=new StringBuilder();
-				PagerSql.Append("SELECT * FROM (");
-				PagerSql.Append(" SELECT A.*, ROWNUM RN ");
-				PagerSql.Append("FROM (SELECT * FROM CONTENTTOPIC ");
-				if (!string.IsNullOrEmpty(where))
-				{
-					PagerSql.Append(" where " + where);
-				}
-				if (!string.IsNullOrEmpty(orderBy))
-				{
-					PagerSql.AppendFormat(" ORDER BY {0}", orderBy);
-				}
-				else
-				{
+
+                if (string.IsNullOrEmpty(where))
+                {
+                    where = "  1=1 ";
+                }
+
+                StringBuilder PagerSql = new StringBuilder();
+                PagerSql.AppendFormat("SELECT * FROM( SELECT ROW_NUMBER()OVER( ORDER BY ID) AS RN,* FROM dbo.CONTENTTOPIC where {0} ) AS T WHERE T.RN BETWEEN {1} AND {2}", where, startNumber, endNumber);
+                //StringBuilder PagerSql=new StringBuilder();
+                //PagerSql.Append("SELECT * FROM (");
+                //PagerSql.Append(" SELECT A.*, ROWNUM RN ");
+                //PagerSql.Append("FROM (SELECT * FROM CONTENTTOPIC ");
+                //if (!string.IsNullOrEmpty(where))
+                //{
+                //    PagerSql.Append(" where " + where);
+                //}
+                //if (!string.IsNullOrEmpty(orderBy))
+                //{
+                //    PagerSql.AppendFormat(" ORDER BY {0}", orderBy);
+                //}
+                //else
+                //{
 					
-					PagerSql.Append(" ORDER BY ID");//默认按主键排序
+                //    PagerSql.Append(" ORDER BY ID");//默认按主键排序
 					
-				}
-				PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})",endNumber);
-				PagerSql.AppendFormat(" WHERE RN >= {0}",startNumber);
+                //}
+                //PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})",endNumber);
+                //PagerSql.AppendFormat(" WHERE RN >= {0}",startNumber);
 		
 				return _oracleHelper.ExecuteDateSet(PagerSql.ToString(),param).Tables[0];
 			}

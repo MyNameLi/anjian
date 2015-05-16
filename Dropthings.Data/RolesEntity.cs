@@ -298,7 +298,6 @@ namespace Dropthings.Data
                 }
 
                 StringBuilder PagerSql = new StringBuilder();
-                //SELECT * FROM( SELECT ROW_NUMBER()OVER( ORDER BY ROLEID) AS RN,* FROM dbo.ROLES ) AS T WHERE T.RN BETWEEN 1 AND 20
                 PagerSql.AppendFormat("SELECT * FROM( SELECT ROW_NUMBER()OVER( ORDER BY ROLEID) AS RN,* FROM dbo.ROLES where {0} ) AS T WHERE T.RN BETWEEN {1} AND {2}",  where, startNumber, endNumber);
                 //PagerSql.Append("SELECT * FROM (");
                 //PagerSql.Append(" SELECT A.*, ROWNUM RN ");

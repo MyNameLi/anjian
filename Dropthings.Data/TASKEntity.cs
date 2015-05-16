@@ -721,25 +721,34 @@ namespace Dropthings.Data
                 int endNumber = pageSize * pageNumber;
 
                 StringBuilder PagerSql = new StringBuilder();
-                PagerSql.Append("SELECT * FROM (");
-                PagerSql.Append(" SELECT A.*, ROWNUM RN ");
-                PagerSql.Append("FROM (SELECT * FROM TASK ");
-                if (!string.IsNullOrEmpty(where))
+                if (string.IsNullOrEmpty(where))
                 {
-                    PagerSql.Append(" where " + where);
+                    where = "  1=1 ";
                 }
-                if (!string.IsNullOrEmpty(orderBy))
+                if (string.IsNullOrEmpty("orderBy"))
                 {
-                    PagerSql.AppendFormat(" ORDER BY {0}", orderBy);
+                    orderBy = " ROLEID ";
                 }
-                else
-                {
+                PagerSql.AppendFormat("SELECT * FROM( SELECT ROW_NUMBER()OVER( ORDER BY TASKID) AS RN,* FROM dbo.TASK where {0} ) AS T WHERE T.RN BETWEEN {1} AND {2}", where, startNumber, endNumber);
+                //PagerSql.Append("SELECT * FROM (");
+                //PagerSql.Append(" SELECT A.*, ROWNUM RN ");
+                //PagerSql.Append("FROM (SELECT * FROM TASK ");
+                //if (!string.IsNullOrEmpty(where))
+                //{
+                //    PagerSql.Append(" where " + where);
+                //}
+                //if (!string.IsNullOrEmpty(orderBy))
+                //{
+                //    PagerSql.AppendFormat(" ORDER BY {0}", orderBy);
+                //}
+                //else
+                //{
 
-                    PagerSql.Append(" ORDER BY TASKID");//默认按主键排序
+                //    PagerSql.Append(" ORDER BY TASKID");//默认按主键排序
 
-                }
-                PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
-                PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
+                //}
+                //PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
+                //PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
 
                 return _oracleHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
             }

@@ -49,6 +49,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IdolACINet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\IdolACINet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Owc11, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Components\Microsoft.Office.Interop.Owc11.dll</HintPath>
@@ -99,6 +103,9 @@
     </Reference>
     <Reference Include="System.ServiceModel">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="VTemplate.Engine">
+      <HintPath>..\Components\VTemplate.Engine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -202,14 +209,6 @@
     <ProjectReference Include="..\Dropthings.Util\Dropthings.Util.csproj">
       <Project>{739B0A68-33F2-4EC3-8087-C3177AE80E41}</Project>
       <Name>Dropthings.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IdolACINet\IdolACINet.csproj">
-      <Project>{7DC918FD-1AF6-4E51-98A7-3D7535B85DD0}</Project>
-      <Name>IdolACINet</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VTemplate.Engine\VTemplate.Engine.csproj">
-      <Project>{56DE70B6-4B41-4415-B0FE-4D54E3B4F21B}</Project>
-      <Name>VTemplate.Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
