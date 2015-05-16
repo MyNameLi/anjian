@@ -9,8 +9,6 @@ using System.Data;
 using System.Configuration;
 using Dropthings.Util;
 
-//using Oracle.DataAccess.Client;
-
 namespace Dropthings.Business.Facade
 {
     public static class ReportResult

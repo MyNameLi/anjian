@@ -13,7 +13,7 @@ namespace Dropthings.Data
     [Serializable]
     public partial class CATEGORYEntity
     {
-        private SqlHelper _oracleHelper;
+        private SqlHelper sqlHelper;
 
         #region const fields
         public const string DBName = "Sentiment";
@@ -54,7 +54,7 @@ namespace Dropthings.Data
         #region constructors
         public CATEGORYEntity()
         {
-            _oracleHelper = new SqlHelper(DBName);
+            sqlHelper = new SqlHelper(DBName);
         }
 
         public CATEGORYEntity(int id, long categoryid, string databaseid, string categoryname, string catedisplay, int parentcate, string catepath, string createby, DateTime createtime, int catetype, string catesource, string catetraininfo, string querytype, int iseffect, int projectcode, string keyword, string minscore, int sequeue, string eventreson, string eventmeasure, string eventabout, string eventminscore, DateTime eventdate, int eventtype)
@@ -283,12 +283,12 @@ namespace Dropthings.Data
 
         public class CATEGORYDAO : SqlDAO<CATEGORYEntity>
         {
-            private SqlHelper _oracleHelper;
+            private SqlHelper sqlHelper;
             public const string DBName = "SentimentConnStr";
 
             public CATEGORYDAO()
             {
-                _oracleHelper = new SqlHelper(DBName);
+                sqlHelper = new SqlHelper(DBName);
             }
 
             public override void Add(CATEGORYEntity entity)
@@ -347,7 +347,7 @@ namespace Dropthings.Data
                 parameters[20].Value = entity.EVENTMINSCORE;
                 parameters[21].Value = entity.EVENTDATE;
                 parameters[22].Value = entity.EVENTTYPE;
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);                
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);                
             }
 
             public override void Update(CATEGORYEntity entity)
@@ -431,7 +431,7 @@ namespace Dropthings.Data
                 parameters[22].Value = entity.EVENTTYPE;
                 parameters[23].Value = entity.ID;
 
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public bool UpdateSet(int ID, string ColumnName, string Value)
@@ -442,7 +442,7 @@ namespace Dropthings.Data
                     StrSql.Append("update CATEGORY set ");
                     StrSql.Append(ColumnName + "='" + Value + "'");
                     StrSql.Append(" where ID=" + ID);
-                    _oracleHelper.ExecuteSql(StrSql.ToString(), null);
+                    sqlHelper.ExecuteSql(StrSql.ToString(), null);
                     return true;
                 }
                 catch
@@ -461,7 +461,7 @@ namespace Dropthings.Data
                     StrSql.Append("CATETYPE=0");
                     StrSql.Append(" where PARENTCATE=202");
                     logger.Error("the sqlstr is" + StrSql.ToString());                   
-                    _oracleHelper.ExecuteSql(StrSql.ToString(), null);
+                    sqlHelper.ExecuteSql(StrSql.ToString(), null);
                     return true;
                 }
                 catch(Exception ex)
@@ -476,7 +476,7 @@ namespace Dropthings.Data
                 string strSql = "delete from CATEGORY where ID=" + ID;
                 try
                 {
-                    _oracleHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -490,7 +490,7 @@ namespace Dropthings.Data
                 string strSql = "delete from CATEGORY where ID in (" + ID + ")";
                 try
                 {
-                    _oracleHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -508,7 +508,7 @@ namespace Dropthings.Data
 						new SqlParameter("@primaryKeyId", SqlDbType.Int)
 					};
                 parameters[0].Value = entity.ID;
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public override CATEGORYEntity FindById(long primaryKeyId)
@@ -519,7 +519,7 @@ namespace Dropthings.Data
                 SqlParameter[] parameters = {
 						new SqlParameter("@primaryKeyId", SqlDbType.Int)};
                 parameters[0].Value = primaryKeyId;
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count == 1)
                 {
                     DataRow row = ds.Tables[0].Rows[0];
@@ -605,7 +605,7 @@ namespace Dropthings.Data
                     strSql.Append(" where " + strWhere);
                 }
 
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0)
                 {
                     List<CATEGORYEntity> list = new List<CATEGORYEntity>();
@@ -688,7 +688,7 @@ namespace Dropthings.Data
 					new SqlParameter("@CATEGORYID",SqlDbType.BigInt)				
 					};
                 parameters[0].Value = categoryid;
-                return _oracleHelper.ExecuteDateSet(strSql.ToString(), parameters).Tables[0];
+                return sqlHelper.ExecuteDateSet(strSql.ToString(), parameters).Tables[0];
             }
 
             public List<CATEGORYEntity> Find(int top,string strWhere, SqlParameter[] parameters)
@@ -704,7 +704,7 @@ namespace Dropthings.Data
                 strSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", top);
                 
 
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0)
                 {
                     List<CATEGORYEntity> list = new List<CATEGORYEntity>();
@@ -784,7 +784,7 @@ namespace Dropthings.Data
 					new SqlParameter("@CATEGORYID",SqlDbType.Int)					
 					};
                 parameters[0].Value = categoryid;
-                return _oracleHelper.ExecuteDateSet(strSql, parameters);
+                return sqlHelper.ExecuteDateSet(strSql, parameters);
             }
 
             public DataSet GetDataSet(string strWhere, SqlParameter[] param)
@@ -796,7 +796,7 @@ namespace Dropthings.Data
                 {
                     strSql.Append(" where " + strWhere);
                 }
-                return _oracleHelper.ExecuteDateSet(strSql.ToString(), param);
+                return sqlHelper.ExecuteDateSet(strSql.ToString(), param);
             }
 
             #region paging methods
@@ -818,7 +818,7 @@ namespace Dropthings.Data
                     sql += "where " + where;
                 }
 
-                object obj = _oracleHelper.GetSingle(sql, param);
+                object obj = sqlHelper.GetSingle(sql, param);
 
                 return obj == null ? 0 : Convert.ToInt32(obj);
             }
@@ -862,7 +862,7 @@ namespace Dropthings.Data
                 PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
                 PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
 
-                return _oracleHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
+                return sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
             }
 
             #endregion

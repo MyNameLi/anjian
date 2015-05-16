@@ -12,7 +12,7 @@ namespace Dropthings.Data
     [Serializable]
     public partial class ARCHIVEINFOEntity
     {
-        private SqlHelper _oracleHelper;
+        private SqlHelper sqlHelper;
 
         #region const fields
         public const string DBName = "Sentiment";
@@ -38,7 +38,7 @@ namespace Dropthings.Data
         #region constructors
         public ARCHIVEINFOEntity()
         {
-            _oracleHelper = new SqlHelper(DBName);
+            sqlHelper = new SqlHelper(DBName);
         }
 
         public ARCHIVEINFOEntity(long id, string title, DateTime basetime, DateTime edittime, string discontent, string sitename, string url, int type, int userid)
@@ -132,12 +132,12 @@ namespace Dropthings.Data
 
         public class ARCHIVEINFODAO : SqlDAO<ARCHIVEINFOEntity>
         {
-            private SqlHelper _oracleHelper;
+            private SqlHelper sqlHelper;
             public const string DBName = "SentimentConnStr";
 
             public ARCHIVEINFODAO()
             {
-                _oracleHelper = new SqlHelper(DBName);
+                sqlHelper = new SqlHelper(DBName);
             }
 
             public override void Add(ARCHIVEINFOEntity entity)
@@ -166,7 +166,7 @@ namespace Dropthings.Data
                 parameters[5].Value = entity.URL;
                 parameters[6].Value = entity.TYPE;
                 parameters[7].Value = entity.USERID;
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
 
@@ -196,14 +196,14 @@ namespace Dropthings.Data
                 parameters[5].Value = entity.URL;
                 parameters[6].Value = entity.TYPE;
                 parameters[7].Value = entity.USERID;
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
                 return ReturnNewRowId();
             }
 
             private long ReturnNewRowId()
             {
                 string sql = "select ARCHIVEINFO_ID_SEQ.currval NEWID from dual";
-                object NewId = _oracleHelper.GetSingle(sql, null);
+                object NewId = sqlHelper.GetSingle(sql, null);
                 return Convert.ToInt64(NewId);
             }
 
@@ -243,7 +243,7 @@ namespace Dropthings.Data
                 parameters[7].Value = entity.USERID;
                 parameters[8].Value = entity.ID;
 
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public bool UpdateSet(int ID, string ColumnName, string Value)
@@ -254,7 +254,7 @@ namespace Dropthings.Data
                     StrSql.Append("update ARCHIVEINFO set ");
                     StrSql.Append(ColumnName + "='" + Value + "'");
                     StrSql.Append(" where ID=" + ID);
-                    _oracleHelper.ExecuteSql(StrSql.ToString(), null);
+                    sqlHelper.ExecuteSql(StrSql.ToString(), null);
                     return true;
                 }
                 catch
@@ -268,7 +268,7 @@ namespace Dropthings.Data
                 string strSql = "delete from ARCHIVEINFO where ID=" + ID;
                 try
                 {
-                    _oracleHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -282,7 +282,7 @@ namespace Dropthings.Data
                 string strSql = "delete from ARCHIVEINFO where ID in (" + ID + ")";
                 try
                 {
-                    _oracleHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -297,7 +297,7 @@ namespace Dropthings.Data
                 string strSql = "delete from ARCHIVEINFO where URL in (" + url + ") AND TYPE=" + type.ToString();
                 try
                 {
-                    _oracleHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -315,7 +315,7 @@ namespace Dropthings.Data
 						new SqlParameter("@primaryKeyId", SqlDbType.Int)
 					};
                 parameters[0].Value = entity.ID;
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public override ARCHIVEINFOEntity FindById(long primaryKeyId)
@@ -326,7 +326,7 @@ namespace Dropthings.Data
                 SqlParameter[] parameters = {
 						new SqlParameter("@primaryKeyId", SqlDbType.Int)};
                 parameters[0].Value = primaryKeyId;
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count == 1)
                 {
                     DataRow row = ds.Tables[0].Rows[0];
@@ -397,7 +397,7 @@ namespace Dropthings.Data
                     strSql.Append(" where " + strWhere);
                 }
 
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0)
                 {
                     List<ARCHIVEINFOEntity> list = new List<ARCHIVEINFOEntity>();
@@ -449,7 +449,7 @@ namespace Dropthings.Data
                 {
                     strSql.Append(" where " + strWhere);
                 }
-                return _oracleHelper.ExecuteDateSet(strSql.ToString(), param);
+                return sqlHelper.ExecuteDateSet(strSql.ToString(), param);
             }
 
             #region paging methods
@@ -467,7 +467,7 @@ namespace Dropthings.Data
                     sql += "where " + where;
                 }
 
-                object obj = _oracleHelper.GetSingle(sql, param);
+                object obj = sqlHelper.GetSingle(sql, param);
 
                 return obj == null ? 0 : Convert.ToInt32(obj);
             }
@@ -514,7 +514,7 @@ namespace Dropthings.Data
                 PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
                 PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
 
-                return _oracleHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
+                return sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
             }
 
             #endregion

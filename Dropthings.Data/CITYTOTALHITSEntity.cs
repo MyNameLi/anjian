@@ -12,7 +12,7 @@ namespace Dropthings.Data
     [Serializable]
     public partial class CITYTOTALHITSEntity
     {
-        private SqlHelper _oracleHelper;
+        private SqlHelper sqlHelper;
 
         #region const fields
         public const string DBName = "Sentiment";
@@ -32,7 +32,7 @@ namespace Dropthings.Data
         #region constructors
         public CITYTOTALHITSEntity()
         {
-            _oracleHelper = new SqlHelper(DBName);
+            sqlHelper = new SqlHelper(DBName);
         }
 
         public CITYTOTALHITSEntity(int id, string province, int totalhits, DateTime intime, string tag)
@@ -86,11 +86,11 @@ namespace Dropthings.Data
         #endregion
         public class CITYTOTALHITSDAO : SqlDAO<CITYTOTALHITSEntity>
         {
-            private SqlHelper _oracleHelper;
+            private SqlHelper sqlHelper;
             public const string DBName = "SentimentConnStr";
             public CITYTOTALHITSDAO()
             {
-                _oracleHelper = new SqlHelper(DBName);
+                sqlHelper = new SqlHelper(DBName);
             }
             public override void Add(CITYTOTALHITSEntity entity)
             {
@@ -109,7 +109,7 @@ namespace Dropthings.Data
                 parameters[1].Value = entity.TOTALHITS;
                 parameters[2].Value = entity.INTIME;
                 parameters[3].Value = entity.TAG;
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
             public override void Update(CITYTOTALHITSEntity entity)
             {
@@ -135,7 +135,7 @@ namespace Dropthings.Data
                 parameters[3].Value = entity.TAG;
                 //parameters[4].Value = entity.ID;
 
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
             public bool UpdateSet(int ID, string ColumnName, string Value)
             {
@@ -145,7 +145,7 @@ namespace Dropthings.Data
                     StrSql.Append("update CITYTOTALHITS set ");
                     StrSql.Append(ColumnName + "='" + Value + "'");
                     StrSql.Append(" where ID=" + ID);
-                    _oracleHelper.ExecuteSql(StrSql.ToString(), null);
+                    sqlHelper.ExecuteSql(StrSql.ToString(), null);
                     return true;
                 }
                 catch
@@ -158,7 +158,7 @@ namespace Dropthings.Data
                 string strSql = "delete from CITYTOTALHITS where ID=" + ID;
                 try
                 {
-                    _oracleHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -171,7 +171,7 @@ namespace Dropthings.Data
                 string strSql = "delete from CITYTOTALHITS where ID in (" + ID + ")";
                 try
                 {
-                    _oracleHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -188,7 +188,7 @@ namespace Dropthings.Data
                 //        new SqlParameter("@primaryKeyId", SqlDbType.Int)
                 //    };
                 //parameters[0].Value = entity.ID;
-                //_oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                //sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
             public override CITYTOTALHITSEntity FindById(long primaryKeyId)
             {
@@ -198,7 +198,7 @@ namespace Dropthings.Data
                 SqlParameter[] parameters = {
 						new SqlParameter("@primaryKeyId", SqlDbType.Int)};
                 parameters[0].Value = primaryKeyId;
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count == 1)
                 {
                     DataRow row = ds.Tables[0].Rows[0];
@@ -229,7 +229,7 @@ namespace Dropthings.Data
                 string strSql = "SELECT * FROM ( SELECT C.*, ROWNUM RN FROM "
                 + "(SELECT A.TAG,A.TOTALHITS,B.ID FROM CITYTOTALHITS A,COLUMNDEF B "
                 + "WHERE A.PROVINCE = B.COLUMNNAME ORDER BY A.INTIME DESC,A.TOTALHITS DESC) C)  WHERE ROWNUM <= 34";
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql, null);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql, null);
                 if (ds != null)
                 {
                     return ds.Tables[0];
@@ -244,7 +244,7 @@ namespace Dropthings.Data
                 string strSql = "SELECT * FROM ( SELECT C.*, ROWNUM RN FROM "
                 + "(SELECT A.TAG,A.TOTALHITS,B.CATEGORYID FROM CITYTOTALHITS A,CATEGORY B "
                 + "WHERE A.PROVINCE = B.CATEGORYNAME ORDER BY A.INTIME DESC,A.TOTALHITS DESC) C)  WHERE ROWNUM <= 34";
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql, null);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql, null);
                 if (ds != null)
                 {
                     return ds.Tables[0];
@@ -260,7 +260,7 @@ namespace Dropthings.Data
                 strSql.Append("select JOBNAME,CLUSTERID,TITLE,count(TITLE) as NUM,min(URL) as URL,TAG");
                 strSql.AppendFormat(" from clusterresult where JOBNAME='{0}'", jobName);
                 strSql.AppendFormat(" AND CLUSTERID={0} group by JOBNAME, CLUSTERID, TITLE,TAG ORDER BY CLUSTERID,NUM DESC", ClusterNum);
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), null);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), null);
                 if (ds != null)
                 {
                     return ds.Tables[0];
@@ -273,7 +273,7 @@ namespace Dropthings.Data
             public DataTable GetJobListDT()
             {
                 string strSql = "select JOBNAME,MIN(SYSTIMESPAN) AS SYSTIMESPAN from CLUSTERRESULT  GROUP BY JOBNAME ORDER BY JOBNAME DESC";
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), null);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), null);
                 if (ds != null)
                 {
                     return ds.Tables[0];
@@ -286,7 +286,7 @@ namespace Dropthings.Data
             public DataTable GetClusterIdDT(string JobName)
             {
                 string strSql = "select CLUSTERID,MAX(TITLE) AS TITLE from CLUSTERRESULT WHERE JOBNAME='" + JobName + "' GROUP BY CLUSTERID ORDER BY CLUSTERID";
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), null);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), null);
                 if (ds != null)
                 {
                     return ds.Tables[0];
@@ -304,7 +304,7 @@ namespace Dropthings.Data
                 strSql.Append("SELECT * FROM ( SELECT A.*, ROWNUM RN FROM (SELECT JOBNAME,CLUSTERID,TITLE,count(TITLE) as NUM,min(URL) as URL,TAG");
                 strSql.AppendFormat(" FROM CLUSTERRESULT  where JOBNAME='{0}' and CLUSTERID={1}", jobName, clusterid);
                 strSql.AppendFormat(" group by JOBNAME, CLUSTERID, TITLE,TAG ORDER BY NUM DESC ) A WHERE ROWNUM <= {0}) WHERE RN >= {1}", endNumber, startNumber);
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), null);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), null);
                 if (ds != null)
                 {
                     return ds.Tables[0];
@@ -317,14 +317,14 @@ namespace Dropthings.Data
             public int GetClusterResultPagerCount(string jobName, string clusterid)
             {
                 string strsql = "SELECT COUNT(*) FROM (SELECT COUNT(*) FROM CLUSTERRESULT WHERE JOBNAME='" + jobName + "' and CLUSTERID=" + clusterid + " group by TITLE)";
-                object obj = _oracleHelper.GetSingle(strsql, null);
+                object obj = sqlHelper.GetSingle(strsql, null);
 
                 return obj == null ? 0 : Convert.ToInt32(obj);
             }
             public void Edit(string jobname, string cluserid, int HotTag, string url)
             {
                 string strSql = "UPDATE CLUSTERRESULT SET TAG=" + HotTag.ToString() + " where URL='" + url + "' AND JOBNAME='" + jobname + "' AND CLUSTERID=" + cluserid;
-                _oracleHelper.ExecuteSql(strSql, null);
+                sqlHelper.ExecuteSql(strSql, null);
             }
             public override List<CITYTOTALHITSEntity> Find(string strWhere, SqlParameter[] parameters)
             {
@@ -336,7 +336,7 @@ namespace Dropthings.Data
                     strSql.Append(" where " + strWhere);
                 }
 
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0)
                 {
                     List<CITYTOTALHITSEntity> list = new List<CITYTOTALHITSEntity>();
@@ -377,7 +377,7 @@ namespace Dropthings.Data
                 {
                     strSql.Append(" where " + strWhere);
                 }
-                return _oracleHelper.ExecuteDateSet(strSql.ToString(), param);
+                return sqlHelper.ExecuteDateSet(strSql.ToString(), param);
             }
             
             public DataSet GetGroupByProvince(string startTime, string endTime)
@@ -391,7 +391,7 @@ namespace Dropthings.Data
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("SELECT Province,SUM(TotalHits) AS TotalHits  FROM  CityTotalHits WHERE  InTime   BETWEEN @STARTTIME AND @ENDTIME ");
                 strSql.Append(" GROUP BY Province");
-                return _oracleHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                return sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
 
             }
             #region paging methods
@@ -409,7 +409,7 @@ namespace Dropthings.Data
                     sql += "where " + where;
                 }
 
-                object obj = _oracleHelper.GetSingle(sql, param);
+                object obj = sqlHelper.GetSingle(sql, param);
 
                 return obj == null ? 0 : Convert.ToInt32(obj);
             }
@@ -448,7 +448,7 @@ namespace Dropthings.Data
                 PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
                 PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
 
-                return _oracleHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
+                return sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
             }
 
             #endregion

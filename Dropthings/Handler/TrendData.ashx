@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Text;
 using Dropthings.Business.Facade;
 using Dropthings.Util;
-using Oracle.DataAccess.Client;
 
 public class TrendData : IHttpHandler
 {

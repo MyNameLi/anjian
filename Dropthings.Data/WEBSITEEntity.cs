@@ -12,7 +12,7 @@ namespace Dropthings.Data
     [Serializable]
     public partial class WEBSITEEntity
     {
-        private SqlHelper _oracleHelper;
+        private SqlHelper sqlHelper;
 
         #region const fields
         public const string DBName = "Sentiment";
@@ -32,7 +32,7 @@ namespace Dropthings.Data
         #region constructors
         public WEBSITEEntity()
         {
-            _oracleHelper = new SqlHelper(DBName);
+            sqlHelper = new SqlHelper(DBName);
         }
 
         public WEBSITEEntity(int id, string websitename, string websiteurl)
@@ -72,12 +72,12 @@ namespace Dropthings.Data
 
         public class WEBSITEDAO : SqlDAO<WEBSITEEntity>
         {
-            private SqlHelper _oracleHelper;
+            private SqlHelper sqlHelper;
             public const string DBName = "SentimentConnStr";
 
             public WEBSITEDAO()
             {
-                _oracleHelper = new SqlHelper(DBName);
+                sqlHelper = new SqlHelper(DBName);
             }
 
             public override void Add(WEBSITEEntity entity)
@@ -94,7 +94,7 @@ namespace Dropthings.Data
 					};
                 parameters[0].Value = entity.WEBSITENAME;
                 parameters[1].Value = entity.WEBSITEURL;
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public override void Update(WEBSITEEntity entity)
@@ -115,7 +115,7 @@ namespace Dropthings.Data
                 parameters[1].Value = entity.WEBSITEURL;
                 parameters[2].Value = entity.ID;
 
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public bool UpdateSet(int ID, string ColumnName, string Value)
@@ -126,7 +126,7 @@ namespace Dropthings.Data
                     StrSql.Append("update WEBSITE set ");
                     StrSql.Append(ColumnName + "='" + Value + "'");
                     StrSql.Append(" where ID=" + ID);
-                    _oracleHelper.ExecuteSql(StrSql.ToString(), null);
+                    sqlHelper.ExecuteSql(StrSql.ToString(), null);
                     return true;
                 }
                 catch
@@ -140,7 +140,7 @@ namespace Dropthings.Data
                 string strSql = "delete from WEBSITE where ID=" + ID;
                 try
                 {
-                    _oracleHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -154,7 +154,7 @@ namespace Dropthings.Data
                 string strSql = "delete from WEBSITE where ID in (" + ID + ")";
                 try
                 {
-                    _oracleHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -172,7 +172,7 @@ namespace Dropthings.Data
 						new SqlParameter("@primaryKeyId", SqlDbType.Int)
 					};
                 parameters[0].Value = entity.ID;
-                _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public override WEBSITEEntity FindById(long primaryKeyId)
@@ -183,7 +183,7 @@ namespace Dropthings.Data
                 SqlParameter[] parameters = {
 						new SqlParameter("@primaryKeyId", SqlDbType.Int)};
                 parameters[0].Value = primaryKeyId;
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count == 1)
                 {
                     DataRow row = ds.Tables[0].Rows[0];
@@ -216,7 +216,7 @@ namespace Dropthings.Data
                     strSql.Append(" where " + strWhere);
                 }
 
-                DataSet ds = _oracleHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0)
                 {
                     List<WEBSITEEntity> list = new List<WEBSITEEntity>();
@@ -259,7 +259,7 @@ namespace Dropthings.Data
                 {
                     strSql.Append(" where " + strWhere);
                 }
-                return _oracleHelper.ExecuteDateSet(strSql.ToString(), param);
+                return sqlHelper.ExecuteDateSet(strSql.ToString(), param);
             }
 
             #region paging methods
@@ -277,7 +277,7 @@ namespace Dropthings.Data
                     sql += "where " + where;
                 }
 
-                object obj = _oracleHelper.GetSingle(sql, param);
+                object obj = sqlHelper.GetSingle(sql, param);
 
                 return obj == null ? 0 : Convert.ToInt32(obj);
             }
@@ -316,7 +316,7 @@ namespace Dropthings.Data
                 PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
                 PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
 
-                return _oracleHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
+                return sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
             }
 
             #endregion

@@ -5,7 +5,6 @@ using System.Text;
 using System.Data;
 using Dropthings.Data;
 using Dropthings.Util;
-using Oracle.DataAccess.Client;
 
 namespace Dropthings.Business.Facade
 {
