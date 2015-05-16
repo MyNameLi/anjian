@@ -112,7 +112,7 @@ namespace Dropthings.Data
 					new SqlParameter("@WORDRULE",SqlDbType.NVarChar),
 					new SqlParameter("@THRESHOLDS",SqlDbType.Int),
 					new SqlParameter("@USERNAME",SqlDbType.NVarChar),
-					new SqlParameter("@ACCEPTERS",OracleDbType.NClob)
+					new SqlParameter("@ACCEPTERS",SqlDbType.Text)
 					};
                 parameters[0].Value = entity.WORDRULE;
                 parameters[1].Value = entity.THRESHOLDS;
@@ -136,7 +136,7 @@ namespace Dropthings.Data
 					new SqlParameter("@WORDRULE",SqlDbType.NVarChar),
 					new SqlParameter("@THRESHOLDS",SqlDbType.Int),
 					new SqlParameter("@USERNAME",SqlDbType.NVarChar),
-					new SqlParameter("@ACCEPTERS",OracleDbType.NClob),
+					new SqlParameter("@ACCEPTERS",SqlDbType.Text),
 					new SqlParameter("@ID",SqlDbType.Int)
 				};
                 parameters[0].Value = entity.WORDRULE;

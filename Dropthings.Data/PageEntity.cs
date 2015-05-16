@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-
 using System.Data.SqlClient;
 using System.Data.Common;
 using System.Reflection;
@@ -12,8 +11,8 @@ namespace Dropthings.Data
     [Serializable]
     public partial class PageEntity
     {
-        private SqlHelper _sqlHelper;
-
+        SqlHelper sqlHelper;
+        
         #region const fields
         public const string DBName = "DropthingsConnectionString";
         public const string TableName = "PAGE";
@@ -45,10 +44,10 @@ namespace Dropthings.Data
         #region constructors
         public PageEntity()
         {
-            _sqlHelper = new SqlHelper(DBName);
+            SqlHelper sqlHelper = new SqlHelper(DBName);
         }
 
-        public PageEntity(int id, string title, int userid, DateTime createddate, int versionno, int layouttype, int pagetype, int columncount, DateTime lastupdated, int islocked, DateTime lastlockedstatuschangedat, int isdownformaintenance, DateTime lastdownformaintenanceat, int serveasstartpageafterlogin, int orderno, string url)
+        public PageEntity(int id, string title, int userid, DateTime createddate, int versionno, int layouttype, int pagetype, int columncount, DateTime lastupdated, bool islocked, DateTime lastlockedstatuschangedat, bool isdownformaintenance, DateTime lastdownformaintenanceat, bool serveasstartpageafterlogin, int orderno, string url)
         {
             this.ID = id;
 
@@ -150,7 +149,7 @@ namespace Dropthings.Data
         }
 
 
-        public int ISLOCKED
+        public bool? ISLOCKED
         {
             get;
             set;
@@ -164,7 +163,7 @@ namespace Dropthings.Data
         }
 
 
-        public int ISDOWNFORMAINTENANCE
+        public bool? ISDOWNFORMAINTENANCE
         {
             get;
             set;
@@ -178,7 +177,7 @@ namespace Dropthings.Data
         }
 
 
-        public int SERVEASSTARTPAGEAFTERLOGIN
+        public bool? SERVEASSTARTPAGEAFTERLOGIN
         {
             get;
             set;
@@ -201,12 +200,12 @@ namespace Dropthings.Data
 
         public class PAGEDAO : SqlDAO<PageEntity>
         {
-            private SqlHelper _sqlHelper;
+            private SqlHelper sqlHelper;
             public const string DBName = "SentimentConnStr";
 
             public PAGEDAO()
             {
-                _sqlHelper = new SqlHelper(DBName);
+                sqlHelper = new SqlHelper(DBName);
             }
 
             public string GetTabOwnerName(int TabId)
@@ -220,7 +219,7 @@ namespace Dropthings.Data
 					new SqlParameter("@ID",SqlDbType.Int)};
                 parameters[0].Value = TabId;
 
-                result = Convert.ToString(_sqlHelper.ExecuteScalar(CommandType.Text, strSql.ToString(), parameters));
+                result = Convert.ToString(sqlHelper.ExecuteScalar(CommandType.Text, strSql.ToString(), parameters));
 
                 return result;
             }
@@ -232,7 +231,7 @@ namespace Dropthings.Data
                 strSql.Append("insert into PAGE(");
                 strSql.Append("TITLE,USERID,CREATEDDATE,VERSIONNO,LAYOUTTYPE,PAGETYPE,COLUMNCOUNT,LASTUPDATED,ISLOCKED,LASTLOCKEDSTATUSCHANGEDAT,ISDOWNFORMAINTENANCE,LASTDOWNFORMAINTENANCEAT,SERVEASSTARTPAGEAFTERLOGIN,ORDERNO,URL)");
                 strSql.Append(" values (");
-                strSql.Append("@TITLE,@USERID,@CREATEDDATE,@VERSIONNO,@LAYOUTTYPE,@PAGETYPE,@COLUMNCOUNT,@LASTUPDATED,@ISLOCKED,@LASTLOCKEDSTATUSCHANGEDAT,@ISDOWNFORMAINTENANCE,@LASTDOWNFORMAINTENANCEAT,@SERVEASSTARTPAGEAFTERLOGIN,@ORDERNO,@URL)");
+                strSql.Append(":TITLE,:USERID,:CREATEDDATE,:VERSIONNO,:LAYOUTTYPE,:PAGETYPE,:COLUMNCOUNT,:LASTUPDATED,:ISLOCKED,:LASTLOCKEDSTATUSCHANGEDAT,:ISDOWNFORMAINTENANCE,:LASTDOWNFORMAINTENANCEAT,:SERVEASSTARTPAGEAFTERLOGIN,:ORDERNO,:URL)");
                 SqlParameter[] parameters = {
 					new SqlParameter("@TITLE",SqlDbType.NVarChar),
 					new SqlParameter("@USERID",SqlDbType.Int),
@@ -242,11 +241,11 @@ namespace Dropthings.Data
 					new SqlParameter("@PAGETYPE",SqlDbType.Int),
 					new SqlParameter("@COLUMNCOUNT",SqlDbType.Int),
 					new SqlParameter("@LASTUPDATED",SqlDbType.DateTime),
-					new SqlParameter("@ISLOCKED",SqlDbType.Int),
+					new SqlParameter("@ISLOCKED",SqlDbType.Bit),
 					new SqlParameter("@LASTLOCKEDSTATUSCHANGEDAT",SqlDbType.DateTime),
-					new SqlParameter("@ISDOWNFORMAINTENANCE",SqlDbType.Int),
+					new SqlParameter("@ISDOWNFORMAINTENANCE",SqlDbType.Bit),
 					new SqlParameter("@LASTDOWNFORMAINTENANCEAT",SqlDbType.DateTime),
-					new SqlParameter("@SERVEASSTARTPAGEAFTERLOGIN",SqlDbType.Int),
+					new SqlParameter("@SERVEASSTARTPAGEAFTERLOGIN",SqlDbType.Bit),
 					new SqlParameter("@ORDERNO",SqlDbType.Int),
                     new SqlParameter("@URL",SqlDbType.NVarChar)
 					};
@@ -258,21 +257,21 @@ namespace Dropthings.Data
                 parameters[5].Value = entity.PAGETYPE.Value;
                 parameters[6].Value = entity.COLUMNCOUNT.Value;
                 parameters[7].Value = entity.LASTUPDATED;
-                parameters[8].Value = entity.ISLOCKED;
+                parameters[8].Value = entity.ISLOCKED.Value;
                 parameters[9].Value = entity.LASTLOCKEDSTATUSCHANGEDAT.Value;
-                parameters[10].Value = entity.ISDOWNFORMAINTENANCE;
+                parameters[10].Value = entity.ISDOWNFORMAINTENANCE.Value;
                 parameters[11].Value = entity.LASTDOWNFORMAINTENANCEAT.Value;
-                parameters[12].Value = entity.SERVEASSTARTPAGEAFTERLOGIN;
+                parameters[12].Value = entity.SERVEASSTARTPAGEAFTERLOGIN.Value;
                 parameters[13].Value = entity.ORDERNO.Value;
                 parameters[14].Value = entity.URL;
-                _sqlHelper.ExecuteSql(strSql.ToString(), parameters);
+               sqlHelper.ExecuteSql(strSql.ToString(), parameters);
                 entity.ID = ReturnNewRowId();
             }
 
             private int ReturnNewRowId()
             {
                 string sql = "select PAGE_ID_SEQ.currval NEWID from dual";
-                object NewId = _sqlHelper.GetSingle(sql, null);
+                object NewId =sqlHelper.GetSingle(sql, null);
                 return Convert.ToInt32(NewId);
             }
 
@@ -307,11 +306,11 @@ namespace Dropthings.Data
 					new SqlParameter("@PAGETYPE",SqlDbType.Int),
 					new SqlParameter("@COLUMNCOUNT",SqlDbType.Int),
 					new SqlParameter("@LASTUPDATED",SqlDbType.DateTime),
-					new SqlParameter("@ISLOCKED",SqlDbType.Int),
+					new SqlParameter("@ISLOCKED",SqlDbType.Bit),
 					new SqlParameter("@LASTLOCKEDSTATUSCHANGEDAT",SqlDbType.DateTime),
-					new SqlParameter("@ISDOWNFORMAINTENANCE",SqlDbType.Int),
+					new SqlParameter("@ISDOWNFORMAINTENANCE",SqlDbType.Bit),
 					new SqlParameter("@LASTDOWNFORMAINTENANCEAT",SqlDbType.DateTime),
-					new SqlParameter("@SERVEASSTARTPAGEAFTERLOGIN",SqlDbType.Int),
+					new SqlParameter("@SERVEASSTARTPAGEAFTERLOGIN",SqlDbType.Bit),
 					new SqlParameter("@ORDERNO",SqlDbType.Int),
                     new SqlParameter("@URL",SqlDbType.NVarChar),
                     new SqlParameter("@ID",SqlDbType.Int)
@@ -324,16 +323,16 @@ namespace Dropthings.Data
                 parameters[5].Value = entity.PAGETYPE.Value;
                 parameters[6].Value = entity.COLUMNCOUNT.Value;
                 parameters[7].Value = entity.LASTUPDATED;
-                parameters[8].Value = entity.ISLOCKED;
-                parameters[9].Value = entity.LASTLOCKEDSTATUSCHANGEDAT;
-                parameters[10].Value = entity.ISDOWNFORMAINTENANCE;
-                parameters[11].Value = entity.LASTDOWNFORMAINTENANCEAT;
-                parameters[12].Value = entity.SERVEASSTARTPAGEAFTERLOGIN;
+                parameters[8].Value = entity.ISLOCKED.Value;
+                parameters[9].Value = entity.LASTLOCKEDSTATUSCHANGEDAT.Value;
+                parameters[10].Value = entity.ISDOWNFORMAINTENANCE.Value;
+                parameters[11].Value = entity.LASTDOWNFORMAINTENANCEAT.Value;
+                parameters[12].Value = entity.SERVEASSTARTPAGEAFTERLOGIN.Value;
                 parameters[13].Value = entity.ORDERNO.Value;
                 parameters[14].Value = entity.URL;
                 parameters[15].Value = entity.ID.Value;
 
-                _sqlHelper.ExecuteSql(strSql.ToString(), parameters);
+               sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public bool UpdateSet(int ID, string ColumnName, string Value)
@@ -344,7 +343,7 @@ namespace Dropthings.Data
                     StrSql.Append("update PAGE set ");
                     StrSql.Append(ColumnName + "='" + Value + "'");
                     StrSql.Append(" where ID=" + ID);
-                    _sqlHelper.ExecuteSql(StrSql.ToString(), null);
+                   sqlHelper.ExecuteSql(StrSql.ToString(), null);
                     return true;
                 }
                 catch
@@ -358,7 +357,7 @@ namespace Dropthings.Data
                 string strSql = "delete from PAGE where ID=" + ID;
                 try
                 {
-                    _sqlHelper.ExecuteSql(strSql, null);
+                   sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -372,7 +371,7 @@ namespace Dropthings.Data
                 string strSql = "delete from PAGE where ID in (" + ID + ")";
                 try
                 {
-                    _sqlHelper.ExecuteSql(strSql, null);
+                   sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -390,7 +389,7 @@ namespace Dropthings.Data
 						new SqlParameter("@primaryKeyId", SqlDbType.Int)
 					};
                 parameters[0].Value = entity.ID;
-                _sqlHelper.ExecuteSql(strSql.ToString(), parameters);
+               sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public override PageEntity FindById(long primaryKeyId)
@@ -401,7 +400,7 @@ namespace Dropthings.Data
                 SqlParameter[] parameters = {
 						new SqlParameter("@primaryKeyId", SqlDbType.Int)};
                 parameters[0].Value = primaryKeyId;
-                DataSet ds = _sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds =sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count == 1)
                 {
                     DataRow row = ds.Tables[0].Rows[0];
@@ -441,7 +440,7 @@ namespace Dropthings.Data
                     }
                     if (!Convert.IsDBNull(row["ISLOCKED"]))
                     {
-                        entity.ISLOCKED = Convert.ToInt32(row["ISLOCKED"].ToString());
+                        entity.ISLOCKED = Convert.ToBoolean(row["ISLOCKED"]);
                     }
                     if (!Convert.IsDBNull(row["LASTLOCKEDSTATUSCHANGEDAT"]))
                     {
@@ -449,7 +448,7 @@ namespace Dropthings.Data
                     }
                     if (!Convert.IsDBNull(row["ISDOWNFORMAINTENANCE"]))
                     {
-                        entity.ISDOWNFORMAINTENANCE = Convert.ToInt32(row["ISDOWNFORMAINTENANCE"]);
+                        entity.ISDOWNFORMAINTENANCE = Convert.ToBoolean(row["ISDOWNFORMAINTENANCE"]);
                     }
                     if (!Convert.IsDBNull(row["LASTDOWNFORMAINTENANCEAT"]))
                     {
@@ -457,7 +456,7 @@ namespace Dropthings.Data
                     }
                     if (!Convert.IsDBNull(row["SERVEASSTARTPAGEAFTERLOGIN"]))
                     {
-                        entity.SERVEASSTARTPAGEAFTERLOGIN = Convert.ToInt32(row["SERVEASSTARTPAGEAFTERLOGIN"]);
+                        entity.SERVEASSTARTPAGEAFTERLOGIN = Convert.ToBoolean(row["SERVEASSTARTPAGEAFTERLOGIN"]);
                     }
                     if (!Convert.IsDBNull(row["ORDERNO"]))
                     {
@@ -477,7 +476,7 @@ namespace Dropthings.Data
                 string strsql = "SELECT P.* FROM PAGE P,PAGEOFROLE PR where PR.ROLEID in ("
                 + roleid + ") AND PR.PAGEID = P.ID AND P.USERID=-1";
 
-                DataSet ds = _sqlHelper.ExecuteDateSet(strsql, null);
+                DataSet ds =sqlHelper.ExecuteDateSet(strsql, null);
                 if (ds != null && ds.Tables.Count > 0)
                 {
                     List<PageEntity> list = new List<PageEntity>();
@@ -519,7 +518,7 @@ namespace Dropthings.Data
                         }
                         if (!Convert.IsDBNull(row["ISLOCKED"]))
                         {
-                            entity.ISLOCKED = Convert.ToInt32(row["ISLOCKED"]);
+                            entity.ISLOCKED = Convert.ToBoolean(row["ISLOCKED"]);
                         }
                         if (!Convert.IsDBNull(row["LASTLOCKEDSTATUSCHANGEDAT"]))
                         {
@@ -527,7 +526,7 @@ namespace Dropthings.Data
                         }
                         if (!Convert.IsDBNull(row["ISDOWNFORMAINTENANCE"]))
                         {
-                            entity.ISDOWNFORMAINTENANCE = Convert.ToInt32(row["ISDOWNFORMAINTENANCE"]);
+                            entity.ISDOWNFORMAINTENANCE = Convert.ToBoolean(row["ISDOWNFORMAINTENANCE"]);
                         }
                         if (!Convert.IsDBNull(row["LASTDOWNFORMAINTENANCEAT"]))
                         {
@@ -535,7 +534,7 @@ namespace Dropthings.Data
                         }
                         if (!Convert.IsDBNull(row["SERVEASSTARTPAGEAFTERLOGIN"]))
                         {
-                            entity.SERVEASSTARTPAGEAFTERLOGIN = Convert.ToInt32(row["SERVEASSTARTPAGEAFTERLOGIN"]);
+                            entity.SERVEASSTARTPAGEAFTERLOGIN = Convert.ToBoolean(row["SERVEASSTARTPAGEAFTERLOGIN"]);
                         }
                         if (!Convert.IsDBNull(row["ORDERNO"]))
                         {
@@ -563,7 +562,7 @@ namespace Dropthings.Data
                     strSql.Append(" where " + strWhere);
                 }
 
-                DataSet ds = _sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds =sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0)
                 {
                     List<PageEntity> list = new List<PageEntity>();
@@ -605,7 +604,7 @@ namespace Dropthings.Data
                         }
                         if (!Convert.IsDBNull(row["ISLOCKED"]))
                         {
-                            entity.ISLOCKED = Convert.ToInt32(row["ISLOCKED"]);
+                            entity.ISLOCKED = Convert.ToBoolean(row["ISLOCKED"]);
                         }
                         if (!Convert.IsDBNull(row["LASTLOCKEDSTATUSCHANGEDAT"]))
                         {
@@ -613,7 +612,7 @@ namespace Dropthings.Data
                         }
                         if (!Convert.IsDBNull(row["ISDOWNFORMAINTENANCE"]))
                         {
-                            entity.ISDOWNFORMAINTENANCE = Convert.ToInt32(row["ISDOWNFORMAINTENANCE"]);
+                            entity.ISDOWNFORMAINTENANCE = Convert.ToBoolean(row["ISDOWNFORMAINTENANCE"]);
                         }
                         if (!Convert.IsDBNull(row["LASTDOWNFORMAINTENANCEAT"]))
                         {
@@ -621,7 +620,7 @@ namespace Dropthings.Data
                         }
                         if (!Convert.IsDBNull(row["SERVEASSTARTPAGEAFTERLOGIN"]))
                         {
-                            entity.SERVEASSTARTPAGEAFTERLOGIN = Convert.ToInt32(row["SERVEASSTARTPAGEAFTERLOGIN"]);
+                            entity.SERVEASSTARTPAGEAFTERLOGIN = Convert.ToBoolean(row["SERVEASSTARTPAGEAFTERLOGIN"]);
                         }
                         if (!Convert.IsDBNull(row["ORDERNO"]))
                         {
@@ -648,7 +647,7 @@ namespace Dropthings.Data
                 {
                     strSql.Append(" where " + strWhere);
                 }
-                return _sqlHelper.ExecuteDateSet(strSql.ToString(), param);
+                return sqlHelper.ExecuteDateSet(strSql.ToString(), param);
             }
 
             #region paging methods
@@ -666,7 +665,7 @@ namespace Dropthings.Data
                     sql += "where " + where;
                 }
 
-                object obj = _sqlHelper.GetSingle(sql, param);
+                object obj =sqlHelper.GetSingle(sql, param);
 
                 return obj == null ? 0 : Convert.ToInt32(obj);
             }
@@ -705,7 +704,7 @@ namespace Dropthings.Data
                 PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
                 PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
 
-                return _sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
+                return sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
             }
 
             #endregion

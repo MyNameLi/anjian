@@ -197,7 +197,7 @@ namespace Dropthings.Data
 					new SqlParameter("@COLUMNNAMERULE",SqlDbType.NVarChar),
 					new SqlParameter("@COLUMNIMGPATH",SqlDbType.NVarChar),
 					new SqlParameter("@COLUMNTELEMPLATEPATH",SqlDbType.NVarChar),
-					new SqlParameter("@COLUMNCONTENT",OracleDbType.NClob),
+					new SqlParameter("@COLUMNCONTENT",SqlDbType.NText),
 					new SqlParameter("@ISDIS",SqlDbType.Int),
 					new SqlParameter("@PARENTID",SqlDbType.Int),
 					new SqlParameter("@SITEID",SqlDbType.Int)
@@ -245,7 +245,7 @@ namespace Dropthings.Data
 					new SqlParameter("@COLUMNNAMERULE",SqlDbType.NVarChar),
 					new SqlParameter("@COLUMNIMGPATH",SqlDbType.NVarChar),
 					new SqlParameter("@COLUMNTELEMPLATEPATH",SqlDbType.NVarChar),
-					new SqlParameter("@COLUMNCONTENT",OracleDbType.NClob),
+					new SqlParameter("@COLUMNCONTENT",SqlDbType.NText),
 					new SqlParameter("@ISDIS",SqlDbType.Int),
 					new SqlParameter("@PARENTID",SqlDbType.Int),
 					new SqlParameter("@SITEID",SqlDbType.Int),

@@ -12,7 +12,7 @@ using Dropthings.Business.Facade;
 
 namespace Dropthings.RestApi
 {
-    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Required)]    
+    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Required)]
     public partial class WidgetService : IWidgetService
     {
         public void AddWidgetInstance(int widgetId, int toZone, int toRow)

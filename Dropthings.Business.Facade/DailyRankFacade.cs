@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Dropthings.Data;
 using System.Data;
-using Oracle.DataAccess.Client;
+using System.Data.SqlClient;
 
 namespace Dropthings.Business.Facade
 {
@@ -17,7 +17,7 @@ namespace Dropthings.Business.Facade
         //    OracleParameter[] parameters = {
         //            new OracleParameter(":STARTTIME",OracleDbType.Date),
         //            new OracleParameter(":ENDTIME",OracleDbType.Date),
-        //            new OracleParameter(":NEWSTYPE",OracleDbType.Int32)
+        //            new OracleParameter(":NEWSTYPE",SqlDbType.Int)
         //            };
         //    parameters[0].Value = DateTime.Parse(startTime);
         //    parameters[1].Value = DateTime.Parse(endTime);
@@ -27,15 +27,15 @@ namespace Dropthings.Business.Facade
         //}
         public static DataTable GetTodayLog(string startTime, string endTime)
         {
-            string sqlwhere = " CREATETIME BETWEEN :STARTTIME AND :ENDTIME ORDER BY NEWSTYPE ASC ";
-            OracleParameter[] parameters = {
-					new OracleParameter(":STARTTIME",OracleDbType.Date),
-					new OracleParameter(":ENDTIME",OracleDbType.Date)
+            string sqlwhere = " CREATETIME BETWEEN @STARTTIME AND @ENDTIME ORDER BY NEWSTYPE ASC ";
+            SqlParameter[] parameters = {
+					new SqlParameter("@STARTTIME",SqlDbType.DateTime),
+					new SqlParameter("@ENDTIME",SqlDbType.DateTime)
 		            };
             parameters[0].Value = DateTime.Parse(startTime);
             parameters[1].Value = DateTime.Parse(endTime);
 
-            return dao.GetDataSet(sqlwhere, parameters).Tables[0];
+            return dao.GetDataSet(sqlwhere, parameters).Tables[0]; 
         }
     }
 }

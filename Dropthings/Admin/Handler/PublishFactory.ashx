@@ -78,7 +78,7 @@ public class PublishFactory : IHttpHandler
     
     private Dictionary<string,string> GetTemplateInfo(int columnid)
     {
-        OracleHelper helper = new OracleHelper("SentimentConnStr");
+        SqlHelper helper = new SqlHelper("SentimentConnStr");
         StringBuilder sqlstr = new StringBuilder();
         sqlstr.Append("SELECT * FROM COLUMNDEF a");
         sqlstr.Append(" inner join TEMPLATE b ");

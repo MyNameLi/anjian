@@ -242,3 +242,107 @@ Win32 Thread Id: 5080
 Thread Name: 
 Extended Properties: 
 ----------------------------------------
+----------------------------------------
+Timestamp: 2015/5/16 5:04:12
+Message: HandlingInstanceID: aeb7969d-ff39-4203-9644-b37949f68797
+An exception of type 'System.InvalidOperationException' occurred and was caught.
+--------------------------------------------------------------------------------
+05/16/2015 13:04:12
+Type : System.InvalidOperationException, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+Message : 阅读器关闭时尝试调用 Read 无效。
+Source : System.Data
+Help link : 
+Data : System.Collections.ListDictionaryInternal
+TargetSite : Boolean TryReadInternal(Boolean, Boolean ByRef)
+HResult : -2146233079
+Stack Trace :    在 System.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   在 System.Data.SqlClient.SqlDataReader.Read()
+   在 Dropthings.Data.ColumnEntity.ColumnDAO.GetColumnsByTabId(Int32 TabId) 位置 d:\gooko\anjian\Dropthings.Data\ColumnEntity.cs:行号 344
+   在 Dropthings.Data.Repository.ColumnRepository.<>c__DisplayClass1.<GetColumnsByTabId>b__0() 位置 d:\gooko\anjian\Dropthings.Data\Repository\ColumnRepository.cs:行号 65
+   在 OmarALZabir.AspectF.AspectExtensions.GetListFromSource[TReturnType](AspectF aspect, ICache cacheResolver, String key) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 564
+   在 OmarALZabir.AspectF.AspectExtensions.Cache[TReturnType](AspectF aspect, ICache cacheResolver, String key, Action work, Func`2 foundInCache) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 511
+   在 OmarALZabir.AspectF.AspectExtensions.<>c__DisplayClass56`1.<Cache>b__54(Action work) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 417
+   在 OmarALZabir.AspectF.AspectF.Return[TReturnType](Func`1 work) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 103
+   在 Dropthings.Data.Repository.ColumnRepository.GetColumnsByTabId(Int32 TabId) 位置 d:\gooko\anjian\Dropthings.Data\Repository\ColumnRepository.cs:行号 62
+   在 Dropthings.Business.Facade.Facade.GetColumnsInTab(Int32 pageId) 位置 d:\gooko\anjian\Dropthings.Business.Facade\Facade.Page.cs:行号 36
+   在 WidgetTabHost.SetupWidgetZones(String widgetContainerPath) 位置 d:\gooko\anjian\Dropthings\WidgetTabHost.ascx.cs:行号 108
+   在 WidgetTabHost.LoadWidgets(PageEntity tab, String widgetContainerPath) 位置 d:\gooko\anjian\Dropthings\WidgetTabHost.ascx.cs:行号 88
+   在 _Default.<>c__DisplayClass6.<CreateChildControls>b__3() 位置 d:\gooko\anjian\Dropthings\Default.aspx.cs:行号 133
+   在 OmarALZabir.AspectF.AspectExtensions.<>c__DisplayClass38.<Log>b__37(Action work) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 307
+   在 OmarALZabir.AspectF.AspectF.<>c__DisplayClass4.<>c__DisplayClass6.<Combine>b__1() 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 62
+   在 OmarALZabir.AspectF.AspectExtensions.Retry(Int32 retryDuration, Int32 retryCount, Action`1 errorHandler, Action`1 retryFailed, Action work, ILogger logger) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 191
+
+Additional Info:
+
+MachineName : WINDOWS-CL3DG12
+TimeStamp : 2015/5/16 5:04:12
+FullName : Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+AppDomainName : /LM/W3SVC/30/ROOT-1-130762261183235106
+ThreadIdentity : 
+WindowsIdentity : WINDOWS-CL3DG12\Administrator
+
+Category: Exception
+Priority: 0
+EventId: 100
+Severity: Error
+Title:Log Exception
+Machine: WINDOWS-CL3DG12
+Application Domain: /LM/W3SVC/30/ROOT-1-130762261183235106
+Process Id: 5576
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Win32 Thread Id: 5516
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 2015/5/16 5:04:14
+Message: HandlingInstanceID: 35e3ddf9-6a9f-421f-93c9-0d1426609f5b
+An exception of type 'System.InvalidOperationException' occurred and was caught.
+--------------------------------------------------------------------------------
+05/16/2015 13:04:14
+Type : System.InvalidOperationException, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+Message : 阅读器关闭时尝试调用 Read 无效。
+Source : System.Data
+Help link : 
+Data : System.Collections.ListDictionaryInternal
+TargetSite : Boolean TryReadInternal(Boolean, Boolean ByRef)
+HResult : -2146233079
+Stack Trace :    在 System.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   在 System.Data.SqlClient.SqlDataReader.Read()
+   在 Dropthings.Data.ColumnEntity.ColumnDAO.GetColumnsByTabId(Int32 TabId) 位置 d:\gooko\anjian\Dropthings.Data\ColumnEntity.cs:行号 344
+   在 Dropthings.Data.Repository.ColumnRepository.<>c__DisplayClass1.<GetColumnsByTabId>b__0() 位置 d:\gooko\anjian\Dropthings.Data\Repository\ColumnRepository.cs:行号 65
+   在 OmarALZabir.AspectF.AspectExtensions.GetListFromSource[TReturnType](AspectF aspect, ICache cacheResolver, String key) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 564
+   在 OmarALZabir.AspectF.AspectExtensions.Cache[TReturnType](AspectF aspect, ICache cacheResolver, String key, Action work, Func`2 foundInCache) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 511
+   在 OmarALZabir.AspectF.AspectExtensions.<>c__DisplayClass56`1.<Cache>b__54(Action work) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 417
+   在 OmarALZabir.AspectF.AspectF.Return[TReturnType](Func`1 work) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 103
+   在 Dropthings.Data.Repository.ColumnRepository.GetColumnsByTabId(Int32 TabId) 位置 d:\gooko\anjian\Dropthings.Data\Repository\ColumnRepository.cs:行号 62
+   在 Dropthings.Business.Facade.Facade.GetColumnsInTab(Int32 pageId) 位置 d:\gooko\anjian\Dropthings.Business.Facade\Facade.Page.cs:行号 36
+   在 WidgetTabHost.SetupWidgetZones(String widgetContainerPath) 位置 d:\gooko\anjian\Dropthings\WidgetTabHost.ascx.cs:行号 108
+   在 WidgetTabHost.LoadWidgets(PageEntity tab, String widgetContainerPath) 位置 d:\gooko\anjian\Dropthings\WidgetTabHost.ascx.cs:行号 88
+   在 _Default.<>c__DisplayClass6.<CreateChildControls>b__3() 位置 d:\gooko\anjian\Dropthings\Default.aspx.cs:行号 133
+   在 OmarALZabir.AspectF.AspectExtensions.<>c__DisplayClass38.<Log>b__37(Action work) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 307
+   在 OmarALZabir.AspectF.AspectF.<>c__DisplayClass4.<>c__DisplayClass6.<Combine>b__1() 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 62
+   在 OmarALZabir.AspectF.AspectExtensions.Retry(Int32 retryDuration, Int32 retryCount, Action`1 errorHandler, Action`1 retryFailed, Action work, ILogger logger) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 191
+
+Additional Info:
+
+MachineName : WINDOWS-CL3DG12
+TimeStamp : 2015/5/16 5:04:14
+FullName : Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+AppDomainName : /LM/W3SVC/30/ROOT-1-130762261183235106
+ThreadIdentity : 
+WindowsIdentity : WINDOWS-CL3DG12\Administrator
+
+Category: Exception
+Priority: 0
+EventId: 100
+Severity: Error
+Title:Log Exception
+Machine: WINDOWS-CL3DG12
+Application Domain: /LM/W3SVC/30/ROOT-1-130762261183235106
+Process Id: 5576
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Win32 Thread Id: 5516
+Thread Name: 
+Extended Properties: 
+----------------------------------------

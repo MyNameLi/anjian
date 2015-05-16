@@ -8,7 +8,7 @@ using IdolACINet;
 using System.Data;
 using System.Configuration;
 using Dropthings.Util;
-using Dropthings.Data.DB;
+
 //using Oracle.DataAccess.Client;
 
 namespace Dropthings.Business.Facade

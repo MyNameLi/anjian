@@ -122,7 +122,8 @@
 
         public List<WidgetEntity> GetWidgetByIsDefault(bool isDefault)
         {
-            return GetAllWidgets().Where(w => w.ISDEFAULT.Value == isDefault).ToList();
+            return null;
+            //return GetAllWidgets().Where(w => w.ISDEFAULT.Value == isDefault).ToList();
         }
 
         public WidgetEntity Insert(WidgetEntity w)

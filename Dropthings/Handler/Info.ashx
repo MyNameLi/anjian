@@ -193,7 +193,7 @@ public class Info : IHttpHandler
         StringBuilder jsonStr = new StringBuilder();
 
         string strSql = "SELECT SUM(TOTALHITS) AS HITS,TAG FROM CITYHITS GROUP BY TAG ORDER BY HITS DESC";
-        OracleHelper Helper = new OracleHelper("SentimentConnStr");
+        SqlHelper Helper = new SqlHelper("SentimentConnStr");
         DataSet ds = Helper.ExecuteDateSet(strSql);
         jsonStr.Append("{");
         if (ds != null)

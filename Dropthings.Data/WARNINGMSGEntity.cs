@@ -123,7 +123,7 @@ namespace Dropthings.Data
 					new SqlParameter("@PAGEVIEW",SqlDbType.Int),
 					new SqlParameter("@INVITATION",SqlDbType.Int),
 					new SqlParameter("@USERNAME",SqlDbType.NVarChar),
-					new SqlParameter("@ACCEPTERS",OracleDbType.NClob)
+					new SqlParameter("@ACCEPTERS",SqlDbType.NText)
 					};
                 parameters[0].Value = entity.WEBSITEID;
                 parameters[1].Value = entity.PAGEVIEW;
@@ -150,7 +150,7 @@ namespace Dropthings.Data
 					new SqlParameter("@PAGEVIEW",SqlDbType.Int),
 					new SqlParameter("@INVITATION",SqlDbType.Int),
 					new SqlParameter("@USERNAME",SqlDbType.NVarChar),
-					new SqlParameter("@ACCEPTERS",OracleDbType.NClob),
+					new SqlParameter("@ACCEPTERS",SqlDbType.NText),
 					new SqlParameter("@ID",SqlDbType.Int)
 				};
                 parameters[0].Value = entity.WEBSITEID;

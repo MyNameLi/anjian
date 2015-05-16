@@ -45,8 +45,8 @@
         {
             List<WidgetEntity> defaultWidgets = null;
 
-            defaultWidgets = (!string.IsNullOrEmpty(userName)) ?
-                this.GetWidgetList(userName, Enumerations.WidgetType.PersonalTab).Where(w => w.ISDEFAULT==1).ToList() :
+            defaultWidgets = (/*System.Web.Security.Roles.Enabled &&*/ !string.IsNullOrEmpty(userName)) ?
+                this.GetWidgetList(userName, Enumerations.WidgetType.PersonalTab).Where(w => w.ISDEFAULT == true).ToList() :
                 this.widgetRepository.GetWidgetByIsDefault(true);
 
             var widgetsPerColumn = (int)Math.Ceiling((float)defaultWidgets.Count / 3.0);
@@ -56,27 +56,27 @@
 
             var widgetZone = this.widgetZoneRepository.GetWidgetZoneByTabId_ColumnNo(pageId, col);
             List<WidgetInstanceEntity> wis = defaultWidgets.ConvertAll<WidgetInstanceEntity>(widget =>
+            {
+                var instance = new WidgetInstanceEntity();
+
+                instance.WIDGETZONEID = widgetZone.ID;
+                instance.ORDERNO = row;
+                instance.CREATEDDATE = DateTime.Now;
+                instance.EXPANDED = true;
+                instance.TITLE = widget.NAME;
+                instance.VERSIONNO = 1;
+                instance.WIDGETID = widget.ID;
+                instance.STATE = widget.DEFAULTSTATE;
+
+                row++;
+                if (row >= widgetsPerColumn)
                 {
-                    var instance = new WidgetInstanceEntity();
+                    row = 0;
+                    col++;
+                }
 
-                    instance.WIDGETZONEID = widgetZone.ID;
-                    instance.ORDERNO = row;
-                    instance.CREATEDDATE = DateTime.Now;
-                    instance.EXPANDED = 1;
-                    instance.TITLE = widget.NAME;
-                    instance.VERSIONNO = 1;
-                    instance.WIDGETID = widget.ID;
-                    instance.STATE = widget.DEFAULTSTATE;
-
-                    row++;
-                    if (row >= widgetsPerColumn)
-                    {
-                        row = 0;
-                        col++;
-                    }
-
-                    return instance;
-                });
+                return instance;
+            });
             this.widgetInstanceRepository.InsertList(wis);
         }
 
@@ -108,22 +108,22 @@
 
             var widgetsForUser = GetWidgetList(Context.CurrentUserName, Enumerations.WidgetType.PersonalTab);
             widgetInstances.Each(wi =>
+            {
+                if (wi.WIDGETID == 0)
+                    wi.Widget = this.widgetRepository.GetWidgetById(wi.WIDGETID.Value);
+
+                // Ensure the user has permission to see all the widgets. It's possible that
+                // roles have been revoked from the widgets after it was added on the user's page
+                if (!widgetsForUser.Exists(w => wi.ID == wi.WIDGETID))
                 {
-                    if (wi.WIDGETID == 0)
-                        wi.Widget = this.widgetRepository.GetWidgetById(wi.WIDGETID.Value);
+                    // user can no longer have this widget
 
-                    // Ensure the user has permission to see all the widgets. It's possible that
-                    // roles have been revoked from the widgets after it was added on the user's page
-                    if (!widgetsForUser.Exists(w => wi.ID == wi.WIDGETID))
-                    {
-                        // user can no longer have this widget
-
-                    }
-                });
+                }
+            });
             return widgetInstances.OrderBy(wi => wi.ORDERNO.Value);
         }
 
-        public WidgetInstanceEntity ExpandWidget(int widgetInstanceId, int isExpand)
+        public WidgetInstanceEntity ExpandWidget(int widgetInstanceId, bool isExpand)
         {
             EnsureOwner(0, widgetInstanceId, 0);
             var widgetInstance = this.GetWidgetInstanceById(widgetInstanceId);
@@ -192,9 +192,9 @@
                         list.Where(wi => wi.ORDERNO.Value >= toRowId)
                             .OrderBy(wi => wi.ORDERNO.Value)
                             .Each(wi =>
-                                {
-                                    wi.ORDERNO = orderNo++;
-                                });
+                            {
+                                wi.ORDERNO = orderNo++;
+                            });
                     }
 
                     widgetInstance.ORDERNO = toRowId;
@@ -237,31 +237,31 @@
         private void ChangeWidgetInstancePosition(int widgetInstanceId, int toZoneId, int rowNo)
         {
             this.GetWidgetInstanceById(widgetInstanceId).As(wi =>
+            {
+                var fromZoneId = wi.WIDGETZONEID.Value;
+                if (fromZoneId != toZoneId)
                 {
-                    var fromZoneId = wi.WIDGETZONEID.Value;
-                    if (fromZoneId != toZoneId)
-                    {
-                        // widget moving from one zone to another. Need to clear all cached
-                        // instances of widgets on the source zone
-                        CacheKeys.WidgetZoneKeys.AllWidgetZoneIdBasedKeys(fromZoneId)
+                    // widget moving from one zone to another. Need to clear all cached
+                    // instances of widgets on the source zone
+                    CacheKeys.WidgetZoneKeys.AllWidgetZoneIdBasedKeys(fromZoneId)
+                        .Each(key => Services.Get<ICache>().Remove(key));
+
+                    // Change the widget zone reference to reflect the new widgetzone for the
+                    // widget instance
+                    //var newWidgetZone = this.widgetZoneRepository.GetWidgetZoneById(toZoneId);
+                    wi.WIDGETZONEID = toZoneId;//.WidgetZone = newWidgetZone;// new WidgetZone { ID = newWidgetZone.ID };
+                    //wi.WidgetZoneReference = new EntityReference<WidgetZoneEntity> { EntityKey = newWidgetZone.EntityKey };
+
+                    // The new dropped zone now has more widgets than before. So clear cache for widgets
+                    // on that zone
+                    CacheKeys.WidgetZoneKeys.AllWidgetZoneIdBasedKeys(toZoneId)
                             .Each(key => Services.Get<ICache>().Remove(key));
+                }
 
-                        // Change the widget zone reference to reflect the new widgetzone for the
-                        // widget instance
-                        //var newWidgetZone = this.widgetZoneRepository.GetWidgetZoneById(toZoneId);
-                        wi.WIDGETZONEID = toZoneId;//.WidgetZone = newWidgetZone;// new WidgetZone { ID = newWidgetZone.ID };
-                        //wi.WidgetZoneReference = new EntityReference<WidgetZoneEntity> { EntityKey = newWidgetZone.EntityKey };
+                //wi.ORDERNO = rowNo;
 
-                        // The new dropped zone now has more widgets than before. So clear cache for widgets
-                        // on that zone
-                        CacheKeys.WidgetZoneKeys.AllWidgetZoneIdBasedKeys(toZoneId)
-                                .Each(key => Services.Get<ICache>().Remove(key));
-                    }
-
-                    //wi.ORDERNO = rowNo;
-
-                    //this.widgetInstanceRepository.Update(wi);
-                });
+                //this.widgetInstanceRepository.Update(wi);
+            });
         }
 
         private void ReorderWidgetInstancesOnWidgetZone(int widgetZoneId)
@@ -288,10 +288,10 @@
         public WidgetInstanceEntity SaveWidgetInstanceState(int widgetInstanceId, string state)
         {
             this.GetWidgetInstanceById(widgetInstanceId).As(wi =>
-                {
-                    wi.STATE = state;
-                    this.widgetInstanceRepository.Update(wi);
-                });
+            {
+                wi.STATE = state;
+                this.widgetInstanceRepository.Update(wi);
+            });
 
             return this.GetWidgetInstanceById(widgetInstanceId);
         }
@@ -301,24 +301,24 @@
             EnsureOwner(0, widgetInstanceId, 0);
 
             this.GetWidgetInstanceById(widgetInstanceId).As(wi =>
-                {
-                    wi.RESIZED = 1;
-                    wi.WIDTH = width;
-                    wi.HEIGHT = height;
-                    this.widgetInstanceRepository.Update(wi);
-                });
+            {
+                wi.RESIZED = true;
+                wi.WIDTH = width;
+                wi.HEIGHT = height;
+                this.widgetInstanceRepository.Update(wi);
+            });
 
             return this.GetWidgetInstanceById(widgetInstanceId);
         }
 
-        public WidgetInstanceEntity MaximizeWidget(int widgetInstanceId, int isMaximized)
+        public WidgetInstanceEntity MaximizeWidget(int widgetInstanceId, bool isMaximized)
         {
             this.GetWidgetInstanceById(widgetInstanceId).As(wi =>
-                {
-                    wi.MAXIMIZED = isMaximized;
+            {
+                wi.MAXIMIZED = isMaximized;
 
-                    this.widgetInstanceRepository.Update(wi);
-                });
+                this.widgetInstanceRepository.Update(wi);
+            });
 
             return this.GetWidgetInstanceById(widgetInstanceId);
         }
@@ -328,10 +328,10 @@
             EnsureOwner(0, widgetInstanceId, 0);
 
             this.GetWidgetInstanceById(widgetInstanceId).As(wi =>
-                {
-                    wi.TITLE = newTitle;
-                    this.widgetInstanceRepository.Update(wi);
-                });
+            {
+                wi.TITLE = newTitle;
+                this.widgetInstanceRepository.Update(wi);
+            });
 
             return this.GetWidgetInstanceById(widgetInstanceId);
         }
@@ -374,10 +374,10 @@
                 WIDGETID = widget.ID.Value,
                 STATE = widget.DEFAULTSTATE,
                 CREATEDDATE = DateTime.Now,
-                EXPANDED = 1,
+                EXPANDED = true,
                 LASTUPDATE = DateTime.Now,
-                MAXIMIZED = 0,
-                RESIZED = 0,
+                MAXIMIZED = false,
+                RESIZED = false,
                 VERSIONNO = 1,
                 WIDTH = 0,
                 HEIGHT = 0
@@ -386,7 +386,17 @@
             return this.widgetInstanceRepository.GetWidgetInstanceById(insertedWidget.ID.Value);
         }
 
-        public WidgetEntity AddWidget(string name, string url, string icon, string description, string defaultState, int isDefault, int isLocked, int orderNo, string roleName, int widgetType)
+        public WidgetEntity AddWidget(
+            string name,
+            string url,
+            string icon,
+            string description,
+            string defaultState,
+            bool isDefault,
+            bool isLocked,
+            int orderNo,
+            string roleName,
+            int widgetType)
         {
             return this.widgetRepository.Insert(new WidgetEntity
             {
@@ -407,7 +417,18 @@
             });
         }
 
-        public void UpdateWidget(int widgetId, string name, string url, string icon, string description, string defaultState, int isDefault, int isLocked, int orderNo, string roleName, int widgetType)
+        public void UpdateWidget(
+            int widgetId,
+            string name,
+            string url,
+            string icon,
+            string description,
+            string defaultState,
+            bool isDefault,
+            bool isLocked,
+            int orderNo,
+            string roleName,
+            int widgetType)
         {
             var widget = this.widgetRepository.GetWidgetById(widgetId);
 

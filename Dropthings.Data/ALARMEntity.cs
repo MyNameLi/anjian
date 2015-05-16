@@ -188,7 +188,7 @@ namespace Dropthings.Data
 					new SqlParameter("@RULEALARMNUM",SqlDbType.Int),
 					new SqlParameter("@ALARMREPLYNUM",SqlDbType.Int),
 					new SqlParameter("@ALARMCLICKRATE",SqlDbType.Int),
-					new SqlParameter("@USERNAME",OracleDbType.NClob),
+					new SqlParameter("@USERNAME",SqlDbType.NText),
 					new SqlParameter("@ISLOOK",SqlDbType.Int)
 					};
                 parameters[0].Value = entity.DOCREF;
@@ -233,7 +233,7 @@ namespace Dropthings.Data
 					new SqlParameter("@RULEALARMNUM",SqlDbType.Int),
 					new SqlParameter("@ALARMREPLYNUM",SqlDbType.Int),
 					new SqlParameter("@ALARMCLICKRATE",SqlDbType.Int),
-					new SqlParameter("@USERNAME",OracleDbType.NClob),
+					new SqlParameter("@USERNAME",SqlDbType.NText),
 					new SqlParameter("@ISLOOK",SqlDbType.Int),
 					new SqlParameter("@ID",SqlDbType.Int)
 				};

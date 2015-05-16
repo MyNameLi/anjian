@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-
 using System.Data.SqlClient;
 using System.Data.Common;
 using System.Reflection;
@@ -12,7 +11,7 @@ namespace Dropthings.Data
     [Serializable]
     public partial class WidgetEntity
     {
-        private SqlHelper _sqlHelper;
+        private SqlHelper sqlHelper;
 
         #region const fields
         public const string DBName = "SentimentConnStr";
@@ -43,10 +42,10 @@ namespace Dropthings.Data
         #region constructors
         public WidgetEntity()
         {
-            _sqlHelper = new SqlHelper(DBName);
+            sqlHelper = new SqlHelper(DBName);
         }
 
-        public WidgetEntity(int id, string name, string url, string description, string defaultstate, string icon, int orderno, string rolename, int islocked, int isdefault, DateTime createddate, int versionno, DateTime lastupdate, int widgettype)
+        public WidgetEntity(int id, string name, string url, string description, string defaultstate, string icon, int orderno, string rolename, bool islocked, bool isdefault, DateTime createddate, int versionno, DateTime lastupdate, int widgettype)
         {
             this.ID = id;
 
@@ -137,14 +136,14 @@ namespace Dropthings.Data
         }
 
 
-        public int ISLOCKED
+        public bool? ISLOCKED
         {
             get;
             set;
         }
 
 
-        public int ISDEFAULT
+        public bool? ISDEFAULT
         {
             get;
             set;
@@ -182,13 +181,13 @@ namespace Dropthings.Data
 
         public class WIDGETDAO : SqlDAO<WidgetEntity>
         {
-            private SqlHelper _sqlHelper;
-           
+            private SqlHelper sqlHelper;
+
             public const string DBName = "SentimentConnStr";
 
             public WIDGETDAO()
             {
-                _sqlHelper = new SqlHelper(DBName);
+                sqlHelper = new SqlHelper(DBName);
             }
 
 
@@ -200,17 +199,17 @@ namespace Dropthings.Data
                 strSql.Append("insert into WIDGET(");
                 strSql.Append("NAME,URL,DESCRIPTION,DEFAULTSTATE,ICON,ORDERNO,ROLENAME,ISLOCKED,ISDEFAULT,CREATEDDATE,VERSIONNO,LASTUPDATE,WIDGETTYPE)");
                 strSql.Append(" values (");
-                strSql.Append("@NAME,@URL,@DESCRIPTION,@DEFAULTSTATE,@ICON,@ORDERNO,@ROLENAME,@ISLOCKED,@ISDEFAULT,@CREATEDDATE,@VERSIONNO,@LASTUPDATE,@WIDGETTYPE)");
+                strSql.Append(":NAME,:URL,:DESCRIPTION,:DEFAULTSTATE,:ICON,:ORDERNO,:ROLENAME,:ISLOCKED,:ISDEFAULT,:CREATEDDATE,:VERSIONNO,:LASTUPDATE,:WIDGETTYPE)");
                 SqlParameter[] parameters = {
 					new SqlParameter("@NAME",SqlDbType.NVarChar),
 					new SqlParameter("@URL",SqlDbType.NVarChar),
 					new SqlParameter("@DESCRIPTION",SqlDbType.NVarChar),
 					new SqlParameter("@DEFAULTSTATE",SqlDbType.NVarChar),
-					new SqlParameter("@ICON",SqlDbType.NVarChar),
+					new SqlParameter("@ICON",SqlDbType.VarChar),
 					new SqlParameter("@ORDERNO",SqlDbType.Int),
-					new SqlParameter("@ROLENAME",SqlDbType.NVarChar),
-					new SqlParameter("@ISLOCKED",SqlDbType.Int),
-					new SqlParameter("@ISDEFAULT",SqlDbType.Int),
+					new SqlParameter("@ROLENAME",SqlDbType.VarChar),
+					new SqlParameter("@ISLOCKED",SqlDbType.Bit),
+					new SqlParameter("@ISDEFAULT",SqlDbType.Bit),
 					new SqlParameter("@CREATEDDATE",SqlDbType.DateTime),
 					new SqlParameter("@VERSIONNO",SqlDbType.Int),
 					new SqlParameter("@LASTUPDATE",SqlDbType.DateTime),
@@ -231,15 +230,15 @@ namespace Dropthings.Data
                 parameters[12].Value = entity.WIDGETTYPE;
                 //parameters[13].Direction = ParameterDirection.Output;
 
-                _sqlHelper.ExecuteSql(strSql.ToString(), parameters);
-                //object obj = _sqlHelper.ExecuteScalar(CommandType.Text, strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
+                //object obj = sqlHelper.ExecuteScalar(CommandType.Text, strSql.ToString(), parameters);
                 entity.ID = ReturnNewRowId();
             }
 
             private int ReturnNewRowId()
             {
                 string sql = "select WIDGET_ID_SEQ.currval NEWID from dual";
-                object NewId = _sqlHelper.GetSingle(sql, null);
+                object NewId = sqlHelper.GetSingle(sql, null);
                 return Convert.ToInt32(NewId);
             }
 
@@ -263,16 +262,16 @@ namespace Dropthings.Data
                 strSql.Append("WIDGETTYPE=@WIDGETTYPE");
 
                 strSql.Append(" where ID=@ID");
-                SqlParameter[] parameters = {
+                SqlParameter[]parameters = {
 					new SqlParameter("@NAME",SqlDbType.NVarChar),
 					new SqlParameter("@URL",SqlDbType.NVarChar),
 					new SqlParameter("@DESCRIPTION",SqlDbType.NVarChar),
 					new SqlParameter("@DEFAULTSTATE",SqlDbType.NVarChar),
-					new SqlParameter("@ICON",SqlDbType.NVarChar),
+					new SqlParameter("@ICON",SqlDbType.VarChar),
 					new SqlParameter("@ORDERNO",SqlDbType.Int),
-					new SqlParameter("@ROLENAME",SqlDbType.NVarChar),
-					new SqlParameter("@ISLOCKED",SqlDbType.Int),
-					new SqlParameter("@ISDEFAULT",SqlDbType.Int),
+					new SqlParameter("@ROLENAME",SqlDbType.VarChar),
+					new SqlParameter("@ISLOCKED",SqlDbType.Bit),
+					new SqlParameter("@ISDEFAULT",SqlDbType.Bit),
 					new SqlParameter("@CREATEDDATE",SqlDbType.DateTime),
 					new SqlParameter("@VERSIONNO",SqlDbType.Int),
 					new SqlParameter("@LASTUPDATE",SqlDbType.DateTime),
@@ -294,7 +293,7 @@ namespace Dropthings.Data
                 parameters[12].Value = entity.WIDGETTYPE;
                 parameters[13].Value = entity.ID;
 
-                _sqlHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public bool UpdateSet(int ID, string ColumnName, string Value)
@@ -305,7 +304,7 @@ namespace Dropthings.Data
                     StrSql.Append("update WIDGET set ");
                     StrSql.Append(ColumnName + "='" + Value + "'");
                     StrSql.Append(" where ID=" + ID);
-                    _sqlHelper.ExecuteSql(StrSql.ToString(), null);
+                    sqlHelper.ExecuteSql(StrSql.ToString(), null);
                     return true;
                 }
                 catch
@@ -319,7 +318,7 @@ namespace Dropthings.Data
                 string strSql = "delete from WIDGET where ID=" + ID;
                 try
                 {
-                    _sqlHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -333,7 +332,7 @@ namespace Dropthings.Data
                 string strSql = "delete from WIDGET where ID in (" + ID + ")";
                 try
                 {
-                    _sqlHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -347,11 +346,11 @@ namespace Dropthings.Data
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("delete from WIDGET ");
                 strSql.Append(" where ID=@primaryKeyId");
-                SqlParameter[] parameters = {
+                SqlParameter[]parameters = {
 						new SqlParameter("@primaryKeyId", SqlDbType.Int)
 					};
                 parameters[0].Value = entity.ID;
-                _sqlHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public List<WidgetEntity> GetInstanceWidgetsByTabId(int tabId)
@@ -360,11 +359,11 @@ namespace Dropthings.Data
                 strSql.Append("select W.*");
                 strSql.Append(" FROM WIDGET W , WIDGETINSTANCE WI, PAGE P, COLUMNOFPAGE C, WIDGETZONE WZ");
                 strSql.Append(" WHERE P.ID=@ID AND P.ID=C.PAGEID AND WI.WIDGETID=W.ID AND WZ.ID=C.WIDGETZONEID AND WI.WIDGETZONEID=WZ.ID");
-                SqlParameter[] parameters ={
+                SqlParameter[]parameters ={
 					new SqlParameter("@ID",SqlDbType.Int)};
                 parameters[0].Value = tabId;
 
-                DataSet ds = _sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0)
                 {
                     List<WidgetEntity> list = new List<WidgetEntity>();
@@ -387,11 +386,11 @@ namespace Dropthings.Data
                         entity.ROLENAME = row["ROLENAME"].ToString();
                         if (!Convert.IsDBNull(row["ISLOCKED"]))
                         {
-                            entity.ISLOCKED = Convert.ToInt32(row["ISLOCKED"]);
+                            entity.ISLOCKED = Convert.ToBoolean(row["ISLOCKED"]);
                         }
                         if (!Convert.IsDBNull(row["ISDEFAULT"]))
                         {
-                            entity.ISDEFAULT = Convert.ToInt32(row["ISDEFAULT"]);
+                            entity.ISDEFAULT = Convert.ToBoolean(row["ISDEFAULT"]);
                         }
                         if (!Convert.IsDBNull(row["CREATEDDATE"]))
                         {
@@ -422,11 +421,11 @@ namespace Dropthings.Data
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("delete from WIDGETINSTANCE ");
                 strSql.Append(" where WIDGETID=@WIDGETID");
-                SqlParameter[] parameters = {
+                SqlParameter[]parameters = {
 						new SqlParameter("@WIDGETID", SqlDbType.Int)
 					};
                 parameters[0].Value = widgetID;
-                _sqlHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public override WidgetEntity FindById(long primaryKeyId)
@@ -434,10 +433,10 @@ namespace Dropthings.Data
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("select * from WIDGET ");
                 strSql.Append(" where ID=@primaryKeyId");
-                SqlParameter[] parameters = {
+                SqlParameter[]parameters = {
 						new SqlParameter("@primaryKeyId", SqlDbType.Int)};
                 parameters[0].Value = primaryKeyId;
-                DataSet ds = _sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count == 1)
                 {
                     DataRow row = ds.Tables[0].Rows[0];
@@ -458,11 +457,11 @@ namespace Dropthings.Data
                     entity.ROLENAME = row["ROLENAME"].ToString();
                     if (!Convert.IsDBNull(row["ISLOCKED"]))
                     {
-                        entity.ISLOCKED = Convert.ToInt32(row["ISLOCKED"]);
+                        entity.ISLOCKED = Convert.ToBoolean(row["ISLOCKED"]);
                     }
                     if (!Convert.IsDBNull(row["ISDEFAULT"]))
                     {
-                        entity.ISDEFAULT = Convert.ToInt32(row["ISDEFAULT"]);
+                        entity.ISDEFAULT = Convert.ToBoolean(row["ISDEFAULT"]);
                     }
                     if (!Convert.IsDBNull(row["CREATEDDATE"]))
                     {
@@ -488,7 +487,7 @@ namespace Dropthings.Data
                 }
             }
 
-            public override List<WidgetEntity> Find(string strWhere, SqlParameter[] parameters)
+            public override List<WidgetEntity> Find(string strWhere, SqlParameter[]parameters)
             {
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("select *");
@@ -498,7 +497,7 @@ namespace Dropthings.Data
                     strSql.Append(" where " + strWhere);
                 }
 
-                DataSet ds = _sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0)
                 {
                     List<WidgetEntity> list = new List<WidgetEntity>();
@@ -521,11 +520,11 @@ namespace Dropthings.Data
                         entity.ROLENAME = row["ROLENAME"].ToString();
                         if (!Convert.IsDBNull(row["ISLOCKED"]))
                         {
-                            entity.ISLOCKED = Convert.ToInt32(row["ISLOCKED"]);
+                            entity.ISLOCKED = Convert.ToBoolean(row["ISLOCKED"]);
                         }
                         if (!Convert.IsDBNull(row["ISDEFAULT"]))
                         {
-                            entity.ISDEFAULT = Convert.ToInt32(row["ISDEFAULT"]);
+                            entity.ISDEFAULT = Convert.ToBoolean(row["ISDEFAULT"]);
                         }
                         if (!Convert.IsDBNull(row["CREATEDDATE"]))
                         {
@@ -555,7 +554,7 @@ namespace Dropthings.Data
                 }
             }
 
-            public override DataSet GetDataSet(string strWhere, SqlParameter[] param)
+            public override DataSet GetDataSet(string strWhere, SqlParameter[]param)
             {
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("select *");
@@ -564,7 +563,7 @@ namespace Dropthings.Data
                 {
                     strSql.Append(" where " + strWhere);
                 }
-                return _sqlHelper.ExecuteDateSet(strSql.ToString(), param);
+                return sqlHelper.ExecuteDateSet(strSql.ToString(), param);
             }
 
             #region paging methods
@@ -574,7 +573,7 @@ namespace Dropthings.Data
             /// </summary>
             /// <param name="where">条件，等同于GetPaer()方法的where</param>
             /// <returns>返回记录总数</returns>
-            public int GetPagerRowsCount(string where, SqlParameter[] param)
+            public int GetPagerRowsCount(string where, SqlParameter[]param)
             {
                 string sql = "select count(*) from WIDGET ";
                 if (!string.IsNullOrEmpty(where))
@@ -582,7 +581,7 @@ namespace Dropthings.Data
                     sql += "where " + where;
                 }
 
-                object obj = _sqlHelper.GetSingle(sql, param);
+                object obj = sqlHelper.GetSingle(sql, param);
 
                 return obj == null ? 0 : Convert.ToInt32(obj);
             }
@@ -595,7 +594,7 @@ namespace Dropthings.Data
             /// <param name="pageSize">每页显示记录数</param>
             /// <param name="pageNumber">当前页码</param>
             /// <returns>datatable</returns>
-            public DataTable GetPager(string where, SqlParameter[] param, string orderBy, int pageSize, int pageNumber)
+            public DataTable GetPager(string where, SqlParameter[]param, string orderBy, int pageSize, int pageNumber)
             {
                 int startNumber = pageSize * (pageNumber - 1) + 1;
                 int endNumber = pageSize * pageNumber;
@@ -621,7 +620,7 @@ namespace Dropthings.Data
                 PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
                 PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
 
-                return _sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
+                return sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
             }
 
             #endregion

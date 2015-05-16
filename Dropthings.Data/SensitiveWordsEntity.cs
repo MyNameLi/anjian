@@ -120,7 +120,7 @@ namespace Dropthings.Data
                 strSql.Append("@TERMSTR,@ARTICLECOUNT,@PARENTID,@USERID,@TAG)");
                 SqlParameter[] parameters = {
 					new SqlParameter("@TERMSTR",SqlDbType.NVarChar),
-					new SqlParameter("@ARTICLECOUNT",OracleDbType.Int64),
+					new SqlParameter("@ARTICLECOUNT",SqlDbType.Int),
 					new SqlParameter("@PARENTID",SqlDbType.Int),
 					new SqlParameter("@USERID",SqlDbType.Int),
 					new SqlParameter("@TAG",SqlDbType.Int)
@@ -144,7 +144,7 @@ namespace Dropthings.Data
                 strSql.Append("@TERMSTR,@ARTICLECOUNT,@PARENTID,@USERID,@TAG)");
                 SqlParameter[] parameters = {
 					new SqlParameter("@TERMSTR",SqlDbType.NVarChar),
-					new SqlParameter("@ARTICLECOUNT",OracleDbType.Int64),
+					new SqlParameter("@ARTICLECOUNT",SqlDbType.Int),
 					new SqlParameter("@PARENTID",SqlDbType.Int),
 					new SqlParameter("@USERID",SqlDbType.Int),
 					new SqlParameter("@TAG",SqlDbType.Int)
@@ -181,7 +181,7 @@ namespace Dropthings.Data
                 strSql.Append(" where ID=@ID");
                 SqlParameter[] parameters = {
 					new SqlParameter("@TERMSTR",SqlDbType.NVarChar),
-					new SqlParameter("@ARTICLECOUNT",OracleDbType.Int64),
+					new SqlParameter("@ARTICLECOUNT",SqlDbType.Int),
 					new SqlParameter("@PARENTID",SqlDbType.Int),
 					new SqlParameter("@USERID",SqlDbType.Int),
 					new SqlParameter("@TAG",SqlDbType.Int),

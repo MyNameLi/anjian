@@ -300,7 +300,7 @@ namespace Dropthings.Data
                 strSql.Append(" values (");
                 strSql.Append("@CATEGORYID,@DATABASEID,@CATEGORYNAME,@CATEDISPLAY,@PARENTCATE,@CATEPATH,@CREATEBY,@CREATETIME,@CATETYPE,@CATESOURCE,@CATETRAININFO,@QUERYTYPE,@ISEFFECT,@PROJECTCODE,@KEYWORD,@MINSCORE,@SEQUEUE,@EVENTRESON,@EVENTMEASURE,@EVENTABOUT,@EVENTMINSCORE,@EVENTDATE,@EVENTTYPE)");
                 SqlParameter[] parameters = {
-					new SqlParameter("@CATEGORYID",OracleDbType.Int64),
+					new SqlParameter("@CATEGORYID",SqlDbType.Int),
 					new SqlParameter("@DATABASEID",SqlDbType.NVarChar),
 					new SqlParameter("@CATEGORYNAME",SqlDbType.NVarChar),
 					new SqlParameter("@CATEDISPLAY",SqlDbType.NVarChar),
@@ -381,7 +381,7 @@ namespace Dropthings.Data
 
                 strSql.Append(" where ID=@ID");
                 SqlParameter[] parameters = {
-					new SqlParameter("@CATEGORYID",OracleDbType.Int64),
+					new SqlParameter("@CATEGORYID",SqlDbType.Int),
 					new SqlParameter("@DATABASEID",SqlDbType.NVarChar),
 					new SqlParameter("@CATEGORYNAME",SqlDbType.NVarChar),
 					new SqlParameter("@CATEDISPLAY",SqlDbType.NVarChar),
@@ -779,9 +779,9 @@ namespace Dropthings.Data
 
             public DataSet GetTrebdDataSet(long categoryid)
             {
-                string strSql = "SELECT * FROM TRENDDATA  where CATEGORYID = :CATEGORYID";               
+                string strSql = "SELECT * FROM TRENDDATA  where CATEGORYID = @CATEGORYID";               
                 SqlParameter[] parameters = {
-					new SqlParameter("@CATEGORYID",OracleDbType.Int64)					
+					new SqlParameter("@CATEGORYID",SqlDbType.Int)					
 					};
                 parameters[0].Value = categoryid;
                 return _oracleHelper.ExecuteDateSet(strSql, parameters);

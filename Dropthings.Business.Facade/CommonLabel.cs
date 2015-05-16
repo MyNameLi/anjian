@@ -14,7 +14,7 @@ namespace Dropthings.Business.Facade
         private static ARTICLEEntity.ARTICLEDAO articleDao = new ARTICLEEntity.ARTICLEDAO();
         private static COLUMNDEFEntity.COLUMNDEFDAO columnDao = new COLUMNDEFEntity.COLUMNDEFDAO();
         private static COLUMNTEMPLATEEntity.COLUMNTEMPLATEEntityDao templateDao = new COLUMNTEMPLATEEntity.COLUMNTEMPLATEEntityDao();
-        private static OracleHelper SqlHelp = new OracleHelper("SentimentConnStr");
+        private static SqlHelper SqlHelp = new SqlHelper("SentimentConnStr");
         public static IList<ARTICLEEntity> GetArticleListByTop(int top, int type, int columnid)
         {
             IList<ARTICLEEntity> list = new List<ARTICLEEntity>();

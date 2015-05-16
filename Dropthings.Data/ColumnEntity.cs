@@ -37,7 +37,7 @@ namespace Dropthings.Data
 
         public ColumnEntity()
         {
-            SqlHelper = new SqlHelper(DBName);
+            SqlHelper _oracleHelper = new SqlHelper(DBName);
         }
 
         public ColumnEntity(int id, int pageid, int widgetzoneid, int columnno, int columnwidth, DateTime lastupdated)

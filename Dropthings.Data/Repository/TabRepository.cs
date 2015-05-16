@@ -7,9 +7,9 @@
     using System.Linq.Expressions;
     using OmarALZabir.AspectF;
     using Dropthings.Util;
-    using System.Data.SqlClient;
     using System.Data;
-
+    using System.Data.SqlClient;
+    
 
     public class TabRepository : Dropthings.Data.Repository.ITabRepository
     {
@@ -118,7 +118,7 @@
         /// <returns></returns>
         public List<PageEntity> GetTabsOfUser(int userid)
         {
-            SqlParameter[] parameters ={
+            SqlParameter [] parameters ={
 					new SqlParameter("@USERID",SqlDbType.Int)};
             parameters[0].Value = userid;
 
@@ -133,32 +133,23 @@
             //        .ToList());
         }
 
-        public List<PageEntity> GetLockedTabsOfUser(int userid, int isDownForMaintenenceMode)
+        public List<PageEntity> GetLockedTabsOfUser(int userid, bool isDownForMaintenenceMode)
         {
-            if (isDownForMaintenenceMode == 1)
-            {
-                return this.GetTabsOfUser(userid).Where(Tab => Tab.ISLOCKED == 1 && Tab.ISDOWNFORMAINTENANCE == isDownForMaintenenceMode).ToList();
-            }
-            else
-            {
-                return this.GetTabsOfUser(userid).Where(Tab => Tab.ISLOCKED == 1).ToList();
-            }
-
-            //return isDownForMaintenenceMode ?
-            //    this.GetTabsOfUser(userid).Where(Tab => Tab.ISLOCKED==1 && Tab.ISDOWNFORMAINTENANCE == isDownForMaintenenceMode).ToList()
-            //    : this.GetTabsOfUser(userid).Where(Tab => Tab.ISLOCKED==1).ToList();
+            return isDownForMaintenenceMode ?
+                this.GetTabsOfUser(userid).Where(Tab => Tab.ISLOCKED.Value && Tab.ISDOWNFORMAINTENANCE.Value == isDownForMaintenenceMode).ToList()
+                : this.GetTabsOfUser(userid).Where(Tab => Tab.ISLOCKED.Value).ToList();
         }
 
         // TODO: Remove this
-        public List<PageEntity> GetLockedTabsOfUserByMaintenenceMode(int userid, int isInMaintenenceMode)
+        public List<PageEntity> GetLockedTabsOfUserByMaintenenceMode(int userid, bool isInMaintenenceMode)
         {
-            return GetTabsOfUser(userid).Where(Tab => Tab.ISDOWNFORMAINTENANCE == isInMaintenenceMode && Tab.ISLOCKED == 1).ToList();
+            return GetTabsOfUser(userid).Where(Tab => Tab.ISDOWNFORMAINTENANCE.Value == isInMaintenenceMode && Tab.ISLOCKED.Value == true).ToList();
             //_database.GetList<Tab, Guid, bool>(userGuid, isInMaintenenceMode, CompiledQueries.TabQueries.GetLockedTabs_ByUserId_DownForMaintenence);
         }
 
         public List<PageEntity> GetMaintenenceTabsOfUser(int userid)
         {
-            return GetTabsOfUser(userid).Where(Tab => Tab.ISDOWNFORMAINTENANCE == 1).ToList();
+            return GetTabsOfUser(userid).Where(Tab => Tab.ISDOWNFORMAINTENANCE == true).ToList();
             //_database.GetList<Tab, Guid>(userGuid, CompiledQueries.TabQueries.GetTabsWhichIsDownForMaintenanceByUserId);
         }
 
@@ -198,7 +189,7 @@
 
         public PageEntity GetOverridableStartTabOfUser(int userid)
         {
-            return GetTabsOfUser(userid).Where(Tab => Tab.SERVEASSTARTPAGEAFTERLOGIN == 1)
+            return GetTabsOfUser(userid).Where(Tab => Tab.SERVEASSTARTPAGEAFTERLOGIN == true)
                 .FirstOrDefault();
         }
 
@@ -212,16 +203,5 @@
         }
 
         #endregion
-
-
-        public List<PageEntity> GetLockedTabsOfUser(int userid, bool isDownForMaintenenceMode)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<PageEntity> GetLockedTabsOfUserByMaintenenceMode(int userid, bool isInMaintenenceMode)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

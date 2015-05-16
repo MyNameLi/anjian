@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-
 using System.Data.SqlClient;
 using System.Data.Common;
 using System.Reflection;
@@ -12,7 +11,7 @@ namespace Dropthings.Data
     [Serializable]
     public partial class WidgetInstanceEntity
     {
-        private SqlHelper _sqlHelper;
+        private SqlHelper sqlHelper;
 
         #region const fields
         public const string DBName = "SentimentConnStr";
@@ -43,7 +42,7 @@ namespace Dropthings.Data
         #region constructors
         public WidgetInstanceEntity()
         {
-            _sqlHelper = new SqlHelper(DBName);
+            sqlHelper = new SqlHelper(DBName);
         }
 
         public WidgetInstanceEntity(int id, int widgetzoneid, int widgetid, int orderno, bool expanded, bool maximized, bool resized, int width, int height, string title, string state, int versionno, DateTime createddate, DateTime lastupdate)
@@ -56,11 +55,11 @@ namespace Dropthings.Data
 
             this.ORDERNO = orderno;
 
-            this.EXPANDED = expanded ? 1 : 0;
+            this.EXPANDED = expanded;
 
-            this.MAXIMIZED = maximized ? 1 : 0;
+            this.MAXIMIZED = maximized;
 
-            this.RESIZED = resized ? 1 : 0;
+            this.RESIZED = resized;
 
             this.WIDTH = width;
 
@@ -123,21 +122,21 @@ namespace Dropthings.Data
         }
 
 
-        public int EXPANDED
+        public bool? EXPANDED
         {
             get;
             set;
         }
 
 
-        public int MAXIMIZED
+        public bool? MAXIMIZED
         {
             get;
             set;
         }
 
 
-        public int RESIZED
+        public bool? RESIZED
         {
             get;
             set;
@@ -196,12 +195,12 @@ namespace Dropthings.Data
 
         public class WIDGETINSTANCEDAO : SqlDAO<WidgetInstanceEntity>
         {
-            private SqlHelper _sqlHelper;
+            private SqlHelper sqlHelper;
             public const string DBName = "SentimentConnStr";
 
             public WIDGETINSTANCEDAO()
             {
-                _sqlHelper = new SqlHelper(DBName);
+                sqlHelper = new SqlHelper(DBName);
             }
 
             public string GetWidgetInstanceOwnerName(int widgetInstanceId)
@@ -210,12 +209,12 @@ namespace Dropthings.Data
 
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("SELECT U.USERNAME FROM USERS U ,WIDGETZONE WZ, WIDGETINSTANCE WI,COLUMNOFPAGE C,PAGE P ");
-                strSql.Append("WHERE WI.ID=@ID AND WI.WIDGETZONEID=WZ.ID AND C.WIDGETZONEID=WZ.ID AND P.ID=C.PAGEID AND P.USERID=U.USERID ");
+                strSql.Append("WHERE WI.ID=:ID AND WI.WIDGETZONEID=WZ.ID AND C.WIDGETZONEID=WZ.ID AND P.ID=C.PAGEID AND P.USERID=U.USERID ");
                 SqlParameter[] parameters = {
-					new SqlParameter("@ID",SqlDbType.Int)};
+					new SqlParameter(":ID",SqlDbType.Int)};
                 parameters[0].Value = widgetInstanceId;
 
-                result = Convert.ToString(_sqlHelper.ExecuteScalar(CommandType.Text, strSql.ToString(), parameters));
+                result = Convert.ToString(sqlHelper.ExecuteScalar(CommandType.Text, strSql.ToString(), parameters));
 
                 return result;
             }
@@ -227,21 +226,21 @@ namespace Dropthings.Data
                 strSql.Append("insert into WIDGETINSTANCE(");
                 strSql.Append("WIDGETZONEID,WIDGETID,ORDERNO,EXPANDED,MAXIMIZED,RESIZED,WIDTH,HEIGHT,TITLE,STATE,VERSIONNO,CREATEDDATE,LASTUPDATE)");
                 strSql.Append(" values (");
-                strSql.Append("@WIDGETZONEID,@WIDGETID,@ORDERNO,@EXPANDED,@MAXIMIZED,@RESIZED,@WIDTH,@HEIGHT,@TITLE,@STATE,@VERSIONNO,@CREATEDDATE,@LASTUPDATE)");
+                strSql.Append(":WIDGETZONEID,:WIDGETID,:ORDERNO,:EXPANDED,:MAXIMIZED,:RESIZED,:WIDTH,:HEIGHT,:TITLE,:STATE,:VERSIONNO,:CREATEDDATE,:LASTUPDATE)");
                 SqlParameter[] parameters = {
-					new SqlParameter("@WIDGETZONEID",SqlDbType.Int),
-					new SqlParameter("@WIDGETID",SqlDbType.Int),
-					new SqlParameter("@ORDERNO",SqlDbType.Int),
-					new SqlParameter("@EXPANDED",SqlDbType.Int),
-					new SqlParameter("@MAXIMIZED",SqlDbType.Int),
-					new SqlParameter("@RESIZED",SqlDbType.Int),
-					new SqlParameter("@WIDTH",SqlDbType.Int),
-					new SqlParameter("@HEIGHT",SqlDbType.Int),
-					new SqlParameter("@TITLE",SqlDbType.NVarChar),
-					new SqlParameter("@STATE",SqlDbType.NVarChar),
-					new SqlParameter("@VERSIONNO",SqlDbType.Int),
-					new SqlParameter("@CREATEDDATE",SqlDbType.DateTime),
-					new SqlParameter("@LASTUPDATE",SqlDbType.DateTime)
+					new SqlParameter(":WIDGETZONEID",SqlDbType.Int),
+					new SqlParameter(":WIDGETID",SqlDbType.Int),
+					new SqlParameter(":ORDERNO",SqlDbType.Int),
+					new SqlParameter(":EXPANDED",SqlDbType.Bit),
+					new SqlParameter(":MAXIMIZED",SqlDbType.Bit),
+					new SqlParameter(":RESIZED",SqlDbType.Bit),
+					new SqlParameter(":WIDTH",SqlDbType.Int),
+					new SqlParameter(":HEIGHT",SqlDbType.Int),
+					new SqlParameter(":TITLE",SqlDbType.NVarChar),
+					new SqlParameter(":STATE",SqlDbType.NVarChar),
+					new SqlParameter(":VERSIONNO",SqlDbType.Int),
+					new SqlParameter(":CREATEDDATE",SqlDbType.DateTime),
+					new SqlParameter(":LASTUPDATE",SqlDbType.DateTime)
 					};
                 parameters[0].Value = entity.WIDGETZONEID;
                 parameters[1].Value = entity.WIDGETID;
@@ -257,14 +256,14 @@ namespace Dropthings.Data
                 parameters[11].Value = entity.CREATEDDATE;
                 parameters[12].Value = entity.LASTUPDATE;
 
-                _sqlHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
                 entity.ID = ReturnNewRowId();
             }
 
             private int ReturnNewRowId()
             {
                 string sql = "select WIDGETINSTANCE_ID_SEQ.currval NEWID from dual";
-                object NewId = _sqlHelper.GetSingle(sql, null);
+                object NewId = sqlHelper.GetSingle(sql, null);
                 return Convert.ToInt32(NewId);
             }
 
@@ -273,36 +272,36 @@ namespace Dropthings.Data
 
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("update WIDGETINSTANCE set ");
-                strSql.Append("WIDGETZONEID=@WIDGETZONEID,");
-                strSql.Append("WIDGETID=@WIDGETID,");
-                strSql.Append("ORDERNO=@ORDERNO,");
-                strSql.Append("EXPANDED=@EXPANDED,");
-                strSql.Append("MAXIMIZED=@MAXIMIZED,");
-                strSql.Append("RESIZED=@RESIZED,");
-                strSql.Append("WIDTH=@WIDTH,");
-                strSql.Append("HEIGHT=@HEIGHT,");
-                strSql.Append("TITLE=@TITLE,");
-                strSql.Append("STATE=@STATE,");
-                strSql.Append("VERSIONNO=@VERSIONNO,");
-                strSql.Append("CREATEDDATE=@CREATEDDATE,");
-                strSql.Append("LASTUPDATE=@LASTUPDATE");
+                strSql.Append("WIDGETZONEID=:WIDGETZONEID,");
+                strSql.Append("WIDGETID=:WIDGETID,");
+                strSql.Append("ORDERNO=:ORDERNO,");
+                strSql.Append("EXPANDED=:EXPANDED,");
+                strSql.Append("MAXIMIZED=:MAXIMIZED,");
+                strSql.Append("RESIZED=:RESIZED,");
+                strSql.Append("WIDTH=:WIDTH,");
+                strSql.Append("HEIGHT=:HEIGHT,");
+                strSql.Append("TITLE=:TITLE,");
+                strSql.Append("STATE=:STATE,");
+                strSql.Append("VERSIONNO=:VERSIONNO,");
+                strSql.Append("CREATEDDATE=:CREATEDDATE,");
+                strSql.Append("LASTUPDATE=:LASTUPDATE");
 
-                strSql.Append(" where ID=@ID");
+                strSql.Append(" where ID=:ID");
                 SqlParameter[] parameters = {
-					new SqlParameter("@WIDGETZONEID",SqlDbType.Int),
-					new SqlParameter("@WIDGETID",SqlDbType.Int),
-					new SqlParameter("@ORDERNO",SqlDbType.Int),
-					new SqlParameter("@EXPANDED",SqlDbType.Int),
-					new SqlParameter("@MAXIMIZED",SqlDbType.Int),
-					new SqlParameter("@RESIZED",SqlDbType.Int),
-					new SqlParameter("@WIDTH",SqlDbType.Int),
-					new SqlParameter("@HEIGHT",SqlDbType.Int),
-					new SqlParameter("@TITLE",SqlDbType.NVarChar),
-					new SqlParameter("@STATE",SqlDbType.NVarChar),
-					new SqlParameter("@VERSIONNO",SqlDbType.Int),
-					new SqlParameter("@CREATEDDATE",SqlDbType.DateTime),
-					new SqlParameter("@LASTUPDATE",SqlDbType.DateTime),
-                    new SqlParameter("@ID",SqlDbType.Int)
+					new SqlParameter(":WIDGETZONEID",SqlDbType.Int),
+					new SqlParameter(":WIDGETID",SqlDbType.Int),
+					new SqlParameter(":ORDERNO",SqlDbType.Int),
+					new SqlParameter(":EXPANDED",SqlDbType.Bit),
+					new SqlParameter(":MAXIMIZED",SqlDbType.Bit),
+					new SqlParameter(":RESIZED",SqlDbType.Bit),
+					new SqlParameter(":WIDTH",SqlDbType.Int),
+					new SqlParameter(":HEIGHT",SqlDbType.Int),
+					new SqlParameter(":TITLE",SqlDbType.NVarChar),
+					new SqlParameter(":STATE",SqlDbType.NVarChar),
+					new SqlParameter(":VERSIONNO",SqlDbType.Int),
+					new SqlParameter(":CREATEDDATE",SqlDbType.DateTime),
+					new SqlParameter(":LASTUPDATE",SqlDbType.DateTime),
+                    new SqlParameter(":ID",SqlDbType.Int)
 					};
                 parameters[0].Value = entity.WIDGETZONEID;
                 parameters[1].Value = entity.WIDGETID;
@@ -319,7 +318,7 @@ namespace Dropthings.Data
                 parameters[12].Value = entity.LASTUPDATE;
                 parameters[13].Value = entity.ID;
 
-                _sqlHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public bool UpdateSet(int ID, string ColumnName, string Value)
@@ -330,7 +329,7 @@ namespace Dropthings.Data
                     StrSql.Append("update WIDGETINSTANCE set ");
                     StrSql.Append(ColumnName + "='" + Value + "'");
                     StrSql.Append(" where ID=" + ID);
-                    _sqlHelper.ExecuteSql(StrSql.ToString(), null);
+                    sqlHelper.ExecuteSql(StrSql.ToString(), null);
                     return true;
                 }
                 catch
@@ -344,7 +343,7 @@ namespace Dropthings.Data
                 string strSql = "delete from WIDGETINSTANCE where ID=" + ID;
                 try
                 {
-                    _sqlHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -358,7 +357,7 @@ namespace Dropthings.Data
                 string strSql = "delete from WIDGETINSTANCE where ID in (" + ID + ")";
                 try
                 {
-                    _sqlHelper.ExecuteSql(strSql, null);
+                    sqlHelper.ExecuteSql(strSql, null);
                     return true;
                 }
                 catch
@@ -371,23 +370,23 @@ namespace Dropthings.Data
             {
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("delete from WIDGETINSTANCE ");
-                strSql.Append(" where ID=@primaryKeyId");
+                strSql.Append(" where ID=:primaryKeyId");
                 SqlParameter[] parameters = {
-						new SqlParameter("@primaryKeyId", SqlDbType.Int)
+						new SqlParameter(":primaryKeyId", SqlDbType.Int)
 					};
                 parameters[0].Value = entity.ID;
-                _sqlHelper.ExecuteSql(strSql.ToString(), parameters);
+                sqlHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 
             public override WidgetInstanceEntity FindById(long primaryKeyId)
             {
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("select * from WIDGETINSTANCE ");
-                strSql.Append(" where ID=@primaryKeyId");
+                strSql.Append(" where ID=:primaryKeyId");
                 SqlParameter[] parameters = {
-						new SqlParameter("@primaryKeyId", SqlDbType.Int)};
+						new SqlParameter(":primaryKeyId", SqlDbType.Int)};
                 parameters[0].Value = primaryKeyId;
-                DataSet ds = _sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count == 1)
                 {
                     DataRow row = ds.Tables[0].Rows[0];
@@ -410,15 +409,15 @@ namespace Dropthings.Data
                     }
                     if (!Convert.IsDBNull(row["EXPANDED"]))
                     {
-                        entity.EXPANDED = Convert.ToInt32(row["EXPANDED"]);
+                        entity.EXPANDED = Convert.ToBoolean(row["EXPANDED"]);
                     }
                     if (!Convert.IsDBNull(row["MAXIMIZED"]))
                     {
-                        entity.MAXIMIZED = Convert.ToInt32(row["MAXIMIZED"]);
+                        entity.MAXIMIZED = Convert.ToBoolean(row["MAXIMIZED"]);
                     }
                     if (!Convert.IsDBNull(row["RESIZED"]))
                     {
-                        entity.RESIZED = Convert.ToInt32(row["RESIZED"]);
+                        entity.RESIZED = Convert.ToBoolean(row["RESIZED"]);
                     }
                     if (!Convert.IsDBNull(row["WIDTH"]))
                     {
@@ -460,7 +459,7 @@ namespace Dropthings.Data
                     strSql.Append(" where " + strWhere);
                 }
 
-                DataSet ds = _sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
+                DataSet ds = sqlHelper.ExecuteDateSet(strSql.ToString(), parameters);
                 if (ds != null && ds.Tables.Count > 0)
                 {
                     List<WidgetInstanceEntity> list = new List<WidgetInstanceEntity>();
@@ -485,15 +484,15 @@ namespace Dropthings.Data
                         }
                         if (!Convert.IsDBNull(row["EXPANDED"]))
                         {
-                            entity.EXPANDED = Convert.ToInt32(row["EXPANDED"]);
+                            entity.EXPANDED = Convert.ToBoolean(row["EXPANDED"]);
                         }
                         if (!Convert.IsDBNull(row["MAXIMIZED"]))
                         {
-                            entity.MAXIMIZED = Convert.ToInt32(row["MAXIMIZED"]);
+                            entity.MAXIMIZED = Convert.ToBoolean(row["MAXIMIZED"]);
                         }
                         if (!Convert.IsDBNull(row["RESIZED"]))
                         {
-                            entity.RESIZED = Convert.ToInt32(row["RESIZED"]);
+                            entity.RESIZED = Convert.ToBoolean(row["RESIZED"]);
                         }
                         if (!Convert.IsDBNull(row["WIDTH"]))
                         {
@@ -538,7 +537,7 @@ namespace Dropthings.Data
                 {
                     strSql.Append(" where " + strWhere);
                 }
-                return _sqlHelper.ExecuteDateSet(strSql.ToString(), param);
+                return sqlHelper.ExecuteDateSet(strSql.ToString(), param);
             }
 
             #region paging methods
@@ -556,7 +555,7 @@ namespace Dropthings.Data
                     sql += "where " + where;
                 }
 
-                object obj = _sqlHelper.GetSingle(sql, param);
+                object obj = sqlHelper.GetSingle(sql, param);
 
                 return obj == null ? 0 : Convert.ToInt32(obj);
             }
@@ -595,7 +594,7 @@ namespace Dropthings.Data
                 PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
                 PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
 
-                return _sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
+                return sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
             }
 
             #endregion

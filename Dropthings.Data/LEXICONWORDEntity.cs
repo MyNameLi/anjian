@@ -110,7 +110,7 @@ namespace Dropthings.Data
 
             private int ReturnNewRowId()
             {
-                string sql = "select LEXICONWORD_ID_SEQ.currval NEWID from dual";
+                string sql = "SELECT MAX(ID) FROM dbo.LEXICONWORD ";
                 object NewId = _oracleHelper.GetSingle(sql, null);
                 return Convert.ToInt32(NewId);
             }
@@ -124,7 +124,7 @@ namespace Dropthings.Data
                 strSql.Append(" values (");
                 strSql.Append("@WORD,@TYPEID,@WEIGHT)");
                 SqlParameter[] parameters = {
-					new SqlParameter("@WORD",OracleDbType.NClob),
+					new SqlParameter("@WORD",SqlDbType.NText),
 					new SqlParameter("@TYPEID",SqlDbType.Int),
 					new SqlParameter("@WEIGHT",SqlDbType.Int)
 					};
@@ -145,7 +145,7 @@ namespace Dropthings.Data
 
                 strSql.Append(" where ID=@ID");
                 SqlParameter[] parameters = {
-					new SqlParameter("@WORD",OracleDbType.NClob),
+					new SqlParameter("@WORD",SqlDbType.NText),
 					new SqlParameter("@TYPEID",SqlDbType.Int),
 					new SqlParameter("@WEIGHT",SqlDbType.Int),
 					new SqlParameter("@ID",SqlDbType.Int)
@@ -194,7 +194,7 @@ namespace Dropthings.Data
                 strSql.Append("WORD=@WORD");
                 strSql.Append(" where ID=@ID");
                 SqlParameter[] parameters = {					
-					new SqlParameter("@WORD",OracleDbType.NClob),
+					new SqlParameter("@WORD",SqlDbType.NText),
 					new SqlParameter("@ID",SqlDbType.Int)
 					};                
                 parameters[0].Value = value;

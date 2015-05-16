@@ -271,7 +271,7 @@ namespace Dropthings.Data
 					new SqlParameter("@ARTICLEBASEDATE",SqlDbType.DateTime),
 					new SqlParameter("@ARTICLEEDITDATE",SqlDbType.DateTime),
 					new SqlParameter("@ARTICLETAG",SqlDbType.NVarChar),
-					new SqlParameter("@ARTICLECONTENT",OracleDbType.NClob),
+					new SqlParameter("@ARTICLECONTENT",SqlDbType.NText),
 					new SqlParameter("@ARTICLEAUDIT",SqlDbType.Int),
 					new SqlParameter("@ARTICLERELESE",SqlDbType.Int),
 					new SqlParameter("@ARTICLESTATUS",SqlDbType.Int),
@@ -339,7 +339,7 @@ namespace Dropthings.Data
 					new SqlParameter("@ARTICLEBASEDATE",SqlDbType.DateTime),
 					new SqlParameter("@ARTICLEEDITDATE",SqlDbType.DateTime),
 					new SqlParameter("@ARTICLETAG",SqlDbType.NVarChar),
-					new SqlParameter("@ARTICLECONTENT",OracleDbType.NClob),
+					new SqlParameter("@ARTICLECONTENT",SqlDbType.NText),
 					new SqlParameter("@ARTICLEAUDIT",SqlDbType.Int),
 					new SqlParameter("@ARTICLERELESE",SqlDbType.Int),
 					new SqlParameter("@ARTICLESTATUS",SqlDbType.Int),
@@ -347,7 +347,7 @@ namespace Dropthings.Data
 					new SqlParameter("@PUBLISHPATH",SqlDbType.NVarChar),
 					new SqlParameter("@SITEID",SqlDbType.Int),
                     new SqlParameter("@ARTICLESITETYPE",SqlDbType.Int),
-					new SqlParameter("@ID",OracleDbType.Int64)
+					new SqlParameter("@ID",SqlDbType.Int)
 				};
                 parameters[0].Value = entity.ARTICLETITLE;
                 parameters[1].Value = entity.ARTICLEOTHERTITLE;

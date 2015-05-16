@@ -22,7 +22,7 @@ public class TrendData : IHttpHandler
         strSql.Append(" AND C.CATEGORYID = :CATEGORYID ORDER BY T.\"DATE\" DESC");
 
         OracleParameter[] parameters = {
-					new OracleParameter(":CATEGORYID",OracleDbType.Int64)					
+					new OracleParameter(":CATEGORYID",SqlDbType.Int)					
 					};
         parameters[0].Value = Convert.ToInt64(categoryId);
         

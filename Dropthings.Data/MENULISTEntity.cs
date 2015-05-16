@@ -115,23 +115,23 @@ namespace Dropthings.Data
 
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("insert into MENULIST(");
-                strSql.Append("ID,NAME,LEFTURL,URLPATH,PARENTID,SEQUECE)");
+                strSql.Append("NAME,LEFTURL,URLPATH,PARENTID,SEQUECE)");
                 strSql.Append(" values (");
-                strSql.Append("@ID,@NAME,@LEFTURL,@URLPATH,@PARENTID,@SEQUECE)");
+                strSql.Append("@NAME,@LEFTURL,@URLPATH,@PARENTID,@SEQUECE)");
                 SqlParameter[] parameters = {
-					new SqlParameter("@ID",SqlDbType.Int),
+					
 					new SqlParameter("@NAME",SqlDbType.NVarChar),
 					new SqlParameter("@LEFTURL",SqlDbType.NVarChar),
 					new SqlParameter("@URLPATH",SqlDbType.NVarChar),
 					new SqlParameter("@PARENTID",SqlDbType.Int),
 					new SqlParameter("@SEQUECE",SqlDbType.Int)
 					};
-                parameters[0].Value = entity.ID;
-                parameters[1].Value = entity.NAME;
-                parameters[2].Value = entity.LEFTURL;
-                parameters[3].Value = entity.URLPATH;
-                parameters[4].Value = entity.PARENTID;
-                parameters[5].Value = entity.SEQUECE;
+                
+                parameters[0].Value = entity.NAME;
+                parameters[1].Value = entity.LEFTURL;
+                parameters[2].Value = entity.URLPATH;
+                parameters[3].Value = entity.PARENTID;
+                parameters[4].Value = entity.SEQUECE;
                 _oracleHelper.ExecuteSql(strSql.ToString(), parameters);
             }
 

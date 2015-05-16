@@ -208,7 +208,8 @@
             }
         }
 
-        public List<PageEntity> GetPages(string roleid) {
+        public List<PageEntity> GetPages(string roleid)
+        {
             return this.pageRepository.GetPagesByRoleId(roleid);
         }
 
@@ -312,11 +313,11 @@
             if (userSetting != null && userSetting.CURRENTPAGEID > 0)
             {
                 this.GetTab(userSetting.CURRENTPAGEID.Value).As(page =>
-                    {
-                        page.ISLOCKED = true;
-                        page.LASTLOCKEDSTATUSCHANGEDAT = DateTime.Now;
-                        this.pageRepository.Update(page);
-                    });
+                {
+                    page.ISLOCKED = true;
+                    page.LASTLOCKEDSTATUSCHANGEDAT = DateTime.Now;
+                    this.pageRepository.Update(page);
+                });
 
                 success = true;
             }
@@ -333,12 +334,12 @@
             if (userSetting != null && userSetting.CURRENTPAGEID > 0)
             {
                 this.GetTab(userSetting.CURRENTPAGEID.Value).As(page =>
-                    {
-                        page.ISLOCKED = false;
-                        page.ISDOWNFORMAINTENANCE = false;
-                        page.LASTLOCKEDSTATUSCHANGEDAT = DateTime.Now;
-                        this.pageRepository.Update(page);
-                    });
+                {
+                    page.ISLOCKED = false;
+                    page.ISDOWNFORMAINTENANCE = false;
+                    page.LASTLOCKEDSTATUSCHANGEDAT = DateTime.Now;
+                    this.pageRepository.Update(page);
+                });
 
                 success = true;
             }
@@ -355,15 +356,15 @@
             if (userSetting != null && userSetting.CURRENTPAGEID > 0)
             {
                 this.GetTab(userSetting.CURRENTPAGEID.Value).As(page =>
-                    {
-                        page.ISDOWNFORMAINTENANCE = isInMaintenenceMode;
+                {
+                    page.ISDOWNFORMAINTENANCE = isInMaintenenceMode;
 
-                        if (isInMaintenenceMode)
-                        {
-                            page.LASTDOWNFORMAINTENANCEAT = DateTime.Now;
-                        }
-                        this.pageRepository.Update(page);
-                    });
+                    if (isInMaintenenceMode)
+                    {
+                        page.LASTDOWNFORMAINTENANCEAT = DateTime.Now;
+                    }
+                    this.pageRepository.Update(page);
+                });
 
                 success = true;
             }
@@ -393,10 +394,10 @@
 
                 //change the overridable start page status
                 this.GetTab(userSetting.CURRENTPAGEID.Value).As(page =>
-                    {
-                        page.SERVEASSTARTPAGEAFTERLOGIN = shouldServeAsStartTab;
-                        this.pageRepository.Update(page);
-                    });
+                {
+                    page.SERVEASSTARTPAGEAFTERLOGIN = shouldServeAsStartTab;
+                    this.pageRepository.Update(page);
+                });
 
                 success = true;
             }
