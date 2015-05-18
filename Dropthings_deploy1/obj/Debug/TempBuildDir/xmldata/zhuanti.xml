@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<data>
+  <zhuanti>
+    <url>www.soso.com</url>
+    <imgurl>http://123.103.15.153:8888/upload/20130701115824.txt</imgurl>
+    <title>搜搜地址</title>
+    <data>2013-07-29</data>
+    <status>1</status>
+  </zhuanti>
+  <historytopic>
+    <url>www.google.com</url>
+    <imgurl>http://123.103.15.153</imgurl>
+    <title>新标题</title>
+    <data>2013-06-15</data>
+  </historytopic>
+  <historytopic>
+    <url>www.baidu.com</url>
+    <imgurl>http://123.103.15.153</imgurl>
+    <title>新标题</title>
+    <data>2013-06-15</data>
+  </historytopic>
+  <historytopic>
+    <url>www.soso.com</url>
+    <imgurl>http://123.103.15.153:8888/upload/20130701115824.txt</imgurl>
+    <title>搜搜地址</title>
+    <data>2013-07-29</data>
+    <status>0</status>
+  </historytopic>
+</data>

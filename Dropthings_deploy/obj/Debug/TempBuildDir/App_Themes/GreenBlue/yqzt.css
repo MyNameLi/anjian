@@ -1,0 +1,160 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.admin{ 
+       width:1003px; height:28px;
+	   background-image:url(Images/yqzt/yqzt_10.jpg);
+	   background-repeat:repeat-x;
+	   }
+	   
+	   
+	   .admin-a{ 
+	       background-image:url(Images/yqzt/yqzt_08.jpg);
+	       background-repeat:no-repeat;
+		   width:156px;
+		   height:22px;
+		   margin-left:30px;
+		   font-size:12px;
+		   color:#e3f2ff;
+		   font-weight:bold;
+		   line-height:20px;
+		   text-align:center;
+	   }
+
+       .text{ 
+	       font-size:12px;
+		   color:#19577c;
+		   text-align:right;
+		   width:416px;
+		   height:20px;
+		   float:right;
+			}
+
+
+/*--------------------------------------left----------------------------------------*/
+
+.left-top{ 
+       width:120px; 
+	   height:20px;
+	   font-size:0px;
+	   }
+	   
+.left-center-nav{ width:100px; height:684px; margin:0 auto; margin-top:3px;}
+
+
+.left-center-nav-ul 
+{
+       width:100px; 
+	   height:23px;
+	   margin-bottom:1px;
+	   background-image:url(Images/yqzt/yqzt_30.jpg);
+	   background-repeat:repeat-x;
+	   font-size:12px;
+	   color:#3f3f3f;
+	   text-align:left;
+	   line-height:23px;	
+	   position:relative;
+	   clear:both; cursor:pointer;
+	   z-index:10000; padding-left:10px;
+}
+.left-center-nav-ul-link{ 
+       width:100px; 
+	   height:23px;
+	   margin-bottom:1px;
+	   background:#e9f4f8;
+	   font-size:12px;
+	   color:#3f3f3f;
+	   text-align:left;
+	   line-height:23px;	
+	   position:relative;
+	   clear:both;
+	   border-top:1px solid #8fa1a3;
+	   border-bottom:1px solid #8fa1a3;
+	   border-left:1px solid #8fa1a3;
+	   color:#183e49;
+	   font-weight:bold;
+	   cursor:pointer;
+	   z-index:10000;
+	   padding-left:10px;
+}
+.left-center-nav-ul img{ vertical-align:middle;}
+.left-center-nav-ul span{ display:inline-block;}
+
+.left-center-nav-ul-link img{vertical-align:middle;}
+.left-center-nav-ul-link span{ display:inline-block;}
+
+.left-bottem{ width:100px; height:7px;}
+
+
+
+
+
+
+
+/*--------------------------------------right----------------------------------------*/
+
+
+.right-top{ 
+         width:781px; height:29px;
+		 background-image:url(Images/yqzt/h2_03.jpg); 
+		 background-repeat:no-repeat;
+		 
+		 }
+		 
+		 
+.right-top-p{ 
+         padding:0px 0px 0px 40px;
+         font-size:12px;
+		 color:#346581;
+		 line-height:30px;
+		 }	 
+
+.rogjt-top-b h1{ 
+         font-size:15px; 
+		 font-weight:bold; 
+		 color:#e25c01;
+		 padding:12px 0px 0px 30px;
+		 }
+
+
+.right-center{
+        /*width:781px;  */
+		height:auto;
+		overflow:hidden;
+		background-image:url(Images/yqzt/right_03.gif);
+		background-repeat:repeat-y;
+		}
+		
+		
+		
+		
+.right-p{ 
+         width:767px; 
+		 height:31px;
+		 border:1px solid #d5dbe0;
+		 margin:0 auto;
+		 font-size:12px;
+		 line-height:32px;
+		  
+		 }
+.timetext {background:url(Images/yqzt/yqzt_26.jpg) no-repeat 98% center; border:1px solid #ccc; height:20px; line-height:20px;}
+.timetext2 {background:url(Images/yqzt/yqzt_26.jpg) no-repeat 98% center; border:1px solid #ccc; height:20px; line-height:20px; margin-left:5px;}	
+.an{ padding:2px 0px 0px 0px;}	
+		 
+		  
+		  .right-table-content .right-table-style{border-bottom:1px #dddddd solid;}  
+		  
+		  
+		  
+		  
+		 .rifht-tabler-1{ 
+		      width:767px; 
+			  height:1px;
+			  }
+			  
+.right-table1 div{  width:763px; height:156px;
+     
+}
+		
+.righ-botter{ height:7px; width:781px; }

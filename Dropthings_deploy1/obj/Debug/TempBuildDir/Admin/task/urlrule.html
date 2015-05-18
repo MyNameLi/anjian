@@ -1,0 +1,35 @@
+<div class="layer_T">
+  <h1><b>链接提取规则</b></h1>
+  <span class="btn"></span>
+  <div class="clear"></div>
+</div>
+<div class="layer_C">
+    <div style="text-align:left;">
+        <select id="filter_field">
+	        <option value="1">连接地址</option>
+            <option value="2">连接标题</option>
+        </select>
+        <select id="filter_action">
+	        <option value="1">包含</option>
+            <option value="2">不包含</option>
+            <option value="3">满足</option>
+        </select>
+        <input type="text" id="filter_rule" style="width:400px;"/>&nbsp;&nbsp;
+        <a href="javascript:void(null);" id="l_add_url_rule">增加</a>
+    </div>   
+    <table cellpadding="0" cellspacing="0" class="url_rule">
+    	<tr>
+        	<td width="10%" height="26" background="../images/tab_14.gif">过滤字段</td>
+            <td width="10%" height="26" background="../images/tab_14.gif">过滤动作</td>
+            <td width="73%" height="26" background="../images/tab_14.gif">过滤规则</td>
+            <td width="7%" height="26" background="../images/tab_14.gif">操作</td>
+        </tr>
+        <tbody id="url_rule_list">
+        	
+        </tbody>
+    </table>
+    <center>
+        <input type="button" id="btn_prev_display" value="上一步" />&nbsp;&nbsp;
+        <input type="button" id="btn_next_contentrule" value="下一步" />
+    </center>
+</div>   

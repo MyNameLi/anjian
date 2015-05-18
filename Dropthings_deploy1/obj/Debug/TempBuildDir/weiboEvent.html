@@ -1,0 +1,1155 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <!-- <link href="styles/StyleSheet.css" type="text/css" rel="stylesheet" />-->
+    <link href="styles/weibo.css" rel="stylesheet" type="text/css" />
+
+    <script src="Scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+
+    <script src="Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+    <script src="Scripts/common.js" type="text/javascript"></script>
+
+    <script src="Scripts/statement.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="Scripts/jquery.flash.js"></script>
+
+    <script type="text/javascript" src="Scripts/FusionCharts.js"></script>
+
+    <script src="Scripts/divMove.js" type="text/javascript"></script>
+
+    <script src="Scripts/Pager.js" type="text/javascript"></script>
+
+    <script src="Scripts/SqlSearch.js" type="text/javascript"></script>
+
+    <script src="Scripts/swfobject.js" type="text/javascript"></script>
+
+    <script src="Scripts/weiboEvent.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <div class="header">
+        <div class="wraper">
+            <!-- Render header first so that user can start typing search criteria while the huge runtime and other scripts download -->
+            <div id="header">
+                <div id="onpage_menu">
+                    <div id="Header1_OnPageMenuUpdatePanel">
+                        <div id="onpage_menu_wrapper">
+                            <div class="login_panel_label">
+                                <span id="Header1_UserNameLabel" style="color: #d1d1d1">管理员</span> <a href="Handler/Logout.ashx"
+                                    class="btn_logout" id="Header1_LogoutLinkButton">退出</a> <a target="_blank" href="Admin/Default.aspx"
+                                        class="btn_logout" id="Header1_HyperLinkManage">管理中心</a>
+                                <div onmouseout="this.className=''" onmouseover="this.className='onpage_menu_bar_hover'"
+                                    id="onpage_menu_bar">
+                                    <a style="color: #d1d1d1" disabled="disabled" id="Header1_TabControlPanel_ShowAddContentPanel">
+                                        添加模块</a> <a style="color: #d1d1d1" disabled="disabled" id="Header1_TabControlPanel_ShowChangeTabTitle">
+                                            修改设置</a>
+                                </div>
+                                <div id="onpage_menu_panels">
+                                    <div style="display: none" id="Widget_Gallery">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="tab_container" id="tab_container">
+                    <div class="tab_container_header">
+                        <div style="width: 930px;" class="tabwrap" id="tabs">
+                            <ul class="tabs tab-strip ui-sortable">
+                                <li class="tab activetab"><a href="Default.aspx?首页"><b>首页</b></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="wraper">
+            <div class="top_weibo_bg">
+                <ul class="main_tab">
+                    <li class="tab_off" did="tab_main_1" name="tab_main_div">事件发现</li>
+                    <li class="tab_off" did="tab_main_2" name="tab_main_div">话题列表</li>
+                    <li class="tab_off" did="tab_main_3" name="tab_main_div">微博管理</li>
+                </ul>
+            </div>
+            <div id="tab_main_1" style="display: none;">
+                <div class="column" style="width: 24%; margin-right: 1%;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header draggable_find_one">
+                            <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4" class="widget_title">
+                                            <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                微博搜索</a>
+                                        </td>
+                                        <td style="float: right;" class="widget_button">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body">
+                                <div class="gw_left clearfix">
+                                    <div class="gw_left_super_content">
+                                        <textarea id="keywds" class="gw_left_super_text" style="overflow-y: hidden;" name="textarea"
+                                            rows="5">关键词</textarea>
+                                        <ul>
+                                            <li class="gw_left_super_item">开始时间：<input id="data_source_starttime" onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'dd/MM/yyyy'})"
+                                                style="width: 64%;">
+                                                <br>
+                                                结束时间：<input id="data_source_endtime" onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'dd/MM/yyyy'})"
+                                                    style="width: 64%;">
+                                            </li>
+                                            <li class="gw_left_super_item">地区：
+                                                <select name="" id="selArea" style="width: 132px;">
+                                                    <option value="0">地区</option>
+                                                </select>
+                                            </li>
+                                            <li class="gw_left_super_item">我的分类：
+                                                <select name="" id="selCategory" style="width:132px;">
+                                                    <option value="0">分类</option>
+                                                </select>
+                                            </li>
+                                            <li class="gw_left_super_item">微博来源：
+                                                <select name="" id="selWeiboType" style="width: 64%;">
+                                                    <option value="">全部微博</option>
+                                                    <option value="1">新浪</option>
+                                                    <option value="2">腾讯</option>
+                                                </select>
+                                            </li>
+                                            <li class="gw_left_super_item">微博用户：
+                                                <select name="" id="selMyFriends" style="width: 64%;">
+                                                    <option value="">全部微博</option>
+                                                    <option value="optFriends">关注微博</option>
+                                                </select>
+                                            </li>
+                                            <li class="gw_left_super_item"></li>
+                                            <li class="gw_left_super_item">
+                                                <input name="searchButton" id="btnSearch" value="" class="super_input_button" type="button">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                    <div style="height: 10px;">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div class="column" style="width: 75%;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    微博列表</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body">
+                                <div class="news_tab">
+                                    <div class="find_two_search" style="margin: 0 1% 0 0; position: relative; float: right;">
+                                        <a href="javascript:void(null)" onclick="clearhid();shEd('sad', 'topicmove_column', 'layer', 'btn_close');">
+                                            创建话题</a></div>
+                                    <ul>
+                                        <li pid="all" name="tabContent" class="tab_on"><a href="javascript:void(null);">最新原创</a></li>
+                                        <li pid="forward" name="tabContent" class="tab_off"><a href="javascript:void(null);">
+                                            热门转发</a></li>
+                                        <li pid="comment" name="tabContent" class="tab_off"><a href="javascript:void(null);">
+                                            热门评论</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clear">
+                                </div>
+                                <div class="clear">
+                                </div>
+                                <div class="gw_news" id="result_list">
+                                </div>
+                                <div id="pager_list" class="page">
+                                <table>
+                                <tr>
+                                </tr>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <div id="tab_main_2" style="display: none;">
+                <div class="column" style="margin-right: 1%; width: 24%;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    搜索</a>
+                                                <td style="float: right;" class="widget_button">
+                                                </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body">
+                                <div class="gw_left">
+                                    <div class="gw_left_super_content">
+                                        <textarea id="topicKeywds" class="gw_left_super_text" style="overflow-y: hidden;"
+                                            name="textarea" rows="5">关键词</textarea>
+                                        <ul>
+                                            <li class="gw_left_super_item">开始时间：<input id="topicstarttime" onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'dd/MM/yyyy'})"
+                                                type="text" style="width: 64%;">
+                                                <br>
+                                                结束时间：<input id="topicendtime" onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'dd/MM/yyyy'})"
+                                                    type="text" style="width: 64%;">
+                                            </li>
+                                            <li class="gw_left_super_item">行业分类：
+                                                <select id="topicIndustryCate" style="width: 64%;">
+                                                    <option value="5" selected>行业分类</option>
+                                                </select>
+                                            </li>
+                                            <li class="gw_left_super_item">
+                                                <input name="searchButton" id="topicSearch" value="" class="super_input_button" type="button">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div class="column" style="width: 50%; margin-right: 1%;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header draggable_find_two">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    话题列表</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body">
+                                <table class="topic_table" border="1" cellpadding="0" cellspacing="1" width="96%"
+                                    align="center" style="margin-top: 12px;">
+                                    <thead>
+                                        <tr>
+                                            <td class="analyze_two_top_left">
+                                                话 题
+                                            </td>
+                                            <td class="analyze_two_top_right">
+                                                操 作
+                                            </td>
+                                            <td class="analyze_two_top_right">
+                                                原 创
+                                            </td>
+                                            <td class="analyze_two_top_right">
+                                                转 发
+                                            </td>
+                                            <td class="analyze_two_top_right">
+                                                评 论
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="weibo_topic_body">
+                                    </tbody>
+                                </table>
+                                <div class="page" id="topic_pager_list">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+                <div class="column" style="margin-bottom: 10px; width: 24%;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header draggable">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    热点评论</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame" id="Div9">
+                            <div class="widget_body">
+                                <ul class="menu" id="topicHotComment">
+                                    <li>
+                                        <!--<a href="javascript:void(null);"><b>热点评论</b></a>-->
+                                        <div id="topicHotCommentDisplayDiv" style="display: block;">
+                                            <ul class="submenu">
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                    <div style="height: 10px;">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header draggable">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    热点转发</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body">
+                                <ul id="topicHotForward" class="menu">
+                                    <li>
+                                        <!--<a href="javascript:void(null);" pid="788717560137546562_0_201"><b>热点转发</b></a>-->
+                                        <div id="topicHotForwardDisplayDiv" style="display: block;">
+                                            <ul class="submenu">
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <div id="tab_main_3" style="display: none;">
+                <div class="column" style="width: 24%; margin-right: 1%;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header draggable">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: block;">
+                                                    微博管理</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body">
+                                <ul class="menu">
+                                    <li>
+                                        <!--<a href="javascript:void(null);" id="ManageList"><b>管理列表</b></a>-->
+                                        <div style="display: block;" id="displayManage">
+                                            <ul class="submenu">
+                                                <li class="on"><a href="javascript:void(null);" name="manageList_div" manageid="tab_manage_1">
+                                                    <b>分类管理</b></a></li>
+                                                <li><a href="javascript:void(null);" name="manageList_div" manageid="tab_manage_2"><b>
+                                                    词库管理</b></a></li>
+                                                <li><a href="javascript:void(null);" name="manageList_div" manageid="tab_manage_3"><b>
+                                                    听众管理</b></a></li>
+                                                <li><a href="javascript:void(null);" name="manageList_div" manageid="tab_manage_4"><b>
+                                                    粉丝管理</b></a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div id="tab_manage_1" name="tab_display_manage_div" class="column" style="width: 75%;
+                    display: none;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header draggable">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    分类列表</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body">
+                                <table class="topic_table" border="1" cellpadding="0" cellspacing="1" width="96%"
+                                    align="center" style="margin-top: 12px;">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                分 类
+                                            </td>
+                                            <td width="20%" colspan="2">
+                                                操 作
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="industryCategoryBody">
+                                    </tbody>
+                                </table>
+                                <div class="find_two_search">
+                                    <a href="javascript:void(null);" id="addIndustryCategory" title="添加分类">添加分类</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div id="tab_manage_2" name="tab_display_manage_div" class="column" style="width: 75%;
+                    display: none;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header draggable">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    词库列表</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body">
+                                <table class="topic_table" border="1" cellpadding="0" cellspacing="1" width="96%"
+                                    align="center" style="margin-top: 12px;">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                关键词
+                                            </td>
+                                            <td width="6%">
+                                                相关度
+                                            </td>
+                                            <td colspan="2" width="20%">
+                                                操 作
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="KeywordsBody">
+                                    </tbody>
+                                </table>
+                                <div class="find_two_search">
+                                    <a href="javascript:void(null);" id="AddKeyword" title="添加分类">添加词库</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div id="tab_manage_3" name="tab_display_manage_div" class="column" style="width: 75%;
+                    display: none;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header draggable">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    听众管理</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body">
+                                <div class="news_tab">
+                                    <ul>
+                                        <li pid="all" class="tab_on"><a href="javascript:void(null);">新浪微博</a></li>
+                                        <li pid="news" class="tab_off"><a href="javascript:void(null);">腾讯微博</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clear">
+                                </div>
+                                <div class="person_button2">
+                                    <table class="topic_table" border="1" cellpadding="0" cellspacing="1" width="96%"
+                                        align="center">
+                                        <tbody>
+                                            <tr>
+                                                <td width="6%">
+                                                    <input type="checkbox" id="groupAllFriends" />
+                                                </td>
+                                                <td width="6%">
+                                                    +V
+                                                </td>
+                                                <td>
+                                                    名 称
+                                                </td>
+                                                <td width="15%">
+                                                    地 区
+                                                </td>
+                                                <!--<td width="15%">
+                                                    城市
+                                                </td>-->
+                                                <td width="15%">
+                                                    听 众
+                                                </td>
+                                                <td width="15%">
+                                                    粉 丝
+                                                </td>
+                                                <td width="10%">
+                                                    操 作
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody id="friendsBody">
+                                        </tbody>
+                                    </table>
+                                    <div class="person_search1" id="btnBatchGroup">
+                                        批量分组</div>
+                                    <div class="page_txt" id="friends_page_info">
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                    <div class="page" id="friends_pager_list">
+                                    </div>
+                                </div>
+                                <div class="person_button1">
+                                    <table border="0" cellpadding="0" cellspacing="1" width="100%" align="center">
+                                        <tbody id="attentionGroupSetting">
+                                        </tbody>
+                                    </table>
+                                    <div class="person_search1" id="btnAddSingleAttentionGroup">
+                                        <!--<input  type="button" value="添加" />-->
+                                        添加分组
+                                    </div>
+                                    <div style="display: none;" id="addAttentionGroupNameDiv">
+                                        <table border="0" cellpadding="0" cellspacing="1" width="98%" align="center" style="margin: 10px 0 0 2px;">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="left">
+                                                        <input id="addAttentionGroupName" type="text" />
+                                                        <div class="person_btn">
+                                                            <input type="button" class="btn_true" id="btnAddAttentionGroupName" value="" />
+                                                            <input type="button" class="btn_false" id="btnCancelAttentionGroupAdd" value="" /></div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div id="tab_manage_4" name="tab_display_manage_div" class="column" style="width: 75%;
+                    display: none;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    粉丝管理</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body">
+                                <div class="news_tab">
+                                    <ul>
+                                        <li pid="all" class="tab_on"><a href="javascript:void(null);">新浪微博</a></li>
+                                        <li pid="news" class="tab_off"><a href="javascript:void(null);">腾讯微博</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clear">
+                                </div>
+                                <div class="person_button2">
+                                    <table class="topic_table" border="1" cellpadding="0" cellspacing="1" width="96%"
+                                        align="center">
+                                        <tbody>
+                                            <tr>
+                                                <td width="6%">
+                                                    <input type="checkbox" id="groupAllFellow" />
+                                                </td>
+                                                <td width="6%">
+                                                    +V
+                                                </td>
+                                                <td>
+                                                    名 称
+                                                </td>
+                                                <td width="15%">
+                                                    地 区
+                                                </td>
+                                                <!--<td width="15%">
+                                                    城市
+                                                </td>-->
+                                                <td width="15%">
+                                                    听 众
+                                                </td>
+                                                <td width="15%">
+                                                    粉 丝
+                                                </td>
+                                                <td width="10%">
+                                                    操 作
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody id="fellowfriendsBody">
+                                        </tbody>
+                                    </table>
+                                    <div class="person_search1" id="fellowbtnBatchGroup">
+                                        批量分组</div>
+                                    <div class="page_txt" id="fellowfriends_page_info">
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                    <div class="page" id="fellowfriends_pager_list">
+                                    </div>
+                                </div>
+                                <div class="person_button1">
+                                    <table border="0" cellpadding="0" cellspacing="1" width="100%" align="center">
+                                        <tbody id="fellowattentionGroupSetting">
+                                        </tbody>
+                                    </table>
+                                    <div class="person_search1" id="fellowbtnAddSingleAttentionGroup">
+                                        <!--<input  type="button" value="添加" />-->
+                                        添加分组
+                                    </div>
+                                    <div style="display: none;" id="fellowaddAttentionGroupNameDiv">
+                                        <table border="0" cellpadding="0" cellspacing="1" width="98%" align="center" style="margin: 10px 0 0 2px;">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="left">
+                                                        <input id="fellowaddAttentionGroupName" type="text" />
+                                                        <div class="person_btn">
+                                                            <input type="button" class="btn_true" id="fellowbtnAddAttentionGroupName" value="" />
+                                                            <input type="button" class="btn_false" id="fellowbtnCancelAttentionGroupAdd" value="" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <div id="statisticTopicDiv" style="display: none;">
+                <div class="weibo_topic_top_two">
+                    <a href="javascript:void(null);" id="retTopicMain">返回</a>
+                    <h1 id="statisticTopicName">
+                    </h1>
+                </div>
+                <div class="column" style="margin-right: 1%; width: 60%;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header draggable_find_two" id="Widget1239_WidgetHeader">
+                            <div id="Widget1239_WidgetHeaderUpdatePanel">
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    趋势分析</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body" style="height: 360px;">
+                                <div id="total_date_flash">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div class="column" style="width: 39%;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    统计分析</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body" style="height: 360px;">
+                                <div>
+                                    <table class="topic_table" border="1" cellpadding="0" cellspacing="1" width="96%"
+                                        align="center" style="margin-top: 12px;">
+                                        <tbody id="statisticTopicBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div class="column" style="margin-right: 1%; width: 60%;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    观点分析</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body" style="height: 606px;">
+                                <div class="news_tab">
+                                    <ul id="advanceSearch_tab">
+                                        <li pid="2" class="tab_on"><a href="javascript:void(null);">正面</a></li>
+                                        <li pid="0" class="tab_off"><a href="javascript:void(null);">中性</a></li>
+                                        <li pid="-2" class="tab_off"><a href="javascript:void(null);">负面</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clear">
+                                </div>
+                                <div class="gw_news" id="divPositivenegative">
+                                </div>
+                                <div id="PNPager_List" class="page">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div class="column" style="width: 39%;">
+                    <div class="widget_border">
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_outer">
+                        <div class="widget_header">
+                            <div>
+                                <table cellspacing="0" cellpadding="0" class="widget_header_table">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="widget_title">
+                                                <a href="javascript:null(void);" class="widget_title_label" style="display: inline;">
+                                                    用户分析</a>
+                                            </td>
+                                            <td style="float: right;" class="widget_button">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display: block;" class="widget_resize_frame">
+                            <div class="widget_body" style="height: 606px;">
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td valign="top">
+                                                <div class="map" style="width: 400px; height: 300px; clear: both;" id="total_province_frame">
+                                                    <div id="total_province_flash">
+                                                    </div>
+                                                </div>
+                                                <div class="map" style="width: 400px; height: 300px; clear: both;" id="total_faan_frame">
+                                                    <div id="total_faan_flash">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget_line">
+                    </div>
+                    <div class="widget_border">
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="wraper">
+            <div id="footer">
+                <div id="footer_wrapper">
+                    <p class="copyright">
+                        © <a href="#">版权信息</a>. 版权所有。
+                        <br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-------------------------　底　部　结　束　------------------------->
+    <!--隐藏div-->
+    <div id="sad">
+    </div>
+    <div class="floatdiv" id="layer">
+        <div class="layer_outer">
+            <div class="layer_inner" id="layer_inner">
+                <div class="layer_move" id="topicmove_column" title="点击此处可自由拖动">
+                    <h1 id="newsCount">
+                        话题操作</h1>
+                </div>
+                <a class="btn_close" id="btn_close" href="javascript:void(null)" title="关闭窗口"></a>
+                <div class="clear">
+                </div>
+                <div class="float_layer" id="generateWeiboDataDiv" style="display: none;">
+                    <div class="layer_loading">
+                        <span>
+                            <img src="images/loading_icon.gif" /><br />
+                            正在生成数据</span>
+                    </div>
+                    <div class="layer_loading_bg" style="height: 280px;">
+                    </div>
+                </div>
+                <div class="layer_C">
+                    <ul class="form_list">
+                        <!--- 表单项开始 --->
+                        <li><span class="name">话题名称</span> <span class="input">
+                            <input id="txtTopicName" style="width: 324px;" sid="" stype="" /></span> </li>
+                        <li><span class="name">话题关键词</span> <span class="textarea">
+                            <textarea style="height: 143px; width: 324px;" id="txtKeywords"></textarea></span>
+                        </li>
+                        <li><span class="name">所属行业</span> <span class="input">
+                            <select id="txtIndustry" style="width: 332px;">
+                            </select></span> </li>
+                        <!--- 表单项结束 --->
+                    </ul>
+                    <div class="form_btn">
+                        <input type="button" class="btn" id="btnAddT" value="提交" /><input type="button" class="btn"
+                            id="btnReset" value="重置" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="floatdiv" id="categoryLayer">
+        <div class="layer_outer">
+            <div class="layer_inner" id="categoryLayer_inner">
+                <div class="layer_move" id="categorymove_column" title="点击此处可自由拖动">
+                    <h1 id="H1">
+                        分类管理</h1>
+                </div>
+                <a class="btn_close" id="categoryLayer_close" href="javascript:void(null)" title="关闭窗口">
+                </a>
+                <div class="clear">
+                </div>
+                <div class="layer_C">
+                    <ul class="form_list">
+                        <!--- 标志识别符：表单填写 --->
+                        <!-- <span class="tig">{ 表单项提示：用于提交后服务器端综合验证 }</span>-->
+                        <!--- 表单项开始 --->
+                        <li><span class="name">分类名称</span> <span class="input">
+                            <input id="categoryLayerName" sid="" style="width: 324px;" /></span> </li>
+                        <li><span class="name">最小相关度</span> <span class="input">
+                            <input id="categoryMScore" sid="" style="width: 324px;" /></span> </li>
+                        <li><span class="name">分类关键词</span> <span class="textarea">
+                            <textarea style="height: 143px; width: 324px;" id="categoryLayerKeyword"></textarea></span>
+                        </li>
+                        <!--- 表单项结束 --->
+                    </ul>
+                    <div class="form_btn">
+                        <input type="button" class="btn" id="categoryLayerBtnAdd" stype="" value="提交" /><input
+                            type="button" class="btn" id="categoryLayerBtnReset" value="重置" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="floatdiv" id="keywordsLayer">
+        <div class="layer_outer">
+            <div class="layer_inner" id="keywordsLayer_inner">
+                <div class="layer_move" id="keywordsmove_column" title="点击此处可自由拖动">
+                    <h1 id="H2">
+                        词库管理</h1>
+                </div>
+                <a class="btn_close" id="keywordsLayer_close" href="javascript:void(null)" title="关闭窗口">
+                </a>
+                <div class="clear">
+                </div>
+                <div class="layer_C">
+                    <ul class="form_list">
+                        <!--- 表单项开始 --->
+                        <li><span class="name">关键词</span> <span class="input">
+                            <input id="txtKeywordsName" sid="" style="width: 324px;" /></span> </li>
+                        <li><span class="name">最小相关度</span> <span class="input">
+                            <input id="txtKWRelevance" sid="" style="width: 324px;" /></span> </li>
+                        <!--- 表单项结束 --->
+                    </ul>
+                    <div class="form_btn">
+                        <input type="button" class="btn" id="btnAddKeywords" stype="" value="提交" /><input
+                            type="button" class="btn" id="btnResetKeywords" value="重置" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="floatdiv" id="friendsLayer">
+        <div class="layer_outer">
+            <div class="layer_inner" id="friendsLayer_inner">
+                <div class="layer_move" id="friendsmove_column" title="点击此处可自由拖动">
+                    <h1 id="H3">
+                        分组管理</h1>
+                </div>
+                <a class="btn_close" id="friendsLayer_close" href="javascript:void(null)" title="关闭窗口">
+                </a>
+                <div class="clear">
+                </div>
+                <div class="layer_C">
+                    <ul class="form_list">
+                        <!--- 表单项开始 --->
+                        <li><span class="name" id="selgrpids" grpids="">选择分组</span> <span class="input">
+                            <select id="selGroupFriendList" style="width: 332px;">
+                            </select></span> </li>
+                        <li id="liWarning" class="creat_group"><a href="javascript:void(null);" id="btnWarningCreate">
+                            创建分组</a></li>
+                        <li id="liCreateGroup" style="display: none;"><span class="name">分组名称</span> <span
+                            class="input">
+                            <input type="text" id="txtGroupName" /><input type="button" class="btn" value="创建"
+                                id="btnCreateGroup" /><input type="button" class="btn" id="btnWarningCancel" value="取消"></span>
+                        </li>
+                        <!--- 表单项结束 --->
+                    </ul>
+                    <div class="form_btn">
+                        <input type="button" class="person_window_btn2" id="btnAddFriends" stype="" value="提交" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="floatdiv" id="fellowLayer">
+        <div class="layer_outer">
+            <div class="layer_inner" id="fellowLayer_inner">
+                <div class="layer_move" id="fellowmove_column" title="点击此处可自由拖动">
+                    <h1 id="H4">
+                        分组管理</h1>
+                </div>
+                <a class="btn_close" id="fellowLayer_close" href="javascript:void(null)" title="关闭窗口">
+                </a>
+                <div class="clear">
+                </div>
+                <div class="layer_C">
+                    <ul class="form_list">
+                        <!--- 表单项开始 --->
+                        <li><span class="name" id="fellowselgrpids" grpids="">选择分组</span> <span class="input">
+                            <select id="fellowselGroupFriendList" style="width: 332px;">
+                            </select></span> </li>
+                        <li id="fellowliWarning" class="creat_group"><a href="javascript:void(null);" id="fellowbtnWarningCreate">
+                            创建分组</a></li>
+                        <li id="fellowliCreateGroup" style="display: none;"><span class="name">分组名称</span> <span
+                            class="input">
+                            <input type="text" id="fellowtxtGroupName" /><input type="button" class="btn" value="创建"
+                                id="fellowbtnCreateGroup" /><input type="button" class="btn" id="fellowbtnWarningCancel"
+                                    value="取消"></span> </li>
+                        <!--- 表单项结束 --->
+                    </ul>
+                    <div class="form_btn">
+                        <input type="button" class="person_window_btn2" id="btnAddFellow" stype="" value="提交" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

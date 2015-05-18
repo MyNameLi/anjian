@@ -1,0 +1,14 @@
+//menu
+$(document).ready(function(){
+  
+  $('li.menu_item a').mousemove(function(){
+      $(this).next().slideDown();
+  });
+  $('li.menu_item a').mouseleave(function(){
+      $(this).next().slideUp();
+  });
+  $('li.menu_item div').mouseleave(function(){
+      $(this).slideUp();
+  });
+  
+});

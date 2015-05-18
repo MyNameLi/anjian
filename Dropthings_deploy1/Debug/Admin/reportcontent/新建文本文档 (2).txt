@@ -1,0 +1,2 @@
+C:\Users\Administrator>netsh wlan set hostednetwork mode=allow ssid=weixian key=
+11111118

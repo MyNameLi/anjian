@@ -1,0 +1,119 @@
+﻿
+<div style="width: 618px;">
+<p style="height:200pt;"></p>
+	<table align="center" border="0" cellpadding="0" cellspacing="0" style="width: 600px; height: 175px; ">
+		<tbody>
+			<tr >
+				<td colspan="2">				    
+					<h1 style=" color: red; font-size: 42pt; line-height: 100%; margin: 17pt 0pt 16.5pt; page-break-after: avoid; text-align: center;">
+						国家安监总局舆情处</h1>
+			    </td>			    
+			</tr>
+			<tr >
+			    <td colspan="2">
+					<p style=" font-size: 16pt; line-height: 100%; margin: 0pt -8.8pt 7.8pt 0pt; text-align: center;">
+						<b>{$:#.ReportTitle}</b></p>
+			    </td>
+			</tr>
+			<tr >
+			    <td colspan="2">
+					<p style=" font-size: 16pt; line-height: 100%; margin: 0pt -8.8pt 7.8pt 0pt; text-align: center;">
+						<b>总期号：第12期</b></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:70%; text-align:left;">
+					<p  style="font-family: 'Times New Roman','serif'; font-size: 12pt; line-height: 80%; margin-bottom: 7.8pt; ">
+						<span style="float:left;">总局通信信息中心编制</span></p>
+				</td>
+				<td style="width:30%; text-align:right;">
+				    <p  style="font-family: 'Times New Roman','serif'; font-size: 12pt; line-height: 80%; margin-bottom: 7.8pt; ">
+						<span style="float:right;">{$:#.ReportTime}</span></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	 <hr width="100%" SIZE="2" align="center" style="letter-spacing: -1pt; color: red;mso-font-kerning: 0pt;" noShade="noshade"/>
+<p style="height: 25px;">&nbsp;</p>
+<table align="left" border="0" cellpadding="0" cellspacing="0" style="width: 600px; height: 510px;">
+	<tbody>
+		<tr>
+			<td colspan="2" style="text-align: left;">
+				<p style="margin-right: 21pt;">
+					<span style="font-size: 26px;"><strong>一、</strong><strong>今日关注</strong></span></p>
+			</td>
+		</tr>
+		
+		<vt:foreach from="$#.DailyList" item="#.entity" index="i">
+		<tr>
+			<td colspan="2" style="text-align: left; width: 100px; vertical-align: middle;">
+				<span style="font-size: 20px;">&nbsp;&nbsp; {$:i}、{$:#.entity.Type}</span></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: left; width: 100px; vertical-align: middle;">
+				<vt:foreach from="$#.entity.EntityList" item="#.doc" index="j">
+				<p style="margin-left: 35pt;">
+					<span style="font-size: 16px;">
+					<strong>{$:j})<a href="{$:#.doc.Href}">{$:#.doc.Title}</a></strong><br />
+					网站：{$:#.doc.SiteName}<br />
+					时间：{$:#.doc.TimeStr}<br />
+					摘要：{$:#.doc.Content}</span></p>
+				</vt:foreach>
+			</td>
+		</tr>
+		</vt:foreach>
+		<tr>
+			<td colspan="2" style="text-align: left; width: 100px;">
+				<p style="margin-right: 21pt;">
+					<span style="font-size: 26px;"><strong>二、 </strong><strong>总局领导相关舆情</strong></span></p>
+			</td>
+		</tr>
+		
+		
+		<vt:foreach from="$#.LearderInfoKeys" item="key" index="k">
+		<tr>
+			<td colspan="2" style="text-align: left; width: 100px;">
+				<span style="font-size: 20px;">&nbsp;&nbsp; {$:k}、{$:key}</span></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: left; width: 100px;">
+			    <vt:function var="InfoList" method="GetLearderNewsList" type="Dropthings.Business.Facade.DailyReportResult" args="$#.LearderInfo" args="$#.key" />
+                <vt:foreach from="$#.InfoList" item="info" index="i"> 
+				<p style="margin-left: 35pt;">
+					<span style="font-size: 16px;">
+					<strong>{$:i}) <a href="$:info.Href}">{$:info.Title}</a></strong><br />
+					站点：{$:info.SiteName}<br />
+					时间：{$:info.TimeStr}<br />
+					摘要：{$:info.Content}</span></p>
+			    </vt:foreach> 
+			</td>
+		</tr>
+		</vt:foreach>  
+		
+		<tr>
+			<td colspan="2" style="text-align: left; width: 100px;">
+				<p style="margin-right: 21pt;">
+					<span style="font-size: 26px;"><strong>三 、</strong><strong>热点统计</strong></span></p>
+			</td>
+		</tr>
+		<vt:foreach from="$#.StatisticInfoPic" item="#.entity">
+		<tr>
+			<td colspan="2" style="text-align: center;">				
+				<img height="299px" src="{$:#.entity.PicTitle}" width="595px" />
+			</td>
+		</tr>
+		</vt:foreach>
+	</tbody>
+</table>
+<div style="clear: both;">&nbsp;</div>
+<hr width="100%" SIZE="2" align="center" style="margin-top:15px;letter-spacing: -1pt; color: black;mso-font-kerning: 0pt;" noShade="noshade"/>
+	<p align="left">
+		报送：{$:#.ReportObject}</p>
+	<p align="left">
+		抄送：{$:#.ReportOrg}</p>
+	制作：通信信息中心舆情处
+	<p align="center">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 处长：花月霞&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 责任编辑：{$:#.ReportPeople}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 编辑：李强</p>
+	<p align="center">
+		&nbsp;&nbsp;&nbsp; IP电话：{$:#.ReportMobile}</p>
+</div>

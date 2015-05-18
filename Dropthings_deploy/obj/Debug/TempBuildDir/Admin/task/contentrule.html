@@ -1,0 +1,79 @@
+<div class="layer_T">
+  <h1><b>正文字段提取规则</b></h1>
+  <span class="btn"></span>
+  <div class="clear"></div>
+</div>
+<div class="layer_C">
+    <div id="field_active_iframe" style="text-align:left;">
+        字段：<select id="field_str">
+	          
+        </select>
+        其他字段：<input type="text" id="l_field_name" />    
+        <div class="clear" style="height:10px;"></div>
+        日期格式：
+        <select id="is_date">
+	        <option value="0">否</option>
+            <option value="1">是</option>    
+        </select>&nbsp;&nbsp;
+        中间变量：
+        <select id="is_intervar">
+	        <option value="0">否</option>
+            <option value="1">是</option>    
+        </select>&nbsp;&nbsp;
+        来源字段：
+        <input type="text" id="field_source" value="htmlcontent" />        
+        <div class="clear" style="height:10px;"></div>
+        规则：<select id="field_action">
+	        <option value="1">正则表达式</option>
+            <option value="2">XPATH</option>
+            <option value="3">前后缀</option>
+        </select>
+        
+        <span id="field_exp_input" style="display:block;">
+        <div class="clear" style="height:10px;"></div>
+        参数一：<input type="text" id="field_exp" style="width:500px;" /></span>        
+        <span id="field_suffix_input" style="display:block;">
+        <div class="clear" style="height:10px;"></div>
+        参数二：<input type="text" id="field_suffix" style="width:500px;" /></span>        
+        <span id="filed_param1_input" style="display:block;">
+        <div class="clear" style="height:10px;"></div>
+        参数三：<input type="text" id="field_param1" style="width:500px;" /></span>        
+        <span id="filed_param2_input" style="display:block;">
+        <div class="clear" style="height:10px;"></div>
+        参数四：<input type="text" id="field_param2" style="width:500px;" /></span>        
+        <span id="filed_param3_input" style="display:block;">
+        <div class="clear" style="height:10px;"></div>
+        参数五：<input type="text" id="field_param3" style="width:500px;" /></span>
+        <span id="filed_param4_input" style="display:block;">
+        <div class="clear" style="height:10px;"></div>
+        参数六：<input type="text" id="field_param4" style="width:500px;" /></span>
+        <div class="clear" style="height:10px;"></div>
+        去除HTML：
+        <select id="is_remove_html">
+	        <option value="1">是</option>
+            <option value="0">否</option>    
+        </select>
+        &nbsp;&nbsp;
+        <a href="javascript:void(null);" id="add_content_rule">确定</a>&nbsp;&nbsp;        
+        <a href="javascript:void(null);" id="reset_content_rule">重置</a>
+    </div>
+    
+    <table cellpadding="0" cellspacing="0" class="url_rule">
+    	<tr>
+        	<td width="10%" height="26" background="../images/tab_14.gif">提取字段</td>
+        	<td width="15%" height="26" background="../images/tab_14.gif">中间变量</td>
+            <td width="15%" height="26" background="../images/tab_14.gif">时间格式</td>
+            <td width="20%" height="26" background="../images/tab_14.gif">提取规则</td> 
+            <td width="7%" height="26" background="../images/tab_14.gif">去除HTML</td>
+            <td width="20%" height="26" background="../images/tab_14.gif">来源字段</td>            
+            <td width="13%" height="26" background="../images/tab_14.gif">操作</td>
+        </tr>
+        <tbody id="content_rule_list">
+        	
+        </tbody>
+    </table>
+    <center>
+        <input type="button" id="btn_prev_urlrule" value="上一步" />&nbsp;&nbsp;
+        <input type="button" id="btn_submit" value="提交" /><span style="color:Red;" id="submit_msg"></span>
+    </center>
+</div>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Dropthings-VS2008">
+</Property><Property Name="解决方案文件" Value="E:\工作\国科智信\anjian\Dropthings-VS2008.sln">
+</Property><Property Name="Date" Value="2012年10月30日">
+</Property><Property Name="Time" Value="17:12">
+</Property></Properties><Event ErrorLevel="0" Project="Dropthings.Business.Facade" Source="Dropthings.Business.Facade\Dropthings.Business.Facade.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="Dropthings.Business.Facade" Source="Dropthings.Business.Facade\Dropthings.Business.Facade.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Dropthings.Web.Framework" Source="Dropthings.Web.Framework\Dropthings.Web.Framework.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="Dropthings.Web.Framework" Source="Dropthings.Web.Framework\Dropthings.Web.Framework.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Dropthings.Web.Util" Source="Dropthings.Web.Util\Dropthings.Web.Util.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="Dropthings.Web.Util" Source="Dropthings.Web.Util\Dropthings.Web.Util.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Dropthings.Util" Source="Dropthings.Util\Dropthings.Util.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="Dropthings.Util" Source="Dropthings.Util\Dropthings.Util.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Dropthings.Widget.Framework" Source="Dropthings.Widget.Framework\Dropthings.Widget.Framework.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="Dropthings.Widget.Framework" Source="Dropthings.Widget.Framework\Dropthings.Widget.Framework.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="AJAXASMXHandler" Source="AjaxAsmxHandler\AJAXASMXHandler.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="AJAXASMXHandler" Source="AjaxAsmxHandler\AJAXASMXHandler.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Dropthings.Model" Source="Dropthings.Model\Dropthings.Model.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="Dropthings.Model" Source="Dropthings.Model\Dropthings.Model.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Dropthings.Configuration" Source="Dropthings.Configuration\Dropthings.Configuration.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="Dropthings.Configuration" Source="Dropthings.Configuration\Dropthings.Configuration.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Dropthings.Data" Source="Dropthings.Data\Dropthings.Data.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="Dropthings.Data" Source="Dropthings.Data\Dropthings.Data.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Dropthings.RestApi" Source="Dropthings.RestApi\Dropthings.RestApi.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="Dropthings.RestApi" Source="Dropthings.RestApi\Dropthings.RestApi.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="VTemplate.Engine" Source="VTemplate.Engine\VTemplate.Engine.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="VTemplate.Engine" Source="VTemplate.Engine\VTemplate.Engine.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="IdolACINet" Source="IdolACINet\IdolACINet.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="IdolACINet" Source="IdolACINet\IdolACINet.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="Dropthings-VS2008.sln" Description="成功转换解决方案">
+</Event><Event ErrorLevel="3" Project="" Source="Dropthings-VS2008.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Dropthings.Business.Facade" Source="Dropthings.Business.Facade\Dropthings.Business.Facade.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event><Event ErrorLevel="0" Project="Dropthings.Web.Framework" Source="Dropthings.Web.Framework\Dropthings.Web.Framework.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event><Event ErrorLevel="0" Project="Dropthings.Web.Util" Source="Dropthings.Web.Util\Dropthings.Web.Util.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event><Event ErrorLevel="0" Project="Dropthings.Util" Source="Dropthings.Util\Dropthings.Util.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event><Event ErrorLevel="0" Project="Dropthings.Widget.Framework" Source="Dropthings.Widget.Framework\Dropthings.Widget.Framework.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event><Event ErrorLevel="0" Project="AJAXASMXHandler" Source="AjaxAsmxHandler\AJAXASMXHandler.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event><Event ErrorLevel="0" Project="Dropthings.Model" Source="Dropthings.Model\Dropthings.Model.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event><Event ErrorLevel="0" Project="Dropthings.Configuration" Source="Dropthings.Configuration\Dropthings.Configuration.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event><Event ErrorLevel="0" Project="Dropthings.Data" Source="Dropthings.Data\Dropthings.Data.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event><Event ErrorLevel="0" Project="Dropthings.RestApi" Source="Dropthings.RestApi\Dropthings.RestApi.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event><Event ErrorLevel="0" Project="VTemplate.Engine" Source="VTemplate.Engine\VTemplate.Engine.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event><Event ErrorLevel="0" Project="IdolACINet" Source="IdolACINet\IdolACINet.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event></UpgradeLog>

@@ -1,0 +1,38 @@
+<div class="page">
+	<vt:if var="##.pagecount" value="0" compare=">"> 
+		<a class="first" href="{$:##.baseurl}.html">首页</a> 
+		<vt:if var="##.start" value="1" compare="=">   
+		<a class="pre" href="javascript:void(null);">上一页</a> 
+		<vt:elseif value="##.start" value="2" compare="=" />
+		<a class="pre" href="{$:##.baseurl}.html">上一页</a> 
+		<vt:else />
+		<a class="pre" href="{$:##.baseurl}_{$:##.prev}.html">上一页</a> 
+		</vt:if>
+		
+		
+		<vt:for from="$##.pagerstartindex" to="$##.pagerendindex" index="pageindex">	
+			<vt:if var="pageindex" value="$##.start" compare="=">  
+				<span class="current">{$:pageindex}</span> 
+			<vt:else />
+				<vt:if var="pageindex" value="1" compare="=">   
+					<a class="flag_pg" href="{$:##.baseurl}.html">{$:pageindex}</a>
+				<vt:else />
+					<a class="flag_pg" href="{$:##.baseurl}_{$:pageindex}.html">{$:pageindex}</a>
+				</vt:if>
+			</vt:if>
+		</vt:for>		
+		
+		
+		<vt:if var="##.start" value="$##.pagecount" compare="=">   
+		<a class="next" href="javascript:void(null);">下一页</a> 	
+		<vt:else />
+		<a class="next" href="{$:##.baseurl}_{$:##.next}.html">下一页</a> 
+		</vt:if>	
+		<vt:if var="##.pagecount" value="1" compare="="> 
+		<a class="last" href="{$:##.baseurl}.html">末页</a>
+		<vt:else />		
+		<a class="last" href="{$:##.baseurl}_{$:##.pagecount}.html">末页</a>	
+		</vt:if>	
+	</vt:if>	
+	
+</div>

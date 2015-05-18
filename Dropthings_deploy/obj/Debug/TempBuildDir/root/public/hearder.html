@@ -1,0 +1,41 @@
+<div id="header">
+ 	<div id="header">
+		<h1 id="logo"> <a href="index.html"><img alt="国科安信" src="images/logo.png"></a> </h1>
+        <div id="search">	
+        	<form action="">		
+            	<input type="text" value="" class="input_text" name="text">		
+                <input type="submit" class="input_button" value="" name="button">	
+            </form>
+        </div>		
+        <ul class="clearfix" id="nav">				
+        	<vt:function var="ColumnList" method="GetColumnList" type="Dropthings.Business.Facade.CommonLabel" args="0" args="true" />            
+            <vt:foreach from="$#.ColumnList" item="Column" index="i">
+            <li class="menu_item">
+                <a href="{$:Column.ColumnPublish}"
+				<vt:if var="i" value="$#.currentnum" compare="=">
+					class="current"
+				</vt:if>
+				>{$:Column.ColumnName}</a>	
+               <vt:function var="ChildList" method="GetColumnList" type="Dropthings.Business.Facade.CommonLabel" args="$#.Column.ID" args="false" />	 
+               <vt:if var="ChildList.Count" value="0" compare=">">              
+               <div class="sub_item" id="sub01" style="display: none;">			
+                    <ul>
+                    <vt:foreach from="$#.ChildList" item="Child" >
+                        <li><a href="{$:Child.ColumnPublish}">{$:Child.ColumnName}</a></li>
+                    </vt:foreach>
+                    </ul>		
+                </div>
+                </vt:if>
+            </li>
+            </vt:foreach>
+        </ul>
+        <div id="website"><a href="#">国科旗下网站</a>		
+        	<div class="sub_item" id="websitelist">			
+            	<ul>				
+                	<li><a href="#">国科智信</a></li>				
+                    <li class="last"><a href="#">国科矿信</a></li>			
+                </ul>		
+             </div>
+        </div>		
+	</div>
+</div>

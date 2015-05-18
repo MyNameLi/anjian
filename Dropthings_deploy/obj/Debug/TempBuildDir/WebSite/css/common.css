@@ -1,0 +1,22 @@
+/* CSS Document */
+
+	/*=== 全局定义 ===*/
+		body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,button,p,blockquote,th,td {margin:0;padding:0;}
+	h1,h2,h3,h4,h5,h6{font-size:100%; font-weight:normal;}
+	table{border-collapse:collapse; border-spacing:0;}
+	caption,cite,em,strong,th {font-style:normal; font-weight:normal;} 
+	caption, th {text-align:left;}
+	fieldset, img {border:0;} 
+	img {vertical-align:top;} 
+	ul,ol,li {list-style:none;}
+
+	/*=== 链接 ===*/
+	a:link {color:#333; text-decoration:none;}
+	
+	/*=== 浮动和清除浮动 ===*/
+	.left {float:left;}
+	.right {float:right;}
+	.clear {clear:both;}
+	.clearfix:after {content:"."; display:block; height:0px; clear:both; visibility:hidden; }
+	.clearfix {zoom:1;}
+	

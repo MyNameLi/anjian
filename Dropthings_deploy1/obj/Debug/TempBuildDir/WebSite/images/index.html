@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+<link href="css/common.css" type="text/css" rel="stylesheet" media="screen" />
+<link href="css/layout.css" type="text/css" rel="stylesheet" media="screen" />
+<script type="text/javascript" src="js/header.js"></script>
+</head>
+<body>
+<div id="body_bg">
+	<div id="wrapper">
+		<div id="header">
+		    <script type="text/javascript">
+		        OutputHeader();
+		    </script>		
+		</div>
+		<div id="focus">
+			<ul class="focusList" id="focusList">
+				<li class="current"><a href="#"><img src="news_images/banner.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="news_images/banner_3.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="news_images/banner_7.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="news_images/banner.jpg" alt="" /></a></li>
+			</ul>
+			<ul class="focusIndex clearfix" id="focusIndex">
+				<li class="current">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+			</ul>
+		</div>
+		<div class="content clearfix">
+			<div class="column tab">
+				<ul id="colTab" class="column_sort">
+					<li class="active" onClick="nTabs(this,0);"><a href="javascript:void(0)"><span>公司动态</span></a></li>
+					<!--<li class="normal" onClick="nTabs(this,1);"><a href="javascript:void(0)"><span>最新专题</span></a></li>-->
+					<li class="normal" onClick="nTabs(this,1);"><a href="javascript:void(0)"><span>行业资讯</span></a></li>
+				</ul>
+				<div id="colTab_Content0" class="column_body">
+					<ol class="list">
+					    <li class="hot"><em class="top">01</em><a href="news-20101213.html" target="_blank">总裁侍启伟陪同煤炭工业协会信息化分会领导调研</a><span>2010-12-13</span></li>
+					  <li><em class="top">02</em><a href="#">国科安信新版官方网站上线！</a><span>2010-12-06</span></li>
+						<li><em class="top">03</em><a href="news-20100901.html" target="_blank">“安全猎人”系列产品参展榆林煤炭博览会</a><span>2010-09-01</span></li>
+						<li><em>04</em><a href="news-20100801.html" target="_blank">国科安信榆林办事处成立</a><span>2010-08-01</span></li>
+						<li class="last"><em>05</em><a href="news-20100505.html" target="_blank">“安全猎人”井下人员定位解决方案发布</a><span>2010-05-05</span></li>
+					</ol>
+					<div class="subject"><a href="#"><img src="images/pic.jpg" alt="" /></a></div>
+				</div>
+				<!--<div id="colTab_Content1" class="column_body" style="display:none;">
+					<ol class="list">
+						<li class="hot"><a href="http://www.360doc.com/content/10/0828/15/1971695_49424261.shtml" target="_blank"><em class="top">01</em>国家安监总局要求全国煤矿建设井下人员定位系统</a><span>2010-08-20</span></li>
+						<li><em class="top">02</em><a href="http://news.sohu.com/20100827/n274510075.shtml" target"_blank">两部门通知完善煤矿井下安全避险“六大系统”</a><span>2010-08-20</span></li>
+						<li><em class="top">03</em><a href="http://news.qq.com/a/20100311/003693.htm" target="_blank">解读新《煤矿安全规程》4道“保险”保安全</a><span>2010-08-20</span></li>
+						<li><em>04</em><a href="#">两部门通知完善煤矿井下安全避险“六大系统”</a><span>2010-08-20</span></li>
+						<li class="last"><em>05</em><a href="#">解读新《煤矿安全规程》4道“保险”保安全</a><span>2010-08-20</span></li>
+					</ol>
+					<div class="subject"><a href="#"><img src="images/pic.jpg" alt="" /></a></div>
+				</div>
+				-->
+				<div id="colTab_Content1" class="column_body" style="display:none;">
+					<ol class="list">
+						<li class="hot"><em class="top">01</em><a href="http://finance.sina.com.cn/stock/t/20101126/03309013054.shtml" target="_blank">“安全”与否在乎执行力与整合度</a><span>2010-11-26</span></li>
+						<li><em class="top">02</em><a href="http://gzdsb.gog.com.cn/system/2010/11/23/010954509.shtml" target="_blank">采煤六大系统保矿工</a><span>2010-11-23</span></li>
+						<li><em class="top">03</em><a href="http://www.aqsc.cn/101806/101889/179739.html" target="_blank">骆琳在河北调研强调把责任落实到基层到企业</a><span>2010-11-16</span></li>
+						<li><em>04</em><a href="http://news.sohu.com/20100827/n274510075.shtml" target="_blank">两部门通知完善煤矿井下安全避险“六大系统”</a><span>2010-08-27</span></li>
+						<li class="last"><em>05</em><a href="http://news.qq.com/a/20100311/003693.htm" target="_blank">解读新《煤矿安全规程》4道“保险”保安全</a><span>2010-03-11</span></li>
+					</ol>
+					<div class="subject"><a href="#"><img src="images/pic.jpg" alt="" /></a></div>
+				</div>
+			</div>
+			<div class="column tab2">
+				<ul id="colTab2" class="column_sort">
+					<li class="active" onClick="nTabs(this,0);"><a href="javascript:void(0)"><span>推荐应用</span></a></li>
+					<li class="normal" onClick="nTabs(this,1);"><a href="javascript:void(0)"><span>成功案例</span></a></li>
+				</ul>
+				<div id="colTab2_Content0" class="column_body">
+					<ol class="list">
+						<li><em class="top">01</em><a href="product.html">井下人员定位系统</a></li>
+						<li><em class="top">02</em><a href="product2.html">无线中继通讯系统</a></li>
+						<li><em class="top">03</em><a href="#">应急调度系统</a></li>
+						<li><em class="top">04</em><a href="#">井上井下班组电台系统</a></li>
+						<li class="last"><em class="top">05</em><a href="#">机车跟踪定位系统</a></li>
+					</ol>
+				</div>
+				<div id="colTab2_Content1" class="column_body" style="display:none;">
+					<ol class="list">
+						<li><em class="top">01</em><a href="case.html">陕西大佛寺煤矿</a></li>
+						<li><em class="top">02</em><a href="case1.html">紫金矿业紫金山金矿</a></li>
+						<li><em class="top">03</em><a href="case.html">山东枣庄王晁煤矿</a></li>
+						<li><em class="top">04</em><a href="case1.html">淮北矿业集团孙疃煤矿</a></li>
+						<li class="last"><em class="top">05</em><a href="case.html">陕西玉华煤矿</a></li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			 <script type="text/javascript">
+			     OutputFooter();
+		    </script>	
+		</div>
+	</div>
+</div>
+<span class="footer_js">
+<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="js/slide.js"></script>
+<script src="js/changeTab.js" type="text/javascript"></script>
+<script type="text/javascript">
+ //Focus 幻灯片
+    var bind = function(object, fn){
+        return function(){
+            fn.apply(object, arguments);
+        }
+    }
+    function picshow(idpiclist, idpicindex){
+        return new picshow.prototype.init(idpiclist, idpicindex);
+    }
+    picshow.prototype = {
+        init: function(idpiclist, idpicindex){
+			this.auto=false;
+			var othis = this;
+            this.i = 0;
+            this.pics = document.getElementById(idpiclist).getElementsByTagName('li');
+            this.indexs = document.getElementById(idpicindex).getElementsByTagName('li');
+            this.len = this.pics.length;
+            this.setIndex(this.pics);
+            this.setIndex(this.indexs);
+            this.each(this.indexs, function(){
+                this.onmouseover = function(){
+                    bind(othis, othis.stop)();
+					othis.each(othis.indexs, function(){
+                        this.className ='';
+                    });
+                    othis.each(othis.pics, function(){
+                        this.className ='';
+                    });
+					this.className = 'current';
+                    othis.pics[this.index].className = 'current';
+					othis.i=this.index;
+                }
+                this.onmouseout = function(){
+                    if(othis.auto===false) {
+                        othis.interval = setInterval(bind(othis, othis.show), 2000);
+                    }
+                }
+            });
+            this.start();
+        },
+        stop: function(){
+            clearInterval(this.interval);
+			this.auto=false;
+        },
+        show: function(){
+            this.pics[this.i].className = "";
+			this.indexs[this.i++].className="";
+			if (this.i == this.len) {
+                this.i = 0;
+            }
+            this.pics[this.i].className = "current";
+			this.indexs[this.i].className="current";
+        },
+        start: function(){
+            if (this.auto===false) {
+                this.interval = setInterval(bind(this, this.show), 2000);
+            }
+        },
+        setIndex: function(objs){
+            this.each(objs, function(i){
+                this['index'] = i;
+            });
+        },
+        each: function(items, fn){
+            for (var i = 0; i < items.length; i++) {
+                fn.call(items[i], i);
+            }
+        }
+    }
+    picshow.prototype.init.prototype = picshow.prototype;
+    picshow('focusList', 'focusIndex');
+</script>
+</span>
+</body>
+</html>

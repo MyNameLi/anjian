@@ -1,0 +1,44 @@
+----------------------------------------
+Timestamp: 2011/11/17 10:11:11
+Message: HandlingInstanceID: b96702ff-76c2-42c2-a0e5-3c87f72742ed
+An exception of type 'System.Threading.ThreadAbortException' occurred and was caught.
+-------------------------------------------------------------------------------------
+11/17/2011 18:11:11
+Type : System.Threading.ThreadAbortException, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+Message : 正在中止线程。
+Source : mscorlib
+Help link : 
+ExceptionState : System.Web.HttpApplication+CancelModuleException
+Data : System.Collections.ListDictionaryInternal
+TargetSite : Void AbortInternal()
+Stack Trace :    在 System.Threading.Thread.AbortInternal()
+   在 System.Threading.Thread.Abort(Object stateInfo)
+   在 System.Web.HttpResponse.End()
+   在 System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   在 System.Web.HttpResponse.Redirect(String url)
+   在 TabControlPanel.RedirectToTab(PageEntity Tab) 位置 d:\项目\anjian\Dropthings\TabControlPanel.ascx.cs:行号 250
+   在 TabControlPanel.<DeleteTabLinkButton_Clicked>b__1() 位置 d:\项目\anjian\Dropthings\TabControlPanel.ascx.cs:行号 241
+   在 OmarALZabir.AspectF.AspectExtensions.<>c__DisplayClass47.<TrapLogThrow>b__46(Action work) 位置 D:\work\RND\AspectF\AspectF_Src\AspectF\AspectF.cs:行号 383
+
+Additional Info:
+
+MachineName : TONY_GUO
+TimeStamp : 2011/11/17 10:11:11
+FullName : Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+AppDomainName : 562db8d-1-129659942248411395
+ThreadIdentity : TONY_GUO\Administrator
+WindowsIdentity : TONY_GUO\Administrator
+
+Category: Exception
+Priority: 0
+EventId: 100
+Severity: Error
+Title:Log Exception
+Machine: TONY_GUO
+Application Domain: 562db8d-1-129659942248411395
+Process Id: 7628
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.EXE
+Win32 Thread Id: 3384
+Thread Name: 
+Extended Properties: 
+----------------------------------------

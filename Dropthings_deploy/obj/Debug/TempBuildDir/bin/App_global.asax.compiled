@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<preserve resultType="8" virtualPath="/Dropthings/global.asax" hash="2ef4e05e" filehash="ffffbab6fb166c18" flags="150000" assembly="Dropthings_deploy" type="ASP.global_asax">
+  <filedeps>
+    <filedep name="/Dropthings/global.asax" />
+  </filedeps>
+</preserve>

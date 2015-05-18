@@ -1,0 +1,12 @@
+<ol class="news_list">
+<vt:datareader var="newslist" connection="SentimentConnStr" commandtext="$##.listsql" />
+<vt:foreach from="$newslist" item="News" index="i">
+<vt:if var="k" value="1" compare="=">   
+<li class="hot"><em class="top">0{$:i}</em><a href="{$:#.News.PublishPath}" target="_blank">{$:#.News.ArticleTitle}</a><span>{$:#.News.ArticleBaseDate}</span></li>								
+<vt:else />
+<li><em class="top">0{$:i}</em><a href="{$:#.News.PublishPath}" target="_blank">{$:#.News.ArticleTitle}</a><span>{$:#.News.ArticleBaseDate}</span></li>						
+</vt:if>
+<vt:foreachelse />
+	<li>暂时没有数据</li>
+</vt:foreach>	
+</ol>

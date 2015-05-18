@@ -1,0 +1,21 @@
+<div class="content_side">
+    <ul class="subNav">
+        <vt:function var="ColumnList" method="GetColumnList" type="Dropthings.Business.Facade.CommonLabel" args="$#.parentid" args="false" />
+        <vt:foreach from="$#.ColumnList" item="Column" index="i">
+            <li <vt:if var="column.ID" value="$#.columnid" compare="=">
+                class="current"
+            </vt:if>><a href="{$:Column.ColumnPublish}">{$:Column.ColumnName}</a></li>							
+        </vt:foreach>
+    </ul>
+</div>
+<div class="content_main">
+    <div id="banner"><img src="images/banner02.jpg" alt=""></div>
+    <div class="indetail_iframe">
+        <vt:function var="CurrentColumn" method="GetColumnById" type="Dropthings.Business.Facade.CommonLabel" args="$#.columnid"/>
+        <center><h2 class="indetail_title">{$:CurrentColumn.ColumnName}</h2></center>							
+        <div class="box_intro">
+		<vt:function var="HtmlStr" method="GetTemplateContent" type="Dropthings.Business.Facade.CommonLabel" args="$#.ColumnEntity.ID" args="1"/>
+        {$:HtmlStr}
+        </div>
+    </div>					
+</div>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>新闻-新闻专题</title>
+<link href="css/common.css" type="text/css" rel="stylesheet" media="screen" />
+<link href="css/layout.css" type="text/css" rel="stylesheet" media="screen" />
+<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="js/slide.js"></script>
+</head>
+<body>
+<div id="body_bg">
+	<div id="wrapper">
+        <vt:set var="currentnum" value="7" />        
+		<vt:include file="public/hearder.html" />
+		<div class="content2 clearfix">
+			<div class="content_body clearfix">
+				<div class="content_side">
+					
+				</div>
+				<div class="content_main">
+					<div id="banner"><img src="images/banner08.jpg" alt=""></div>
+					<div class="indetail indetail2">
+						<h2 class="indetail_title">新闻专题</h2>
+						<div class="box3">
+							<div class="box4">
+								<div class="option clearfix">
+								<form action="">
+									<select class="select2">
+										<option value="0">2010</option>
+									</select>
+									年
+									<select class="select3">
+										<option value="0">1</option>
+									</select>
+									月 - 
+									<select class="select2">
+										<option value="0">2010</option>
+									</select>
+									年
+									<select class="select3">
+										<option value="0">1</option>
+									</select>
+									月
+									<input name="text" type="text" value="关键字" onFocus="if(this.value == '关键字'||this.value == '关键字'){this.value = ''}"onblur="if(this.value == ''){this.value = '关键字'}" class="input_text" />
+									<input name="button" type="submit" value="查看" class="input_button" />
+								</form>	
+								</div>
+							</div>
+						</div>
+						<vt:include file="public/newslist.html" />				
+						<vt:include file="public/pager.html" />
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<vt:include file="public/footer.html" />
+	</div>
+</div>
+<span class="footer_js">
+
+</span>
+</body>
+</html>

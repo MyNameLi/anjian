@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>分类训练</title>
+<link href="../css/common.css" type="text/css" rel="stylesheet" rev="stylesheet" media="all" />
+<link href="../css/auto_layout.css" type="text/css" rel="stylesheet" rev="stylesheet" media="all" />
+<link href="../css/test.css" rel="Stylesheet" type="text/css" rev="stylesheet" media="all" />
+<script type="text/javascript" src="../js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../js/OterhPager.js"></script>
+<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="../js/listTable.js"></script>
+<script type="text/javascript" src="../js/train.js"></script>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+  <tbody><tr>
+    <td height="30"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="15" height="30"><img width="15" height="30" src="../images/tab_03.gif"></td>
+        <td background="../images/tab_05.gif" align="left"><img width="16" height="16" src="../images/311.gif"> <span class="STYLE4">
+        当前位置：<a href="#">舆情分类</a> <span>&gt;&gt;</span> <strong id="markLable"></strong></span>
+        
+        </td>
+        <td width="14"><img width="14" height="30" src="../images/tab_07.gif"></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr>
+    <td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="9" background="../images/tab_12.gif">&nbsp;</td>
+        <td bgcolor="#d3e7fc">
+			<div id="wrapper">	
+	<div class="content">
+		<div id="publicTopic" class="publicFeelSearch clearfix">
+			<div class="publicFeelSort" >
+				<ul class="left-center-nav" id="MenuList">
+				
+				</ul>
+			</div>
+			<div class="publicFeelSearchBody">
+				<div class="crumbs">
+					<div class="crumbsTitle"><div class="nowposition"></div>
+					<div><a href="#g" id="add_new_catagory" class="addnew">新增根目录</a></div>
+					</div>
+				</div>
+				<!--操作管理 start-->
+				<div class="categoryManage">
+				    <ul>
+				        <li class="manageMark">操作管理：</li>
+				        <li class="manageOperation">
+				            <span class="manageOperationDel"><a href="#g" id="btn_remove">删除</a></span>				           
+				            <span class="manageOperationAdd"><a href="#g" id="btn_add">增加子分类</a></span>
+				        </li>				       
+				    </ul>
+				</div>
+				<!--操作管理 end-->
+				<!--新建分类 start-->
+				<div class="publicTopicSort">
+					<div class="newTopic clearfix">
+						<div class="newTopicBody">
+							<table>
+								<tr>
+									<th width="25%">分类名称：</th>
+									<td><input name="text" type="text" id="CategoryName" class="input_text31" /></td>
+								</tr>
+								<tr>
+									<th class="tab_title">初始训练：</th>
+									<td class="tab_title">&nbsp;</td>
+								</tr>
+								<tr>
+								    <th class="pd_top">分类起始条件：</th>
+								    <td class="pd_top">
+								        <textarea id="cate_train_info" style="font-size:12px;"  rows="5" cols="35"></textarea>
+								    </td>
+								</tr>
+								<tr>
+									<th class="pd_top">排序规则：</th>
+									<td class="pd_top">
+									    <select id="CatePath">
+									        <option value="Relevance">相关度</option>
+									        <option value="date">时间</option>
+									    </select>
+									</td>
+								</tr>			
+								<tr>
+									<th>父级分类：</th>
+									<td><select id="ParentCate" disabled="disabled" style="width:245px">
+									<option value="0">根目录</option>
+                                    </select></td>
+								</tr>					
+								<tr>
+									<th>是否有效：</th>
+									<td>
+									<select id="IsEffect">
+									    <option value="1">是</option>
+									    <option value="0">否</option>    
+									</select></td>
+								</tr>
+								<tr>
+									<th>查询方式：</th>
+									<td>
+									<select id="QueryType">
+									    <option value="commonquery">普通查询</option> 
+									    <option value="categoryquery">分类查询</option>									       
+									</select></td>
+								</tr>
+								<tr>
+									<th>查询关键字：</th>
+									<td>
+									    <textarea id="Keyword" style="font-size:12px;"  rows="5" cols="35"></textarea>									    
+									</td>
+								</tr>
+								<tr>
+									<th>查询相关度：</th>
+									<td>
+									    <input type="text" id="MinScore" size="5" value="20" />（请输入10至90之间的数字）
+									</td>
+								</tr>
+								<tr name="event_div" style="display:none;">
+									<th class="tab_title">其他关键字：</th>
+									<td class="tab_title">&nbsp;</td>
+								</tr>
+								<tr name="event_div" style="display:none;">
+									<th>事故原因：</th>
+									<td>
+									    <input type="text" id="EventReson" class="input_text31" />
+									</td>
+								</tr>
+								<tr name="event_div" style="display:none;">
+									<th>事故救援：</th>
+									<td>
+									    <input type="text" id="EventMeasure" class="input_text31" />
+									</td>
+								</tr>
+								<tr name="event_div" style="display:none;">
+									<th>安监相关：</th>
+									<td>
+									    <input type="text" id="EventAbout" class="input_text31" />
+									</td>
+								</tr>
+								<tr name="event_div" style="display:none;">
+									<th>相关度：</th>
+									<td>
+									    <input type="text" id="EventMinScore" size="5" value="20" />（请输入10至90之间的数字）
+									</td>
+								</tr>
+								
+								    <tr name="event_div" style="display:none;">
+									    <th class="tab_title">事故信息：</th>
+									    <td class="tab_title">&nbsp;</td>
+								    </tr>
+								    <tr  name="event_div" style="display:none;">
+									    <th>发生时间：</th>
+									    <td>
+									        <input type="text" id="EventDate" class="input_text31" onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})" />
+									    </td>
+								    </tr>
+								    <tr  name="event_div" style="display:none;">
+									    <th>事故类型：</th>
+									    <td>
+									        <select id="EventType">
+									            <option value="0">---请选择事故类型---</option>
+									            <option value="1">处理中事故</option>
+									            <option value="2">已处理事故</option>
+									            <option value="3">瞒报事故</option>
+									        </select>
+									    </td>
+								    </tr>
+								<tr>
+									<th class="tab_title">相关信息：</th>
+									<td class="tab_title">&nbsp;</td>
+								</tr>
+								<tr>
+								    <th>排序：</th>
+								    <td>
+								        <input type="text" id="EventSort" class="input_text31"  />
+								    </td>
+							    </tr>
+								<tr  name="event_div" style="display:none;">
+								    <th>图片地址：</th>
+								    <td>
+								        <input type="text" id="ImgPath" class="input_text31"  /><br />
+								        <input type="file" name="post_file_path" id="post_file_path" />
+								        <input type="button" class="input_button31" value="上传" onclick="javascript:listTable.UpLoadFile('post_file_path','ImgPath','CommonFileLoad.ashx');" />								        
+								    </td>
+							    </tr>
+							    
+							    
+								
+								<tr  name="event_div" style="display:none;">
+								    <th>是否最新：</th>
+								    <td>
+								        <select id="IsNew">
+								            <option value="0">否</option>
+								            <option value="1">是</option>									            
+								        </select>								        
+								    </td>
+							    </tr>
+								
+								<tr>
+									<th class="tab_title">其他训练：</th>
+									<td class="tab_title">&nbsp;</td>
+								</tr>
+								<tr>
+								    <th class="pd_top">文章训练：</th>
+								    <td class="pd_top">
+								        <input name="button2" style="vertical-align:middle;" type="checkbox"  id="article_trainning" />
+								    </td>
+								</tr>
+								<tr>
+									<th>&nbsp;</th>
+									<td><input name="button" type="button" value="确定" id="btnSubmit" pid="add" class="input_button31" />
+									<span style="color:Red;" id="Message"></span> </td>
+								</tr>
+							</table>
+						</div>
+						<div class="newTopicInfo" id="articleweight" style="display:none;" >
+							<div class="weight_head"><div class="weight_head_title">分类概念定义及权重：</div><div class="add_more"><a href="#g" id="add_more">增加权重</a></div></div>
+							<table>
+								<tr>
+									<th width="15%" class="tp_right">概念</th>
+									<th width="25%">权重</th>
+									<th><span class="dataStand">标准</span></th>
+								</tr>	
+								<tr id="weight_list" style="display:none;">
+								    <td class="tp_right"></td>
+								    <td><!--<span><a href="javascript:void(null);" id="weight_prev">上一页</a>&nbsp;&nbsp;<a href="javascript:void(null);" id="weight_next">下一页</a></span>--></td>
+								    <td align="right"><input name="button" type="button" value="开始训练" id="save_weght" class="input_button31" /><span style="color:Red;"></span>	</td>
+							    </tr>
+							</table>
+						</div>
+					</div>
+					<div id="trainingArticle" style="display:none;">
+					<div class="newTopic clearfix" style="margin-top:15px;">					    
+					    <div class="article_list" style="border-bottom:gray solid 1px; font-weight:bolder;">
+					        <ul>
+					            <li class="article_list_num">训练文章：</li>					            					            
+					            <li class="article_list_href">文章链接</li>
+					            <li class="article_list_del">操作</li>
+					            <li style="text-align:right;"></li>
+					            
+					        </ul>
+					    </div>				   
+					    
+					    <div style="clear:both;" id="choose_article_list_id">
+					        <ul>
+					        	<li style="float:right; padding-right:10px;"> <a href="javascript:void(null);" id="look_article_list" pid="hidden">展开文章列表</a></li>
+					        </ul>					       
+					    </div>
+					</div>
+					<div class="publicTopicTrain">
+						<div class="trainTitle clearfix">
+							<h3>训练文章：</h3>
+							<div class="trainSearch">
+								
+									<input name="text" type="text" class="input_text34" id="key_words" />
+									<input name="searchButton" type="button" value="搜索" id="BtnSearch" class="input_button35" />
+								
+							</div>
+						</div>
+						<div class="publicFeelSearchContent trainBody">
+							<ol class="publicFeelSearchResult" id="SearchResult">
+								<!--<li>
+									<div class="trainSelect"><input  type="checkbox" name="train_article_list" /> 34%</div>
+									<h2><a href="#">《团圆》启幕柏林电影节 张艺谋短片祝寿柏林影展</a></h2>
+									<div class="d"><span>千龙网</span> - 47分钟前</div>
+									<p>医生圈论坛—医学社区2008年，礼来的销售业绩继续保持了前两年快速增长的态势，尤其是在胰岛素领域的增长远远高于市场平均水平；勃林格殷格翰<b>...</b></p>
+								</li>	-->
+								<li><center>请搜索文章......</center></li>															
+							</ol>
+							<div class="publicFeelSearchPage" id="PagerList"></div>
+							<div class="trainOperate">
+								<div class="trainSelect"><label><input name="checkAll" type="checkbox" id="choose_all" /> 全选</label></div>
+								<input name="train" type="button" value="保存选中的文章" class="input_button33" id="save_docs" />
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				<!--新建分类 end-->
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="categoryId" />		
+</div>
+        </td>
+        <td width="9" background="../images/tab_16.gif">&nbsp;</td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr>
+    <td height="29"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="15" height="29"><img width="15" height="29" src="../images/tab_20.gif"></td>
+        <td background="../images/tab_21.gif">&nbsp;</td>
+        <td width="14"><img width="14" height="29" src="../images/tab_22.gif"></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+</tbody></table>
+</body>
+</html>

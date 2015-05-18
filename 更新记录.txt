@@ -1,0 +1,63 @@
+20101227张涛
+=================================================
+1、首页Tab分页有问题，多次执行分页操作之后，无法加载数据。
+修改Special中的objId数组，增加"blog": "blog"
+
+2、左侧个别CategoryMenu点击服务器端出错，主要是因为MinScore为空而引起。
+
+
+20101225张涛
+=================================================
+1、如果二个tab的Title一样，那么Tab的切换就会出现问题，所以考虑新建或者修改Tab时，检查Title是否已经存在
+	Dropthings.Business.Facade命名空间下的Facade类中的CreateTab方法。
+
+2、HiotMapWidget右侧增加ul容器，点击热点后显示详细的新闻列表。需要考虑分页？并允许用户设置每页显示的条数？
+
+
+3、LatestNewsWidget需要考虑分页和动态滚动？并允许用户设置显示的条数？
+
+4、增加search.aspx页面，类似default.aspx页面
+
+5、关于MyFramework.js中的dropthings.omaralzabir.com命名空间的问题，情况如下：
+
+具体信息可以使用Firebug查看详细
+请求
+http://localhost:8000/Dropthings/API/Page.svc/ajax/js
+http://localhost:8000/Dropthings/API/Proxy.svc/ajax/js
+http://localhost:8000/Dropthings/API/Widget.svc/ajax/js
+响应
+Type.registerNamespace('dropthings.omaralzabir.com');
+dropthings.omaralzabir.com.pageservice=function() {
+dropthings.omaralzabir.com.pageservice.initializeBase(this);
+this._timeout = 0;
+this._userContext = null;
+this._succeeded = null;
+this._failed = null;
+}
+dropthings.omaralzabir.com.pageservice.prototype={
+_get_path:function() {
+ var p = this.get_path();
+ if (p) return p;
+ else return dropthings.omaralzabir.com.pageservice._staticInstance.get_path();},
+ChangePageLayout:function(newLayout,succeededCallback, failedCallback, userContext) {
+return this._invoke(this._get_path(), 'ChangePageLayout',false,{newLayout:newLayout},succeededCallback,failedCallback,userContext); },
+MoveTab:function(pageId,orderNo,succeededCallback, failedCallback, userContext) {
+return this._invoke(this._get_path(), 'MoveTab',false,{pageId:pageId,orderNo:orderNo},succeededCallback,failedCallback,userContext); }}
+dropthings.omaralzabir.com.pageservice.registerClass('dropthings.omaralzabir.com.pageservice',Sys.Net.WebServiceProxy);
+dropthings.omaralzabir.com.pageservice._staticInstance = new dropthings.omaralzabir.com.pageservice();
+dropthings.omaralzabir.com.pageservice.set_path = function(value) { dropthings.omaralzabir.com.pageservice._staticInstance.set_path(value); }
+dropthings.omaralzabir.com.pageservice.get_path = function() { return dropthings.omaralzabir.com.pageservice._staticInstance.get_path(); }
+dropthings.omaralzabir.com.pageservice.set_timeout = function(value) { dropthings.omaralzabir.com.pageservice._staticInstance.set_timeout(value); }
+dropthings.omaralzabir.com.pageservice.get_timeout = function() { return dropthings.omaralzabir.com.pageservice._staticInstance.get_timeout(); }
+dropthings.omaralzabir.com.pageservice.set_defaultUserContext = function(value) { dropthings.omaralzabir.com.pageservice._staticInstance.set_defaultUserContext(value); }
+dropthings.omaralzabir.com.pageservice.get_defaultUserContext = function() { return dropthings.omaralzabir.com.pageservice._staticInstance.get_defaultUserContext(); }
+dropthings.omaralzabir.com.pageservice.set_defaultSucceededCallback = function(value) { dropthings.omaralzabir.com.pageservice._staticInstance.set_defaultSucceededCallback(value); }
+dropthings.omaralzabir.com.pageservice.get_defaultSucceededCallback = function() { return dropthings.omaralzabir.com.pageservice._staticInstance.get_defaultSucceededCallback(); }
+dropthings.omaralzabir.com.pageservice.set_defaultFailedCallback = function(value) { dropthings.omaralzabir.com.pageservice._staticInstance.set_defaultFailedCallback(value); }
+dropthings.omaralzabir.com.pageservice.get_defaultFailedCallback = function() { return dropthings.omaralzabir.com.pageservice._staticInstance.get_defaultFailedCallback(); }
+dropthings.omaralzabir.com.pageservice.set_path("/Dropthings/API/Page.svc/ajax");
+dropthings.omaralzabir.com.pageservice.ChangePageLayout= function(newLayout,onSuccess,onFailed,userContext) {dropthings.omaralzabir.com.pageservice._staticInstance.ChangePageLayout(newLayout,onSuccess,onFailed,userContext); }
+dropthings.omaralzabir.com.pageservice.MoveTab= function(pageId,orderNo,onSuccess,onFailed,userContext) {dropthings.omaralzabir.com.pageservice._staticInstance.MoveTab(pageId,orderNo,onSuccess,onFailed,userContext); }
+
+6、新建一个页面，功能和首页Default.aspx页面类似或者定制其他的页面是否可行。完全可行。
+

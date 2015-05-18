@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+  <font>Tahoma</font>
+  <precision>1</precision>
+  <text_color>black</text_color>
+  <pie>
+    <x>220</x>
+    <y>120</y>
+    <radius>100</radius>
+    <inner_radius>40</inner_radius>
+    <height>10</height>
+    <angle>20</angle>
+    <base_color>#B0DE09</base_color>
+    <brightness_step>-10</brightness_step>
+  </pie>
+
+
+  <animation>
+    <start_time>2</start_time>
+    <start_effect>bounce</start_effect>
+    <pull_out_time>1.5</pull_out_time>
+  </animation>
+
+  <data_labels>
+    <radius>20</radius>
+    <max_width>80</max_width>
+    <show>
+
+      <![CDATA[{title}]]>
+    </show>
+    <line_color>#FFFFFF</line_color>
+    <line_alpha>40</line_alpha>
+  </data_labels>
+
+
+
+  <balloon>
+    <show>
+
+      <![CDATA[{title}: {value} . ({percents}%)]]>
+    </show>
+  </balloon>
+
+  <legend>
+    <enabled>false</enabled>
+    <x>0</x>
+    <y>240</y>
+    <width>100</width>
+    <max_columns>1</max_columns>
+    <border_color>#FFFFFF</border_color>
+    <border_alpha>15</border_alpha>
+    <margins>10</margins>
+    <values>
+      <enabled>true</enabled>
+      <width>40</width>
+    </values>
+  </legend>
+
+
+  <labels>
+    <label>
+      <x>0</x>
+      <y>220</y>
+      <align>center</align>
+      <text_size>12</text_size>
+      <text>
+        <![CDATA[<b>是否加V</b>]]>
+      </text>
+    </label>
+
+  </labels>
+</settings>
+
