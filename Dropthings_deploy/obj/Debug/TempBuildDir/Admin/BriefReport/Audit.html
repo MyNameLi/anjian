@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="Stylesheet" href="../css/tab.css" type="text/css" />
+    <link rel="Stylesheet" href="../css/frame.css" type="text/css" />
+
+    <script type="text/javascript" src="../js/jquery-1.4.2.js"></script>
+
+    <script type="text/javascript" src="../js/divMove.js"></script>
+
+    <script type="text/javascript" src="../js/listTable.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+
+            $.getJSON("../Handler/BriefReportData.ashx",
+            { "type": "audit" },
+        function(data) {
+            //alert(data);
+            var first = data.audit.first;
+            var second = data.audit.second;
+            var fauditors = [];
+            var sauditors = [];
+
+            for (var a in first) {
+                fauditors.push(first[a]);
+            }
+            for (var a in second) {
+                sauditors.push(second[a]);
+            }
+
+            $("#datalist tr:eq(1) td:eq(1)").text(fauditors.join(","));
+            $("#datalist tr:eq(2) td:eq(1)").text(sauditors.join(","));
+
+            $("#datalist tr:eq(1) td:eq(2) a,#datalist tr:eq(2) td:eq(2) a").click(function() {
+                var step = $(this).attr("pid");
+                $("#edit_widget_list").attr("pid", step);
+                var users = $("#widget_list input").removeAttr("checked").next("span");
+                if (step == "first") {
+                    var first = $("#datalist tr:eq(1) td:eq(1)").text().split(",");
+                    users.each(function() {
+                        for (var i = 0; i < first.length; i++) {
+                            if (first[i] == $(this).text()) {
+                                $(this).prev("input").attr("checked", "true");
+                            }
+                        }
+                    });
+                }
+                else {
+                    var second = $("#datalist tr:eq(2) td:eq(1)").text().split(",");
+                    users.each(function() {
+                        for (var i = 0; i < second.length; i++) {
+                            if (second[i] == $(this).text()) {
+                                $(this).prev("input").attr("checked", "true");
+                            }
+                        }
+                    });
+                }
+
+                ShowEditFrame("user_report_move", "user_report_frame", "user_report_close");
+            });
+
+            $("#edit_widget_list").click(function() {
+                var step = $(this).attr("pid");
+                var idlist = [];
+                $("#widget_list input:checked").each(function() {
+                    idlist.push($(this).val() + "|" + $(this).next("span").text());
+                });
+
+                $.post("../Handler/BriefReportData.ashx",
+                    { "type": "audit", "step": step, "idlist": idlist.join(",") },
+                    function(data) {
+                        if (data) {
+                            if (data.success == "1") {
+                                var step = $("#edit_widget_list").attr("pid");
+                                var idlist = [];
+                                $("#widget_list input:checked").each(function() {
+                                    idlist.push($(this).next("span").text());
+                                });
+
+                                if (step == "first") {
+                                    $("#datalist tr:eq(1) td:eq(1)").text(idlist.join(","));
+                                }
+                                if (step == "second") {
+                                    $("#datalist tr:eq(2) td:eq(1)").text(idlist.join(","));
+                                }
+                                alert("授权成功");
+                                location.replace(location.href);
+                            } else {
+                                alert("授权失败");
+                            }
+                        }
+                    }, "json");
+                return false;
+            });
+        });
+
+            $.getJSON("../Handler/user.ashx",
+                { "type": "alluser" },
+            function(data) {
+                if (data) {
+                    var content = [];
+                    content.push("<ul>");
+                    for (var user in data) {
+                        content.push("<li style=\"float:left; margin-left:10px; width:200px;\">");
+                        content.push("<input type=\"checkbox\" name=\"all_widget_list\" value=\"" + user + "\" /><span>" + unescape(data[user]));
+                        content.push("</span></li>");
+                    }
+                    content.push("</ul>");
+                    $("#widget_list").html(content.join(""));
+                }
+            });
+
+            function ShowEditFrame(child_div, parent_div, close_btn) {
+                $("#" + parent_div).show();
+                var iframe_width = $(document).width();
+                var l_width = parseInt($("#" + parent_div).width()) / 2;
+                iframe_width = parseInt(iframe_width / 2) - l_width;
+                //$("#" + parent_div).css({ "position": "absolute", "top": "50px", "left": iframe_width + "px", "background": "#f9f5f5" });
+                $("#" + parent_div).css({ "position": "absolute", "top": "0px", "left": iframe_width + "px" });
+                $("#" + parent_div).show();
+                $("#" + close_btn).click(function() {
+                    $("#" + parent_div).hide();
+                });
+                var div_move = new divMove(child_div, parent_div);
+                div_move.init();
+            }
+
+
+        });
+    </script>
+
+    <title>审批设置</title>
+</head>
+<body>
+    <form id="form1" action="../Handler/BriefReportData.ashx" method="post">
+    <div>
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+                <td height="30">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="15" height="30">
+                                <img src="../images/tab_03.gif" width="15" height="30" />
+                            </td>
+                            <td background="../images/tab_05.gif" align="left">
+                                <img src="../images/311.gif" width="16" height="16" />
+                                <span class="STYLE4">报表审批设置</span>
+                            </td>
+                            <td width="14">
+                                <img src="../images/tab_07.gif" width="14" height="30" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="9" background="../images/tab_12.gif">
+                                &nbsp;
+                            </td>
+                            <td bgcolor="#d3e7fc">
+                                <table id="datalist" width="99%" border="0" align="center" cellpadding="0" cellspacing="1"
+                                    bgcolor="#CECECE">
+                                    <tr>
+                                        <td height="26" width="44%" background="../images/tab_14.gif" align="center">
+                                            审批步骤
+                                        </td>
+                                        <td width="10%" background="../images/tab_14.gif" align="center">
+                                            审批人
+                                        </td>
+                                        <!--<td width="10%" background="../images/tab_14.gif" align="center">
+                                            查看
+                                        </td>-->
+                                        <td width="10%" background="../images/tab_14.gif" align="center">
+                                            审批人设置
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="26" bgcolor="#FFFFFF" align="center">
+                                            复审
+                                        </td>
+                                        <td bgcolor="#FFFFFF" align="center">
+                                        </td>
+                                        <!--<td bgcolor="#FFFFFF" align="center">
+                                            <img src="../images/037.gif" width="9" height="9" alt="查看" />[ <a href="javascript:void(null);"
+                                                name="look_report" pid="begin">查看</a> ]
+                                        </td>-->
+                                        <td bgcolor="#FFFFFF" align="center">
+                                            <img src="../images/037.gif" width="9" height="9" alt="设置" />[ <a href="javascript:void(null);"
+                                                pid="first">编辑</a> ]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="26" bgcolor="#FFFFFF" align="center">
+                                            终审
+                                        </td>
+                                        <td bgcolor="#FFFFFF" align="center">
+                                        </td>
+                                        <!--<td bgcolor="#FFFFFF" align="center">
+                                            <img src="../images/037.gif" width="9" height="9" alt="查看" />[ <a href="javascript:void(null);"
+                                                name="look_report" pid="end">查看</a> ]
+                                        </td>-->
+                                        <td bgcolor="#FFFFFF" align="center">
+                                            <img src="../images/037.gif" width="9" height="9" alt="设置" />[ <a href="javascript:void(null);"
+                                                pid="second">编辑</a> ]
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="9" background="../images/tab_16.gif">
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+	    <tr>
+            <td>
+                <table width="100%" height="29" cellspacing="0" cellpadding="0" border="0">
+                    <tbody><tr>
+                        <td width="15" height="29"><img width="15" height="29" src="../images/tab_20.gif"></td>
+                        <td background="../images/tab_21.gif">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <tbody><tr>
+                                    <td width="21%" align="left">&nbsp;</td>
+                                    <td width="79%">&nbsp;</td>
+                                </tr>
+                            </tbody></table>
+                        </td>
+                        <td width="14"><img width="14" height="29" src="../images/tab_22.gif"></td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+        </table>
+    </div>
+    </form>
+    <div id="user_report_frame" class="layerdiv">
+        <!--<span class="layer_line"></span>-->
+        <div class="layer_outer">
+            <!--<span class="layer_top_L"></span><span class="layer_top_R"></span>-->
+            <div class="layer_inner">
+                <div class="layer_move" id="user_report_move" title="点击此处可自由拖动"><h1>用户列表</h1></div><a class="btn_close"
+                    href="javascript:void(null);" id="user_report_close"></a>
+                <div class="clear">
+                </div>
+                <!--<div class="layer_T">
+                    <h1>
+                        <b>用户列表</b></h1>
+                    <span class="btn"></span>
+                    <div class="clear">
+                    </div>
+                </div>-->
+                <div class="layer_C" id="widget_list" style="overflow: hidden; height: auto;">
+                </div>
+                <div style="width: 95%; text-align: right; margin-bottom: 10px;">
+                    <input type="button" id="edit_widget_list" value="用户审批授权" /><span style="color: Red;"></span></div>
+            </div>
+            <!--<span class="layer_bottom_L"></span><span class="layer_bottom_R"></span>-->
+        </div>
+        <!--<span class="layer_line"></span>-->
+    </div>
+</body>
+</html>

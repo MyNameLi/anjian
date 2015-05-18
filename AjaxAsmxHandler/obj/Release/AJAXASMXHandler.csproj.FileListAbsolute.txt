@@ -1,0 +1,15 @@
+D:\项目\anjian\AjaxAsmxHandler\bin\Release\AJAXASMXHandler.dll
+D:\项目\anjian\AjaxAsmxHandler\bin\Release\AJAXASMXHandler.pdb
+D:\项目\anjian\AjaxAsmxHandler\obj\Release\ResolveAssemblyReference.cache
+D:\项目\anjian\AjaxAsmxHandler\obj\Release\AJAXASMXHandler.dll
+D:\项目\anjian\AjaxAsmxHandler\obj\Release\AJAXASMXHandler.pdb
+E:\工作\国科智信\anjian\AjaxAsmxHandler\bin\Release\AJAXASMXHandler.dll
+E:\工作\国科智信\anjian\AjaxAsmxHandler\bin\Release\AJAXASMXHandler.pdb
+E:\工作\国科智信\anjian\AjaxAsmxHandler\obj\Release\AJAXASMXHandler.csprojResolveAssemblyReference.cache
+E:\工作\国科智信\anjian\AjaxAsmxHandler\obj\Release\AJAXASMXHandler.dll
+E:\工作\国科智信\anjian\AjaxAsmxHandler\obj\Release\AJAXASMXHandler.pdb
+D:\gooko\anjian\AjaxAsmxHandler\bin\Release\AJAXASMXHandler.dll
+D:\gooko\anjian\AjaxAsmxHandler\bin\Release\AJAXASMXHandler.pdb
+D:\gooko\anjian\AjaxAsmxHandler\obj\Release\AJAXASMXHandler.csprojResolveAssemblyReference.cache
+D:\gooko\anjian\AjaxAsmxHandler\obj\Release\AJAXASMXHandler.dll
+D:\gooko\anjian\AjaxAsmxHandler\obj\Release\AJAXASMXHandler.pdb

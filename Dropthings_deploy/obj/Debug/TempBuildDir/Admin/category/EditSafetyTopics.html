@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../css/common.css" type="text/css" rel="stylesheet" rev="stylesheet"
+        media="all" />
+    <link href="../css/BriefReport.css" type="text/css" rel="stylesheet" rev="stylesheet"
+        media="all" />
+</head>
+<body>
+    <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+        <tbody>
+            <tr>
+                <td height="30">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td width="15" height="30">
+                                    <img width="15" height="30" src="../images/tab_03.gif">
+                                </td>
+                                <td background="../images/tab_05.gif" align="left">
+                                    <img width="16" height="16" src="../images/311.gif">
+                                    <span class="STYLE4">当前位置：专题推送&nbsp;&nbsp;</span>
+                                </td>
+                                <td width="14">
+                                    <img width="14" height="30" src="../images/tab_07.gif" alt="" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td width="9" background="../images/tab_12.gif">
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    <div class="crumbsTitle">
+                                        <input type="button" class="find_two_search" value="添加" />
+                                        <b>媒体评论</b></div>
+                                    <div class="elent_tablebg">
+                                        <table border="1" cellspacing="1">
+                                            <thead>
+                                                <tr>
+                                                    <td class="topic_tit" style="width: 200px">
+                                                        观点标题
+                                                    </td>
+                                                    <td class="topic_tit">
+                                                        观点内容
+                                                    </td>
+                                                    <td colspan="2" class="topic_tit3">
+                                                        操作
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbdTopic">
+                                                <tr>
+                                                    <td colspan="3">
+                                                        加载中...
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="crumbsContent">
+                                        <ul class="form_list">
+                                            <li><span class="name">标题：</span> <span class="input">
+                                                <input type="text" style="width: 270px;" />
+                                            </span></li>
+                                            <li><span class="name">内容：</span> <span class="input">
+                                                <textarea cols="90" rows="5"></textarea>
+                                            </span></li>
+                                            <li><span class="name">类型：</span> <span class="input">
+                                            <input type="checkbox" />
+                                            </span></li>
+                                        </ul>
+                                        <input type="button" class="tj_two_search" value="提交" />
+                                    </div>
+                                </td>
+                                <td width="9" background="../images/tab_16.gif">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td height="29">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td width="15" height="29">
+                                    <img width="15" height="29" src="../images/tab_20.gif" alt="" />
+                                </td>
+                                <td background="../images/tab_21.gif">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td width="21%" align="left">
+                                                &nbsp;&nbsp;
+                                            </td>
+                                            <td width="79%" align="center">
+                                                <span id="report_back_msg" style="color: Red;"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="14">
+                                    <img width="14" height="29" src="../images/tab_22.gif" alt="" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="clear" style="height: 50px;">
+        &nbsp;</div>
+    <script type="text/html" id="topic_template">
+        <tr><td><%=TopicTitle %></td><td><%=TopicContent %></td><td><a href="javascript:void(0);"  class="update btn_edit">编辑</a></td><td><a href="javascript:void(0);" class="del btn_delete">删除</a></td></tr>
+    </script>
+    <script type="text/html" id="clue_template">
+        <tr><td><%=ClueTime %></td><td><%=ClueTitle %></td><td><a href="javascript:void(0);" class="update btn_edit">编辑</a></td><td><a href="javascript:void(0);" class="del btn_delete">删除</a></td></tr>
+    </script>
+    <script type="text/html" id="img_template">
+        <tr><td><%=ImgPath %></td><td><%=ImgUrl %></td><td><%=ImgTitle %></td><td><%=ImgType==0?"小图":ImgType==1?"大图":"背景" %></td><td><a href="javascript:void(0);" class="update btn_edit">编辑</a></td><td><a href="javascript:void(0);" class="del btn_delete">删除</a></td></tr>
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>键词训练</title>
+<link href="../css/common.css" type="text/css" rel="stylesheet" rev="stylesheet" media="all" />
+<link href="../css/auto_layout.css" type="text/css" rel="stylesheet" rev="stylesheet" media="all" />
+<link href="../css/test.css" rel="Stylesheet" type="text/css" rev="stylesheet" media="all" />
+<script type="text/javascript" src="../js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/OterhPager.js"></script>
+<script type="text/javascript" src="../js/KeywordTrain.js"></script>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+  <tbody><tr>
+    <td height="30"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="15" height="30"><img width="15" height="30" src="../images/tab_03.gif"></td>
+        <td background="../images/tab_05.gif" align="left"><img width="16" height="16" src="../images/311.gif"> <span class="STYLE4">当前位置：关键词训练</span>
+        
+        </td>
+        <td width="14"><img width="14" height="30" src="../images/tab_07.gif"></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr>
+    <td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="9" background="../images/tab_12.gif">&nbsp;</td>
+        <td bgcolor="#d3e7fc">
+			<div id="wrapper">	
+	<div class="content">
+		<div id="publicTopic" class="publicFeelSearch clearfix">
+			<div class="publicFeelSort">
+				<ul class="left-center-nav" id="MenuList">
+				
+				</ul>
+			</div>
+			<div class="publicFeelSearchBody">
+				<div class="crumbs">
+					<div class="crumbsTitle"><div class="nowposition"></div>
+					    分类名称：<font color="red" id="category_name"></font>
+					</div>
+				</div>			
+				<!--新建分类 start-->
+				<div class="publicTopicSort" style="height:auto;">
+					<div class="newTopic clearfix">						
+					    <ul>					        
+					        <li class="keyword_train_title">初始关键词：</li>
+					        <li>
+					            <ol class="all_term" id="original_term">
+					                
+					            </ol>					           
+					        </li>
+					        <li class="keyword_train_btn">&nbsp;&nbsp;<input type="button" value="保存所选关键字" class="input_button32" id="save_term" /></li>
+					        <li class="keyword_train_title">重新训练的关键词：</li>
+					        <li >
+					            <ol class="all_term" id="train_term" >		
+					                <ul>			               
+					                    <li id="afresh_term"><a href="javascript:void(null);" id="term_add" title="增加Term"><img src="../images/add.gif" width="20px" height="20px" /></a></li>
+					                </ul>
+					            </ol>
+					        </li>					        
+					        					        
+					    </ul>
+					</div>	
+					<div class="newTopic clearfix">					    
+					    <div class="keyword_train_btn">&nbsp;&nbsp;<input type="button" value="重新训练"  id="re_train" class="input_button32" />&nbsp;&nbsp;<input type="button" value="查看效果" class="input_button32" id="look_result" /></div>
+					</div>
+					<!--效果展示-->
+				    <div class="newTopic clearfix" id="article_result" style="display:none;">
+				        <div style="width:100%; text-align:right;"><a href="#g" id="look_close">关闭</a></div>
+					    <ol id="SearchResult" class="publicFeelSearchResult">
+					        
+					    </ol>
+					    <div class="publicFeelSearchPage" id="PagerList"></div>
+				    </div>
+				    <!--效果展示 end-->			
+				</div>	  				
+				<!--新建分类 end-->
+			</div>
+			 
+		</div>
+	</div>
+	<input type="hidden" id="categoryId" />	
+</div>
+        </td>
+        <td width="9" background="../images/tab_16.gif">&nbsp;</td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr>
+    <td height="29"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tbody><tr>
+        <td width="15" height="29"><img width="15" height="29" src="../images/tab_20.gif"></td>
+        <td background="../images/tab_21.gif">&nbsp;</td>
+        <td width="14"><img width="14" height="29" src="../images/tab_22.gif"></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+</tbody></table>
+</body>
+</html>

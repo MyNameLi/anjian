@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/anjian/!svn/ver/13/portal/trunk/Dropthings/App_Data/DatabaseUpgrades/V2.6
+END
+Resurrection.sql
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/anjian/!svn/ver/13/portal/trunk/Dropthings/App_Data/DatabaseUpgrades/V2.6/Resurrection.sql
+END
+WidgetsInRoles Missing Index.sql
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/anjian/!svn/ver/13/portal/trunk/Dropthings/App_Data/DatabaseUpgrades/V2.6/WidgetsInRoles%20Missing%20Index.sql
+END
+DeleteWidgetCascade.sql
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/anjian/!svn/ver/13/portal/trunk/Dropthings/App_Data/DatabaseUpgrades/V2.6/DeleteWidgetCascade.sql
+END
+UserSetting to Page FK.sql
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/anjian/!svn/ver/13/portal/trunk/Dropthings/App_Data/DatabaseUpgrades/V2.6/UserSetting%20to%20Page%20FK.sql
+END

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  Microsoft Visual Studio 2010 Web Deployment Project 
+  http://go.microsoft.com/fwlink/?LinkID=104956
+
+-->
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.30319</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EEB32D0A-B67C-41E2-A574-75DFED85065D}</ProjectGuid>
+    <SourceWebPhysicalPath>..\Dropthings</SourceWebPhysicalPath>
+    <SourceWebProject>{1A966CD5-07C6-4E57-AD53-C05A518B3BB3}|E:\工作\国科智信\anjian\Dropthings</SourceWebProject>
+    <SourceWebVirtualPath>/Dropthings</SourceWebVirtualPath>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>.\Debug</OutputPath>
+    <EnableUpdateable>true</EnableUpdateable>
+    <UseMerge>true</UseMerge>
+    <SingleAssemblyName>Dropthings_deploy</SingleAssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>.\Release</OutputPath>
+    <EnableUpdateable>true</EnableUpdateable>
+    <UseMerge>true</UseMerge>
+    <SingleAssemblyName>Dropthings_deploy</SingleAssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AjaxAsmxHandler\AJAXASMXHandler.csproj">
+      <Project>{42190D98-86BA-44B5-8CFF-F62754029C61}</Project>
+      <Name>AJAXASMXHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Business.Facade\Dropthings.Business.Facade.csproj">
+      <Project>{514B9055-2EEF-4111-9CAC-F763120BB35D}</Project>
+      <Name>Dropthings.Business.Facade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Configuration\Dropthings.Configuration.csproj">
+      <Project>{A426C626-767E-454B-8D48-7D0289BADBAC}</Project>
+      <Name>Dropthings.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Data\Dropthings.Data.csproj">
+      <Project>{4871E7E4-8F42-4BE3-B9C4-F96D2A9BCBD4}</Project>
+      <Name>Dropthings.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Model\Dropthings.Model.csproj">
+      <Project>{DD2A2DE9-48CC-4E40-B81A-8780BFAB6995}</Project>
+      <Name>Dropthings.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.RestApi\Dropthings.RestApi.csproj">
+      <Project>{582BE924-28BF-4980-BF35-7B946AA739E3}</Project>
+      <Name>Dropthings.RestApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Util\Dropthings.Util.csproj">
+      <Project>{739B0A68-33F2-4EC3-8087-C3177AE80E41}</Project>
+      <Name>Dropthings.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Web.Framework\Dropthings.Web.Framework.csproj">
+      <Project>{91B72026-1980-46AD-89D0-C33DD411D66A}</Project>
+      <Name>Dropthings.Web.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Web.Util\Dropthings.Web.Util.csproj">
+      <Project>{3A35E4B6-4CCB-4159-9E39-24438490F757}</Project>
+      <Name>Dropthings.Web.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropthings.Widget.Framework\Dropthings.Widget.Framework.csproj">
+      <Project>{A5F19582-1F00-406F-A130-5BB7AC598FF7}</Project>
+      <Name>Dropthings.Widget.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IdolACINet\IdolACINet.csproj">
+      <Project>{7DC918FD-1AF6-4E51-98A7-3D7535B85DD0}</Project>
+      <Name>IdolACINet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VTemplate.Engine\VTemplate.Engine.csproj">
+      <Project>{56DE70B6-4B41-4415-B0FE-4D54E3B4F21B}</Project>
+      <Name>VTemplate.Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WebDeployment\v10.0\Microsoft.WebDeployment.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.WebDeployment.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="BeforeMerge">
+  </Target>
+  <Target Name="AfterMerge">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
