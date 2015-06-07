@@ -101,7 +101,7 @@ namespace Dropthings.Data
 
             private int ReturnNewRowId()
             {
-                string sql = "select WIDGETSINROLES_ID_SEQ.currval NEWID from dual";
+                string sql = "SELECT TOP 1 ID FROM dbo.WIDGETSINROLES ORDER BY ID DESC";
                 object NewId = _sqlHelper.GetSingle(sql, null);
                 return Convert.ToInt32(NewId);
             }

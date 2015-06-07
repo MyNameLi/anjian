@@ -10,7 +10,7 @@ namespace Dropthings.Business.Facade
         private static PAGEOFROLEEntity.PAGEOFROLEDAO pd = new PAGEOFROLEEntity.PAGEOFROLEDAO();
         public static List<PAGEOFROLEEntity> Find(int roleid)
         {
-            string where = "ROLEID=:ROLEID";
+            string where = "ROLEID=@ROLEID";
             return pd.Find(where,roleid);
         }
 

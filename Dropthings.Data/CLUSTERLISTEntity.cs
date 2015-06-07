@@ -360,25 +360,40 @@ namespace Dropthings.Data
                 int endNumber = pageSize * pageNumber;
 
                 StringBuilder PagerSql = new StringBuilder();
-                PagerSql.Append("SELECT * FROM (");
-                PagerSql.Append(" SELECT A.*, ROWNUM RN ");
-                PagerSql.Append("FROM (SELECT * FROM CLUSTERLIST ");
-                if (!string.IsNullOrEmpty(where))
-                {
-                    PagerSql.Append(" where " + where);
-                }
-                if (!string.IsNullOrEmpty(orderBy))
-                {
-                    PagerSql.AppendFormat(" ORDER BY {0}", orderBy);
-                }
-                else
-                {
 
-                    PagerSql.Append(" ORDER BY ID");//默认按主键排序
-
+                if (string.IsNullOrEmpty(orderBy))
+                {
+                    orderBy="ID";
                 }
-                PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
-                PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
+                if (string.IsNullOrEmpty(where)){
+                    where=" 1=1 ";
+                }
+
+                PagerSql.AppendFormat(@"SELECT * FROM ( 
+                                        SELECT  ROW_NUMBER() OVER(ORDER BY  {0}) AS RN,* 
+                                        FROM dbo.CLUSTERLIST WHERE  {1}  ) AS T
+                                        WHERE  T.RN BETWEEN {2} AND {3}", orderBy, where, startNumber, endNumber);
+
+
+                //PagerSql.Append("SELECT * FROM (");
+                //PagerSql.Append(" SELECT A.*, ROWNUM RN ");
+                //PagerSql.Append("FROM (SELECT * FROM CLUSTERLIST ");
+                //if (!string.IsNullOrEmpty(where))
+                //{
+                //    PagerSql.Append(" where " + where);
+                //}
+                //if (!string.IsNullOrEmpty(orderBy))
+                //{
+                //    PagerSql.AppendFormat(" ORDER BY {0}", orderBy);
+                //}
+                //else
+                //{
+
+                //    PagerSql.Append(" ORDER BY ID");//默认按主键排序
+
+                //}
+                //PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
+                //PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
 
                 return _sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
             }

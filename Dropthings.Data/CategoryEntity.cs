@@ -300,7 +300,7 @@ namespace Dropthings.Data
                 strSql.Append(" values (");
                 strSql.Append("@CATEGORYID,@DATABASEID,@CATEGORYNAME,@CATEDISPLAY,@PARENTCATE,@CATEPATH,@CREATEBY,@CREATETIME,@CATETYPE,@CATESOURCE,@CATETRAININFO,@QUERYTYPE,@ISEFFECT,@PROJECTCODE,@KEYWORD,@MINSCORE,@SEQUEUE,@EVENTRESON,@EVENTMEASURE,@EVENTABOUT,@EVENTMINSCORE,@EVENTDATE,@EVENTTYPE)");
                 SqlParameter[] parameters = {
-					new SqlParameter("@CATEGORYID",SqlDbType.Int),
+					new SqlParameter("@CATEGORYID",SqlDbType.Float),
 					new SqlParameter("@DATABASEID",SqlDbType.NVarChar),
 					new SqlParameter("@CATEGORYNAME",SqlDbType.NVarChar),
 					new SqlParameter("@CATEDISPLAY",SqlDbType.NVarChar),
@@ -842,25 +842,40 @@ namespace Dropthings.Data
                 int endNumber = pageSize * pageNumber;
 
                 StringBuilder PagerSql = new StringBuilder();
-                PagerSql.Append("SELECT * FROM (");
-                PagerSql.Append(" SELECT A.*, ROWNUM RN ");
-                PagerSql.Append("FROM (SELECT * FROM CATEGORY ");
-                if (!string.IsNullOrEmpty(where))
-                {
-                    PagerSql.Append(" where " + where);
-                }
-                if (!string.IsNullOrEmpty(orderBy))
-                {
-                    PagerSql.AppendFormat(" ORDER BY {0}", orderBy);
-                }
-                else
-                {
 
-                    PagerSql.Append(" ORDER BY ID");//默认按主键排序
-
+                if (string.IsNullOrEmpty(orderBy))
+                {
+                    orderBy = "ID";
                 }
-                PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
-                PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
+                if (string.IsNullOrEmpty(where))
+                {
+                    where = " 1=1 ";
+                }
+
+                PagerSql.AppendFormat(@"SELECT * FROM ( 
+                                        SELECT  ROW_NUMBER() OVER(ORDER BY  {0}) AS RN,* 
+                                        FROM dbo.CATEGORY WHERE  {1}  ) AS T
+                                        WHERE  T.RN BETWEEN {2} AND {3}", orderBy, where, startNumber, endNumber);
+
+                //PagerSql.Append("SELECT * FROM (");
+                //PagerSql.Append(" SELECT A.*, ROWNUM RN ");
+                //PagerSql.Append("FROM (SELECT * FROM CATEGORY ");
+                //if (!string.IsNullOrEmpty(where))
+                //{
+                //    PagerSql.Append(" where " + where);
+                //}
+                //if (!string.IsNullOrEmpty(orderBy))
+                //{
+                //    PagerSql.AppendFormat(" ORDER BY {0}", orderBy);
+                //}
+                //else
+                //{
+
+                //    PagerSql.Append(" ORDER BY ID");//默认按主键排序
+
+                //}
+                //PagerSql.AppendFormat(" ) A WHERE ROWNUM <= {0})", endNumber);
+                //PagerSql.AppendFormat(" WHERE RN >= {0}", startNumber);
 
                 return sqlHelper.ExecuteDateSet(PagerSql.ToString(), param).Tables[0];
             }
